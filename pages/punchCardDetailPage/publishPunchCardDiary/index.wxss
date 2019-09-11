@@ -1,0 +1,371 @@
+.container {
+    width: 100%;
+    height: 100%;
+}
+
+/*文本内容编辑区域*/
+.text-content-edit-area {
+    width: auto;
+    height: auto;
+    margin: 0 15px 10px 15px;
+}
+.text-content-edit-area > textarea {
+    width: 100%;
+    min-height: 80px;
+    max-height: 300px;
+    height: auto;
+    line-height: 1.4;
+    font-size: 18px;
+    color: black;
+}
+.text-content-num-notice {
+    font-size: 13px;
+    color: #C9C9C9;
+    text-align: right;
+}
+
+/*输入为空的提示信息样式*/
+.edit-diary-notice {
+    font-size: 17px;
+    color: #8a8a8a;
+}
+
+
+/*音频录制控制按钮视图*/
+.audio-record-view {
+    height: 60px;
+    width: auto;
+    margin: 0 15px 15px 15px;
+    border-radius: 5px;
+    border: 1px #e5e5e5 solid;
+    background-color: #FAFAFA;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+/*取消录音按钮*/
+.cancel-audio-record {
+    height: 20px;
+    width: 20px;
+    margin-left: 10px;
+}
+
+.separator-line {
+    width: 1px;
+    height: 20px;
+    margin-left: 10px;
+    background-color: #BDBDBD;
+}
+
+/*录音时间动画*/
+.time-animation {
+    margin-left: 10px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+
+}
+
+/*录音进行中显示 小红点闪烁动画*/
+.recording {
+    /*alternate: 动画会在奇数次数（1、3、5 等等）正常播放，而在偶数次数（2、4、6 等等）向后播放*/
+    animation: twinkle 500ms alternate infinite;
+}
+@keyframes twinkle{
+    from{background: white;}
+    to{background: red;}
+}
+
+/*录音暂停只显示一个红色圆点*/
+.record-pause {
+    background-color: red;
+}
+
+/*录音时间计数*/
+.time-count {
+    margin-left: 7px;
+    color: red;
+    font-size: 18px;
+}
+
+/*暂停&开始按钮*/
+.audio-record-control-btn {
+    margin-left: 120px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: white;
+    /*box-shadow: 2px 2px 2px #aaaaaa;*/
+    border: 3px solid #d9d9d9;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.audio-record-control-btn > image {
+    width: 30px;
+    height: 30px;
+}
+
+/*结束录音按钮*/
+.audio-record-end-btn {
+    color: #64DD17;
+    font-size: 17px;
+    margin-left: 20px;
+}
+
+/*录音完成 显示已录制的音频播放视图*/
+.audio-play-view {
+    width: auto;
+    height: 70px;
+    margin: 10px 15px 15px 15px;
+
+    background-color: #B2DFDB;
+
+    border-radius: 7px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+
+/*音频播放视图 控制按钮区块*/
+.audio-control-btn-area {
+    /*background-color: #64DD17;*/
+    width: 20%;
+    height: 70px;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+}
+.audio-control-btn {
+    width: 60%;
+    height: 60%;
+    border: 3px solid whitesmoke;
+    border-radius: 50%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.audio-control-btn > image {
+    width: 20px;
+    height: 20px;
+}
+
+/*音频播放视图 播放进度条区域*/
+.audio-play-progress-area {
+    width: 60%;
+    height: 70px;
+
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.audio-name {
+    height: 13px;
+    line-height: 13px;
+    margin: 8px 0 8px 15px;
+
+    font-size: 13px;
+    color: white;
+}
+
+.audio-play-progress {
+    height: auto;
+    margin-left: 15px;
+    font-size: 13px;
+    color: white;
+
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.audio-play-last-time .audio-play-end-time {
+    color: whitesmoke;
+    font-size: 12px;
+    width: auto;
+}
+
+.audio-play-progress-item {
+    width: 150px;
+}
+
+/*取消该录音音频的上传按钮*/
+.cancel-audio-record-upload {
+    height: 70px;
+    width: 20%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: flex-start;
+}
+.cancel-audio-record-upload > image {
+    width: 25px;
+    height: 25px;
+}
+
+/*图片、音频、视频添加上传按钮*/
+.upload-btn-list {
+    width: auto;
+    height: auto;
+    margin-left: 15px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.btn-list-item {
+    width: 70px;
+    height: 70px;
+    margin-right: 10px;
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 6px;
+    border: 1px #e5e5e5 solid;
+
+}
+/*对选择的图片进行显示*/
+.picture-item > image {
+    width: 70px;
+    height: 70px;
+    border-radius: 6px;
+    border: 1px #e5e5e5 solid;
+    position: relative;
+}
+
+/*取消对应的图片上传*/
+.cancel-picture-upload-btn {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: white;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+/*图片上传按钮*/
+.picture-upload-btn > image {
+    width: 40px;
+    height: 40px;
+}
+/*音频上传按钮*/
+.sound-upload-btn > image {
+    width: 40px;
+    height: 40px;
+}
+/*视频上传按钮*/
+.video-upload-btn > image {
+    width: 40px;
+    height: 40px;
+}
+
+/*获取发布日记的所在地址*/
+.publish-location-address {
+    width: 100px;
+    height: 15px;
+    margin-left: 15px;
+    float: left;
+
+}
+
+/*不存在地理位置时显示定位按钮*/
+.choose-location-address {
+    width: 100px;
+    height: 15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+
+    color: #8a8a8a;
+    font-size: 12px;
+}
+.choose-location-address > image {
+    width: 15px;
+    height: 15px;
+    margin-right: 4px;
+}
+
+/*存在则显示用户选择的地理位置*/
+.show-user-choose-location-address {
+    width: 100px;
+    height: 15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+
+}
+.address-icon {
+    width: 15px;
+    height: 15px;
+    margin-right: 4px;
+}
+
+.show-user-choose-location-address > text {
+    width: 67px;
+    height: 15px;
+    line-height: 15px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    font-size: 12px;
+    color: #F0B27A;
+}
+
+.cancel-icon {
+    width: 10px;
+    height: 10px;
+    margin-left: 4px;
+}
+
+/*设置日记可见类型*/
+.choose-diary-visible-type {
+    width: auto;
+    height: 15px;
+    margin-right: 15px;
+    float: right;
+
+    line-height: 15px;
+    font-size: 12px;
+    color: #F0B27A;
+}
+
+/*发表按钮*/
+.punch-card-diary-publish-btn {
+    width: auto;
+    height: 50px;
+    margin: 50px 15px 100px 15px;
+    border-radius: 5px;
+
+    font-size: 16px;
+    color: white;
+    text-align: center;
+    line-height: 50px;
+}
+

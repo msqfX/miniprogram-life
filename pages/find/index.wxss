@@ -1,0 +1,119 @@
+/*搜索打卡圈子按钮*/
+.search-punch-card-project-btn {
+    width: auto;
+    height: 35px;
+    margin: 10px;
+    border-radius: 5px;
+    background-color: whitesmoke;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 0 38%;
+
+}
+
+.search-punch-card-project-btn > image {
+    width: 20px;
+    height: 20px;
+}
+.search-punch-card-project-btn > text {
+    width: auto;
+    font-size: 16px;
+    color: #8a8a8a;
+
+}
+
+/*展示精选打卡圈子专题*/
+.project-special-subject-swiper-container {
+    width: 100%;
+    height: 150px;
+}
+
+.project-special-subject-item {
+    width: auto;
+    height: 150px;
+    margin: 0 10px 10px;
+    border-radius: 5px;
+
+    font-size: 16px;
+    color: #F0B27A;
+    line-height: 150px;
+    text-align: center;
+    background-color: whitesmoke;
+}
+
+/*打卡圈子类型标签*/
+.punch-card-project-type {
+    width: auto;
+    height: auto;
+    margin: 10px 10px 5px 10px;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.punch-card-project-type-item {
+    width: 20%;
+    height: auto;
+    margin-bottom: 10px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+
+    font-size: 12px;
+    color: black;
+}
+
+.punch-card-project-type-item > image {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 5px;
+    border-radius: 50%;
+}
+
+/*打卡圈子推荐列表展示*/
+.punch-card-project-recommend-list {
+    width: auto;
+    height: auto;
+}
+
+
+/*没有系统推荐的打卡圈子数据提示*/
+.not-recommend-punch-card-project-notice {
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    font-size: 16px;
+    color: #F0B27A;
+}
+
+.create-punch-card-project-btn {
+    width: 120px;
+    height: 30px;
+    position: relative;
+    left: 50%;
+    margin-left: -60px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    border: 1px #F0B27A solid;
+    border-radius: 5px;
+
+    font-size: 15px;
+    color: #F0B27A;
+}
+.create-punch-card-project-btn > image {
+    width: 15px;
+    height: 15px;
+}
+

@@ -1,0 +1,250 @@
+<!--
+    创建打卡圈子成功后进入的圈子详情页网（可以进行完善信息），
+    但退出该页面之后将不会再有接口进入，之后的编辑完善会是另一个页面
+-->
+<!--suppress ALL -->
+<view class="container">
+
+    <!--自定义邀请模态框：实现点击转发按钮进行邀请微信好友、转发微信群，参与打卡-->
+    <block wx:if="{{showCustomInviteModal}}">
+        <!--弹出层蒙层：阻止模态框下面页面的点击响应事件-->
+        <view class="modal-mask" catchtap="preventTab"></view>
+
+        <!--自定义邀请模态框-->
+        <view class="custom-invite-modal-dialog">
+            <view class="punch-card-invite-header">
+                <image class="punch-card-invite-img"
+                       src="../../../images/default/punch_card_invite.png">
+                </image>
+                <!--隐藏邀请模态框框按钮-->
+                <image class="hidden-custom-invite-modal" bindtap="hiddenCustomModal">
+                </image>
+            </view>
+
+            <view class="punch-card-invite-title">
+                恭喜你,圈子创建成功了
+            </view>
+
+            <view class="punch-card-invite-content">
+                你可以分享给好友,邀请大脚一起来打卡,也可以完善圈子信息后再邀请大家
+            </view>
+
+            <view class="punch-card-invite-btn">
+                <button open-type="share" bindtap="hiddenCustomModal">
+                    立即邀请好友
+                </button>
+            </view>
+        </view>
+    </block>
+
+    <!--打卡圈子详请-->
+    <scroll-view class="punch-card-project-detail">
+        <view class="cover-img-container">
+            <!--打卡圈子封面图-->
+            <block wx:if="{{projectCoverImgUrl === 'default_cover_img'}}">
+                <image src="../../../images/default/project_cover_img.png"
+                       class="cover-img">
+                </image>
+            </block>
+            <block wx:else>
+                <image src="{{imgRootPath}}{{projectCoverImgUrl}}" class="cover-img">
+                </image>
+            </block>
+
+            <!-- 打卡圈子分享按钮-1 -->
+            <button open-type="share" class="share-btn-1">
+                    <image src="../../../images/bottomIcon/gold.png"></image>
+                    <text>分享给好友</text>
+            </button>
+
+
+            <!--修改封面图按钮-->
+            <view class="update-cover-img-btn" bindtap="updateProjectCoverImg">
+                <image src="../../../images/bottomIcon/picture.png"></image>
+                <text>修改头图</text>
+            </view>
+        </view>
+
+        <!--圈子基本信息：圈子名称、创建者头像、昵称等信息-->
+        <view class="project-base-info">
+            <!--圈子名称-->
+            <view class="project-name">
+                <text>{{projectName}}</text>
+                <!--修改圈子名称按钮图标-->
+                <image src="../../../images/bottomIcon/edit_2.png"
+                       bindtap="showUpdateProjectNameModal"></image>
+                <!--修改圈子名称自定义模态框-->
+                <block wx:if="{{showUpdateProjectNameModel}}">
+                    <!--弹出层蒙层-->
+                    <view class="modal-mask" catchtouchmove="preventTouchMove"
+                          catchtap="preventTab">
+                    </view>
+                    <!--模态对话框-->
+                    <view class="modal-dialog">
+                        <view class="modal-title">填写圈子名称</view>
+                        <view class="modal-content">
+                            <view class="modal-input">
+                                <input placeholder-class="input-holder" type="text"
+                                       maxlength="15" bindblur="checkInputProjectName"
+                                       class="input" placeholder="最多输入十五个字"
+                                       value="{{projectName}}"/>
+                            </view>
+                        </view>
+                        <view class="modal-footer">
+                            <view class="btn-cancel" bindtap="onCancel"
+                                  data-status="cancel">取消
+                            </view>
+                            <view class="btn-confirm" bindtap="onConfirm"
+                                  data-status="confirm">确定
+                            </view>
+                        </view>
+                    </view>
+                </block>
+            </view>
+
+            <!--创建者头像、昵称-->
+            <view class="project-creator-info">
+                <!--使用默认的小程序内置的默认头像-->
+                <block wx:if="{{userAvatar == 'default_avatar'}}">
+                    <image src="../../../images/default/userAvatar.png"></image>
+                </block>
+                <block wx:else>
+                    <image src="{{userAvatar}}"></image>
+                </block>
+                <text>{{creatorNickName}} | 0次打卡</text>
+            </view>
+        </view>
+
+        <!--圈子详细介绍展示 & 编辑-->
+        <view class="project-introduction-info">
+            <!--存在圈子简介时展示简介内容，缩小化编辑按钮-->
+            <block wx:if="{{projectIntrInfo.length > 0}}">
+                <view class="project-intr-info-header">
+                    <text>圈子简介</text>
+                    <image src="../../../images/bottomIcon/edit_2.png"
+                           bindtap="updateProjectIntrInfo">
+                    </image>
+                </view>
+                <!--圈子内容顺序展示-->
+                <view class="project-intr-info-content">
+                    <block wx:for="{{projectIntrInfo}}">
+                        <!--文本简介类型-->
+                        <block wx:if="{{item.type === '1'}}">
+                            <view class="project-intr-text-content">
+                                {{item.content}}
+                            </view>
+                        </block>
+                        <!--图片简介类型-->
+                        <block wx:if="{{item.type === '2'}}">
+                            <view class="project-intr-image-content">
+                                <image mode="widthFix"
+                                       src="{{imgRootPath}}{{item.content}}">
+                                </image>
+                            </view>
+                        </block>
+                    </block>
+                </view>
+            </block>
+            <block wx:else> <!--不存在圈子内容时最大化编辑按钮、提示添加圈主简介-->
+                <view class="project-intr-info-header">
+                    <text>圈子简介</text>
+                </view>
+                <view class="edit-project-intr-info-btn"
+                      bindtap="updateProjectIntrInfo">
+                    <view class="edit-project-intr-notice">
+                        <image src="../../../images/button/add.png"></image>
+                        <text>丰富圈子介绍，让更多人了解你的圈子</text>
+                    </view>
+                    <view class="edit-project-intr-activity-notice">
+                        <image src="../../../images/bottomIcon/gold.png"></image>
+                        <!--TODO 添加圈子介绍送20金币功能-->
+                        <text>限时活动: 填写介绍送20金币</text>
+                    </view>
+                </view>
+                <view style="width: 100%;height: 1px"></view>
+            </block>
+
+        </view>
+
+        <!--圈主简介展示 & 编辑-->
+        <view class="creator-introduction-info">
+            <!--存在圈主简介时展示简介内容，缩小化编辑按钮-->
+            <block wx:if="{{creatorIntrInfo}}">
+                <view class="creator-intr-info-header">
+                    <text>圈主简介</text>
+                    <image src="../../../images/bottomIcon/edit_2.png"
+                           bindtap="updateCreatorInfo"
+                           data-introduce="{{creatorIntrInfo}}">
+                    </image>
+                </view>
+                <view class="creator-intr-info-content">
+                    <view class="creator-intr-avatar" bindtap="intoPersonalPage">
+                        <block wx:if="{{userAvatar == 'default_avatar'}}">
+                            <image src="../../../images/default/userAvatar.png"></image>
+                        </block>
+                        <block wx:else>
+                            <image src="{{userAvatar}}"></image>
+                        </block>
+                        <text>{{creatorNickName}}</text>
+                    </view>
+                    <view class="creator-intr-text">{{creatorIntrInfo}}</view>
+                </view>
+            </block>
+            <!--最大化编辑按钮、提示添加圈主简介-->
+            <block wx:else>
+                <view class="creator-intr-info-header">
+                    <text>圈主简介</text>
+                </view>
+                <view class="edit-creator-intr-info-btn" bindtap="updateCreatorInfo"
+                      data-introduce="{{creatorIntrInfo}}">
+                    <view class="edit-creator-intr-notice">
+                        <image src="../../../images/button/add.png"></image>
+                        <text>完善圈主介绍，让成员认识你</text>
+                    </view>
+                </view>
+                <view style="width: 100%;height: 1px"></view>
+            </block>
+        </view>
+
+        <!--圈子类型展示 & 编辑-->
+        <view class="project-type-info" bindtap="updateProjectType">
+            <view class="project-type-info-header">圈子类型</view>
+            <view class="project-type-info-content">{{projectTypeLabel}}</view>
+            <view class="update-project-type-btn">
+                <image src="../../../images/button/into_btn_gray.png"></image>
+            </view>
+        </view>
+
+        <!--设置报名费&分销佣金：报名费为成员加入缴纳的费用，归圈主所有-->
+        <view class="set-project-attend-cost" bindtap="setProjectAttendCost">
+            <view class="set-project-attend-cost-header">
+                <view class="title">设置报名费与分销佣金</view>
+                <view class="notice">报名费是成员加入时缴纳的费用，归圈主所有</view>
+            </view>
+
+            <view class="set-project-attend-cost-btn">
+                <image src="../../../images/button/into_btn_gray.png"></image>
+            </view>
+        </view>
+
+        <!--创建契约金：圈主设置目标，参与者上交契约金，完成打卡分奖金-->
+        <view class="set-punch-card-money-award" bindtap="setPunchCardMoneyAward">
+            <view class="set-punch-card-money-award-header">
+                <view class="title">创建契约金</view>
+                <view class="notice">圈主设置目标，参与者上交契约金，完成打卡分奖金</view>
+            </view>
+
+            <view class="set-punch-card-money-award-btn">
+                <image src="../../../images/button/into_btn_gray.png"></image>
+            </view>
+        </view>
+    </scroll-view>
+
+    <!--分享按钮、进入打卡详情页-->
+    <view class="btn-group">
+        <button open-type="share" class="share-btn-2">分享给好友</button>
+        <button class="into-punch-card-detail" bindtap="intoPunchCardDetailPage">
+            去打卡详情页
+        </button>
+    </view>
+</view>

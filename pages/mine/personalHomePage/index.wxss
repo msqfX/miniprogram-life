@@ -1,0 +1,385 @@
+.container {
+    width: 100%;
+    height: 100%;
+    /*background-color: cyan;*/
+}
+
+/*
+ * 头部信息: 个人主页背景图、头像、个人主页设置
+ */
+.headerInfo {
+    width: 100%;
+    height: 260px;
+}
+
+/*
+ * 个人主页背景图
+ */
+.backgroundImg {
+    width: 100%;
+    height: 200px;
+}
+
+/* 进入个人主页设置页面按钮 */
+.intoUserInfoSetBtn {
+    width: auto;
+    height: 20px;
+    padding: 3px 5px 3px 5px;
+    border: 1px solid white;
+    border-radius: 3px;
+    background-color: transparent;
+    font-size: 12px;
+    font-weight: bolder;
+    color: white;
+
+    position: absolute;
+    top: 158px;
+    right: 10px;
+
+    /*设置图片居中*/
+    display: table;
+    vertical-align: middle;
+
+}
+.intoUserInfoSetBtn image {
+    height: 20px;
+    width: 20px;
+    margin-right: 3px;
+    vertical-align: middle;
+
+}
+
+
+/*
+ * 用户头像
+ */
+.userAvatar {
+    width: 100px;
+    height: 100px;
+    border: 1px solid white;
+    border-radius: 50%;
+
+    /*绝对定位水平居中*/
+    position: absolute;
+    top: 150px;
+    left: 50%;
+    margin-left: -50px;
+}
+
+/*用户昵称*/
+.userNickName {
+    width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+
+
+    font-size: 19px;
+    text-align: center;
+}
+
+/* 关注与粉丝 */
+.followAndFollower {
+    width: 100%;
+    height: 30px;
+    display: flex;
+    justify-content: space-between;
+}
+
+/* 我的关注 */
+.myFollowNum {
+    width: 45%;
+    text-align: right;
+    color: cornflowerblue;
+
+}
+
+/* 分隔符 */
+.decollator {
+    width: 10%;
+    padding-top: 7px;
+    text-align: center;
+    color: #8a8a8a;
+    font-size: 10px;
+}
+
+/* 我的粉丝 */
+.myFollowerNum {
+    width: 45%;
+    text-align: left;
+    color: cornflowerblue;
+}
+
+/* 个人标签：身份标签 & 兴趣标签 & 添加按钮*/
+/*容器：flex布局*/
+.personalLabel {
+    height: auto;
+    width: 80%;
+    margin-right: 10%;
+    margin-left: 10%;
+    padding: 0 5px 5px 5px;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+
+    /*background-color: yellow;*/
+}
+
+/* min flex item*/
+.minLabelItem {
+    width: auto;
+    height: 15px;
+
+    padding: 5px 12px 5px 12px;
+    margin: 3px;
+
+    border: 1px solid darkorange;
+    border-radius: 15px;
+
+    flex-grow: 0;
+
+    color: darkorange;
+    font-size: 13px;
+    line-height: 15px;
+    text-align: center;
+
+}
+
+/* 小号添加按钮 图标 */
+.minLabelItem image {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin-right: 3px;
+}
+
+/* max flex item*/
+.maxLabelItem {
+    width: auto;
+    height: 25px;
+
+    padding: 5px 12px 5px 12px;
+    margin: 3px;
+
+    border: 1px solid darkorange;
+    border-radius: 15px;
+
+    flex-grow: 0;
+
+    color: darkorange;
+    font-size: 16px;
+    line-height: 25px;
+    text-align: center;
+
+}
+/* 大号添加按钮 图标 */
+.maxLabelItem image {
+    display: inline-block;
+    width: 14px;
+    height: 15px;
+    margin-right: 6px;
+    margin-bottom: 2px;
+    vertical-align: middle;
+}
+
+/* 分割线 */
+.breakupLineMin {
+    background-color: #e7e7e7;
+    height: 1px;
+    margin-top: 10px;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+/* 个人主页访客记录: 访客人数 & 最近访问的五个人头像 & 详细访问记录页面入口*/
+.visitorRecord {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+}
+
+/*访客人数*/
+.visitorNum {
+    width: 45%;
+    height: 50px;
+    padding-left: 10px;
+
+    line-height: 50px;
+    font-size: 14px;
+
+}
+
+/*最近访问的五个人的头像*/
+.visitorAvatarList {
+    width: 45%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+    align-items: center;
+
+}
+
+.visitorAvatarItem {
+    width: 25px;
+    height: 25px;
+    margin-left: 5px;
+}
+.visitorAvatarItem image {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+
+/*详细访问记录页面入口图标*/
+.intoVisitorDetailPageIcon {
+    width: 10%;
+    height: 100%;
+}
+.intoVisitorDetailPageIcon image {
+    width: 70%;
+    height: 35px;
+    padding-top: 7px;
+}
+
+/*分割线*/
+.breakupLineMax {
+    background-color: whitesmoke;
+    height: 10px;
+    width: 100%;
+}
+
+
+/* 我加入的打卡圈子 */
+.joinInPunchCardProject {
+    width: 100%;
+    height: 165px;
+    padding-top: 10px;
+
+}
+
+.joinInPunchCardProject text {
+    width: 100%;
+    height: 30px;
+
+    font-size: 18px;
+    font-weight: bolder;
+    line-height: 30px;
+    padding-left: 10px;
+}
+
+/* 加入的打卡圈子通过scroll-view横向展示 */
+.joinInPunchCardProjectList {
+    height: 100px;
+    width: auto;
+    margin-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+
+    white-space: nowrap;
+}
+
+/*还未参与任何一个打卡圈子*/
+.noJoinInPunchCardProjectNotice {
+    height: 100px;
+    width: 100%;
+    line-height: 100px;
+
+    font-weight: bolder;
+    text-align: center;
+
+}
+
+/* 加入的打卡圈子相关信息展示 */
+.joinInPunchCardProjectItem {
+    width: 200px;
+    height: 100%;
+    margin-right: 10px;
+    border-radius: 5px;
+
+    display: inline-block;
+}
+
+/*打卡圈子名称*/
+.punchCardProjectName {
+    height: 60px;
+    width: 100%;
+    line-height: 60px;
+    text-align: center;
+    color: white;
+}
+
+/* 所属打卡圈子打卡天数、排名*/
+.punchCardDaysAndRand {
+    height: 40px;
+    width: 100%;
+    line-height: 40px;
+    text-align: center;
+    color: white;
+    font-size: 12px;
+
+}
+
+
+/* 间隔线 */
+.interval_line {
+    height: 10px;
+    width: 100%;
+    background-color: whitesmoke;
+}
+
+/*打卡日记列表为空时的提示信息展示*/
+.empty-diary-list-notice {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 14px;
+}
+.empty-diary-list-notice > image {
+    margin: 25px 0 10px 0;
+    width: 120px;
+    height: 120px;
+}
+
+
+/*打卡日记列表展示*/
+.user-punch-card-diary-list-info {
+    width: 100%;
+    height: auto;
+}
+
+.title {
+    width: auto;
+    height: 50px;
+    line-height: 50px;
+    margin: 0 10px;
+
+    font-size: 17px;
+    color: black;
+    font-weight: bolder;
+}
+
+
+/* 底部*/
+.bottom {
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    margin-bottom: 15px;
+    padding-top: 10px;
+    text-align: center;
+
+    color: #8a8a8a;
+    font-size: 15px;
+}
+
+

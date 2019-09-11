@@ -1,0 +1,6 @@
+{
+    "component": true,
+    "usingComponents": {
+        "punch-card-diary-audio-play": "/components/audioPlay/index"
+    }
+}

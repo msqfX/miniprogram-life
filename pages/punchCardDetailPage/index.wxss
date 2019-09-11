@@ -1,0 +1,1818 @@
+.container {
+    width: 100%;
+    height: 100%;
+    background-color: white;
+}
+
+/*------------用户未加入该打卡圈子所显示页面的样式-------------*/
+.container-not-join-in-project {
+    width: 100%;
+    height: 100%;
+}
+
+/*头部信息: 圈子封面图、邀请按钮、圈子名称、参与者列表、总打卡次数*/
+.container-not-join-in-pro-header {
+    width: 100%;
+    height: auto;
+    padding-bottom: 15px;
+}
+
+/*圈子封面图*/
+.not-join-in-project-cover-img > image {
+    width: 100%;
+    height: 180px;
+}
+
+/*邀请按钮*/
+.not-join-in-project-invite-btn {
+    width: auto;
+    height: 26px;
+    padding: 0 10px;
+    border-radius: 13px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: rgba(33, 33, 33,0.7);
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+.not-join-in-project-invite-btn > image {
+    width: 24px;
+    height: 26px;
+}
+.not-join-in-project-invite-btn > text {
+    font-size: 12px;
+    color: white;
+    line-height: 26px;
+}
+
+/*圈子名称*/
+.not-join-in-project-name {
+    width: auto;
+    height: auto;
+    margin: 12px 15px;
+    background-color: white;
+    line-height: 1.2;
+    font-size: 24px;
+    font-weight: bolder;
+    color: black;
+}
+
+/*最近新加入的三个用户信息列表 & 总打卡次数*/
+.not-join-in-project-attend-user-info {
+    width: auto;
+    height: 30px;
+    margin: 0 15px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+/*参与者头像*/
+.user-avatar-list {
+    width: auto;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+
+    margin-right: 5px;
+
+}
+
+.user-avatar-list-item {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+}
+
+.user-avatar-list-item > image {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+}
+
+.img-1 {
+    position: relative;
+    left: -6px;
+}
+
+.img-2 {
+    position: relative;
+    left: -12px;
+}
+
+/*参与者昵称*/
+.attend-user-nick-name {
+    max-width: 27px;
+    height: 100%;
+    font-size: 13px;
+    color: #8a8a8a;
+    line-height: 30px;
+
+    overflow: hidden;
+    /*超出范围显示省略号...*/
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/*总参与人数*/
+.attend-user-num {
+    width: auto;
+    height: 100%;
+    font-size: 13px;
+    color: #8a8a8a;
+    line-height: 30px;
+    margin-right: 8px;
+}
+
+/*总打卡次数*/
+.all-punch-card-num {
+    width: auto;
+    height: 100%;
+    font-size: 13px;
+    color: #8a8a8a;
+    line-height: 30px;
+    margin-left: 8px;
+}
+
+
+/*圈子简介*/
+.container-not-join-in-pro-project-intr {
+    width: 100%;
+    height: auto;
+}
+
+.not-join-in-project-intr-content {
+    width: auto;
+    height: auto;
+    margin: 0 10px 15px 10px;
+}
+
+/*文本简介*/
+.not-join-in-project-text-intr {
+    width: 100%;
+    line-height: 1.2;
+    padding-bottom: 15px;
+}
+
+/*图片简介*/
+.project-intr-image-content {
+    width: 100%;
+}
+.not-join-in-project-image-intr > image {
+    width: 100%;
+    padding-bottom: 15px;
+}
+
+
+/*圈主简介*/
+.container-not-join-in-pro-creator-intr {
+    width: 100%;
+    height: auto;
+}
+
+.title {
+    width: auto;
+    height: 60px;
+    line-height: 60px;
+    margin: 0 10px;
+
+    font-size: 17px;
+    color: black;
+    font-weight: bolder;
+}
+
+.not-join-in-project-creator-info {
+    width: auto;
+    height: 40px;
+    margin: 0 10px 10px 10px;
+
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    font-size: 16px;
+    color: dodgerblue;
+}
+.not-join-in-project-creator-info > image {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 6px;
+}
+.not-join-in-project-creator-intr-info {
+    width: auto;
+    height: auto;
+    line-height: 1.2;
+    margin: 0 10px 0 56px;
+    padding-bottom: 10px;
+    letter-spacing: 1px;
+    font-size: 16px;
+    color: black;
+}
+
+
+/*对未加入打卡圈子的用户进行的打卡日记列表显示*/
+.container-not-join-in-pro-punch-card-diary {
+    width: 100%;
+    height: auto;
+}
+
+
+
+
+/*底部按钮：收藏、申请参加、举报按钮*/
+.container-not-join-in-pro-footer {
+    width: 100%;
+    height: 50px;
+    position: fixed;
+    bottom: 0;
+    border-top: 1px whitesmoke solid;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+}
+
+/*收藏按钮*/
+.not-join-in-project-collect-btn {
+    width: 15%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+
+    font-size: 12px;
+    color: #F0B27A;
+
+    background-color: white;
+}
+.not-join-in-project-collect-btn > image {
+    width: 25px;
+    height: 25px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+
+/*申请加入按钮*/
+.not-join-in-project-attend-btn {
+    width: 75%;
+    height: 100%;
+    line-height: 50px;
+    font-size: 18px;
+    color: white;
+    text-align: center;
+
+    background-color: rgba(240,178,122,0.9);
+}
+
+/*举报按钮*/
+.not-join-in-project-report-btn {
+    width: 10%;
+    height: 100%;
+    background-color: #F0B27A;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+.not-join-in-project-report-btn > image {
+    width: 60%;
+    height: 60%;
+    transform: rotate(90deg);
+}
+
+.report-btn {
+    width: auto;
+    height: 40px;
+    padding: 0 10px;
+    background-color: rgba(0,0,0,0.7);
+    font-size: 12px;
+    color: white;
+    line-height: 40px;
+    position: absolute;
+    bottom: 60px;
+    right: 5px;
+}
+
+
+
+
+/*--------------------------------------------------------*/
+
+
+
+/*------------用户已加入该打卡圈子所显示页面的样式-------------*/
+
+/* 头部显示打卡圈子相关信息：
+ * 打卡圈子封面图、名称、参与人数、总打卡数次数、圈主头像、昵称、关注情况、私信按钮
+ */
+.header {
+    width: 100%;
+    height: auto;
+    background-color: #E3F2FD;
+}
+
+/*打卡圈子信息*/
+.project-base-info {
+    width: auto;
+    height: auto;
+    margin: 0 10px;
+    padding: 15px 0;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+/*封面图片*/
+.project-cover-img > image{
+    width: 110px;
+    height: 70px;
+    margin-right: 10px;
+}
+.update-project-cover-img-btn {
+    width: 30px;
+    height: 15px;
+    line-height: 15px;
+    padding: 0 3px;
+    border: 1px  white solid;
+    border-radius: 3px;
+    font-size: 12px;
+    color: white;
+    text-align: center;
+    opacity: 0.8;
+
+    position: absolute;
+    top: 65px;
+    left: 80px;
+}
+
+.project-base-info-right {
+    /*js控制、占满父级project-base-info宽度除去右边图片宽度之外的区域*/
+    height: auto;
+    /*background-color: cornflowerblue;*/
+}
+
+/*圈子名称*/
+.project-name {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+
+    font-size: 15px;
+    color: black;
+}
+.project-name image {
+    width: 16px;
+    height: 16px;
+    margin-left: 5px;
+}
+
+/*自定义的修改圈子名称模态框*/
+/*弹出层蒙层*/
+.modal-mask {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: #000;
+    opacity: 0.5;
+    overflow: hidden;
+    z-index: 9000;
+    color: #fff;
+}
+
+/*模态对话框*/
+.modal-dialog {
+    width: 80%;
+    overflow: hidden;
+    position: fixed;
+    top: 50%;
+    left: 0;
+    z-index: 9999;
+    background: #f9f9f9;
+    margin: -100px 10%;
+    border-radius: 10px;
+}
+/*对话框标题*/
+.modal-title {
+    padding-top: 20px;
+    font-size: 18px;
+    font-weight: bolder;
+    color: black;
+    text-align: center;
+}
+/*对话框内容*/
+.modal-content {
+    padding: 15px 15px;
+}
+
+/*对话框内容：添加自定义标签输入框*/
+.modal-input {
+    display: flex;
+    background: #fff;
+    border: 1px solid whitesmoke;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+/*输入框*/
+.input {
+    width: 100%;
+    height: 40px;
+    font-size: 14px;
+    line-height: 40px;
+    padding: 0 5px;
+    box-sizing: border-box;
+    color: black;
+}
+/*输入框placeholder样式*/
+.input-holder {
+    color: #666;
+    font-size: 14px;
+}
+
+/*对话框按钮*/
+.modal-footer {
+    display: flex;
+    flex-direction: row;
+    height: 50px;
+    border-top: 1px solid #dedede;
+    font-size: 17px;
+    line-height: 50px;
+}
+/*取消按钮*/
+.btn-cancel {
+    width: 50%;
+    color: #666;
+    text-align: center;
+    border-right: 1px solid #dedede;
+}
+/*确认按钮*/
+.btn-confirm {
+    width: 50%;
+    color: #F0B27A;
+    text-align: center;
+}
+
+
+
+/*打卡信息：参与人数 & 总打卡数*/
+.punch-card-info {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+.attend-user-num {
+    font-size: 12px;
+    color: #C9C9C9;
+    margin-right: 5px;
+}
+.all-punch-card-num {
+    font-size: 12px;
+    color: #C9C9C9;
+    margin-left: 5px;
+}
+
+/*创建者信息*/
+.creator-info {
+    width: 100%;
+    height: auto;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+/*创建者头像*/
+.creator-avatar {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+
+/*昵称*/
+.creator-nick-name {
+    width: 60px;
+    height: 20px;
+    margin-left: 4px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+.creator-nick-name > text{
+    width: 40px;
+    font-size: 13px;
+    color: dodgerblue;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.creator-nick-name > image {
+    width: 15px;
+    height: 20px;
+}
+
+/*当前非圈子创建者的用户显示其与创建者的关注按钮*/
+.user-follow-info {
+    width: auto;
+    height: auto;
+    padding: 0 3px;
+    border: 1px  #F0B27A solid;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+
+    margin-right: 10px;
+    font-size: 12px;
+    color: #F0B27A;
+}
+
+.user-follow-info > text {
+
+
+}
+/*发私信按钮*/
+.contact-creator {
+    width: auto;
+    height: auto;
+    padding: 0 3px;
+    border: 1px  #F0B27A solid;
+    border-radius: 3px;
+    background-color: #F0B27A;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+
+}
+.contact-creator > text {
+    height: 20px;
+    line-height: 20px;
+    font-size: 12px;
+    color: white;
+    text-align: center;
+}
+
+
+
+/*创建者、管理员的后台管理入口按钮*/
+.back-stage-management-page-into-btn {
+    width: auto;
+    height: 40px;
+    margin: 0 10px 15px 10px;
+    border: 1px solid #E3F2FD;
+    border-radius: 5px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+
+    font-size: 16px;
+    color: white;
+
+    padding: 0 34%;
+    background-color: #F0B27A;
+
+}
+.back-stage-management-page-into-btn > image {
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+}
+
+/*通用的功能入口列表：打卡日历、排行&勋章、设置、邀请好友*/
+.universal-function-list {
+    width: 100%;
+    height: auto;
+    background-color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.list-item {
+    width: 25%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+.list-item > image {
+    width: 20px;
+    height: 20px;
+    margin: 10px 0 5px 0;
+}
+.list-item > text {
+    font-size: 12px;
+    color: black;
+    margin-bottom: 8px;
+}
+
+/*添加打卡主题按钮 、打卡主题展示 */
+.punch-card-theme {
+    width: 100%;
+    height: 50px;
+    background-color: white;
+}
+.add-punch-card-theme-btn {
+    height: 40px;
+    width: auto;
+    margin: 10px;
+    padding: 0 29%;
+
+    border-radius: 3px;
+    border: 1px #F0B27A solid;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+.add-punch-card-theme-btn > image {
+    width: 18px;
+    height: 18px;
+    margin-right: 3px;
+}
+.add-punch-card-theme-btn > text {
+    font-size: 17px;
+    color: #F0B27A;
+}
+
+/*打卡圈子内容：成员的打卡日记、详情（圈主、圈子简介详情）、成员列表*/
+.punch-card-project-content {
+    width: 100%;
+    height: auto;
+}
+/*内容展示选项卡：进行切换显示对应的内容*/
+.punch-card-project-content-tab-btn-list {
+    width: 100%;
+    height: 40px;
+    background-color: white;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+
+    padding-left: 5%;
+    padding-right: 5%;
+}
+.tab-btn-item {
+    width: 30%;
+    height: 100%;
+
+    font-size: 14px;
+    color: #8a8a8a;
+    line-height: 40px;
+    text-align: center;
+}
+/*标识出当前选择的选项卡*/
+.selected-tab-indicate{
+    width: 40px;
+    height: 2px;
+    /*默认定位到第一个选项卡中间*/
+    position: absolute;
+    left: 20%;
+    margin-left: -20px;
+    background-color: #F0B27A;
+}
+
+/*参与用户的打卡日记展示*/
+.user-punch-card-diary-list {
+    width: 100%;
+    height: auto;
+}
+
+/*日记展示筛选器*/
+.punch-card-diary-filter-btn {
+    width: auto;
+    height: 40px;
+    padding: 0 10px;
+    background-color: whitesmoke;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+.punch-card-num-today-num {
+    width: 80%;
+    height: 40px;
+    line-height: 40px;
+    font-size: 13px;
+    color: #8a8a8a;
+}
+.filter-btn {
+    width: 20%;
+    height: 40px;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-start;
+    align-items: center;
+
+    font-size: 13px;
+    color: #F0B27A;
+}
+.filter-btn > image {
+    width: 18px;
+    height: 18px;
+    margin-left: 3px;
+}
+
+/*打卡日记列表展示*/
+.user-punch-card-diary-list-info {
+    width: 100%;
+    height: 100%;
+}
+.user-punch-card-diary-item {
+    width: 100%;
+    height: auto;
+    padding-bottom: 10px;
+}
+
+
+/* 日记展示头部：日记用户头像、昵称、打卡时间、已打卡天数、日记私密类型、删除 按钮 */
+.header-info {
+    width: auto;
+    height: 60px;
+    margin: 0 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+
+}
+
+/* 日记发表用户头像 */
+.publisher-avatar {
+    width: 40px;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    position: relative;
+}
+
+.publisher-avatar > image {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+/*性别*/
+.publisher-sex-male{
+    width: 17px;
+    height: 17px;
+
+    border-radius: 50%;
+    background-color: white;
+
+    position: absolute;
+    right: 0;
+    bottom: 10px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+
+}
+.publisher-sex-male > image{
+    width: 15px;
+    height: 15px;
+}
+
+.publisher-sex-female {
+    width: 17px;
+    height: 17px;
+
+    border-radius: 50%;
+    background-color: white;
+
+    position: absolute;
+    right: 0;
+    bottom: 10px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+
+}
+.publisher-sex-female > image{
+    width: 15px;
+    height: 15px;
+    transform: rotate(30deg);
+}
+
+/*打卡用户昵称、打卡时间、坚持天数、日记隐私类型*/
+.header-center-info {
+    width: 100%;
+    height:100%;
+
+}
+
+/* 打卡日记用户昵称 */
+.publisher-nick-name {
+    width: 100%;
+    height: 50%;
+
+    margin-left: 8px;
+    text-align: left;
+    word-break: break-word;
+    color: #F0B27A;
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: flex-start;
+}
+
+
+/*打卡时间 & 坚持天数*/
+.punch-time {
+    width: 100%;
+    height: 15px;
+    margin-left: 8px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+.punch-time > text {
+    width: auto;
+    height: 15px;
+    font-size: 11px;
+    color: #8a8a8a;
+    margin-right: 8px;
+}
+
+/* 打卡日记隐私类型按钮 */
+.diary-visible-type {
+    width: 15px;
+    height: 15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-self: center;
+}
+.diary-visible-type > image {
+    width: 15px;
+    height: 15px;
+}
+
+
+/* 当本人进入自己的个人主页时显示可删除按钮 */
+.header-info-right {
+    width: 20%;
+    height: 100%;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-start;
+    align-items: center;
+
+}
+/*置顶按钮 & 已置顶标志 */
+.not-sticky {
+    width: 30px;
+    height: 15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    font-size: 11px;
+    color: #F0B27A;
+
+    border-radius: 3px;
+    border: 1px #F0B27A solid;
+}
+.have-sticky {
+    width: 40px;
+    height: 40px;
+}
+.have-sticky > image {
+    width: 40px;
+    height: 40px;
+}
+
+
+/*日记显示更多操作的控制按钮：*/
+.diary-more-operate-btn {
+    width: 20px;
+    height: 20px;
+    margin-left: 6px;
+}
+
+.diary-more-operate-btn > image {
+    width: 20px;
+    height: 20px;
+}
+
+/*自定义模态框显示对应的操作按钮：取消置顶、删除、投诉*/
+/*蒙层*/
+.mask {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+/*蒙层中间的操作按钮*/
+.mask-content-more-diary-operate-btn {
+    background-color: white;
+    width: 300px;
+    height: auto;
+    border-radius: 7px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+.more-diary-operate-btn-item {
+    width: 100%;
+    height: 45px;
+    line-height: 45px;
+    font-size: 15px;
+    color: black;
+    margin-left: 25px;
+}
+
+.close-more-diary-operate-btn {
+    position: fixed;
+    top: 30px;
+    right: 30px;
+}
+.close-more-diary-operate-btn > image {
+    width: 20px;
+    height: 20px;
+}
+
+
+
+
+
+/* 打卡日记内容：打卡文字、图片、地址、所属打卡圈子信息、点赞、评论、分享*/
+.diary-detail-content {
+    width: auto;
+    height: auto;
+    margin:0 10px 0 58px;
+}
+
+/* 打卡文字内容 */
+.diary-text {
+    margin-bottom: 5px;
+    font-size: 17px;
+}
+
+/* 打卡图片，一张图片直接显示，二张以上九宫格格式展示 */
+.diary-resource {
+    height: auto;
+    width: 100%;
+}
+/*一张图片*/
+.one-image image {
+    width: 100%;
+}
+/*多张图片*/
+.diary-img-list {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.diary-img-item {
+    margin: 0 5px 5px 0;
+}
+.diary-img-item > image{
+    width: 100%;
+    height: 100%;
+}
+
+
+
+/* 打卡地址 */
+.not-punch-card-address {
+    margin-top: 5px;
+    font-size: 11px;
+    color: #8a8a8a;
+}
+
+
+.not-punch-card-address > image {
+    width: 10px;
+    height: 10px;
+    margin-top: 2px;
+    margin-right: 4px;
+}
+.punch-card-address {
+    margin-top: 5px;
+    font-size: 11px;
+    color: #F0B27A;
+}
+.punch-card-address > image {
+    width: 10px;
+    height: 10px;
+    margin-top: 2px;
+    margin-right: 4px;
+}
+
+
+/*打卡日记互动信息：点赞、评论、分享*/
+.diary-interaction-info {
+    /*background-color: cyan;*/
+    height: auto;
+    width: auto;
+}
+/* 互动按钮*/
+.diary-interaction-btn {
+    height: 20px;
+    width: 100%;
+    margin: 6px 0;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+
+}
+/*点赞*/
+.like-btn {
+    /*background-color: greenyellow;*/
+    height: 20px;
+    width: 25%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+
+    font-size: 12px;
+    color: #8a8a8a;
+}
+
+.like-btn > image {
+    height: 15px;
+    width: 15px;
+    margin-right: 4px;
+}
+
+/*评论*/
+.comment-btn {
+    /*background-color: blue;*/
+    height: 20px;
+    width: 25%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+
+    font-size: 12px;
+    color: #8a8a8a;
+
+    margin-right: 4px;
+}
+
+.comment-btn image {
+    height: 20px;
+    width: 20px;
+    margin-right: 4px;
+
+}
+
+/*分享*/
+button::after {
+    /*清除button默认样式*/
+    border: none;
+}
+.share-btn {
+    /*background-color: darkorange;*/
+    height: 20px;
+    width: 25%;
+    padding: 0;
+    background-color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+
+    font-size: 12px;
+    color: #8a8a8a;
+
+}
+
+.share-btn > image {
+    height: 15px;
+    width: 15px;
+    margin-right: 4px;
+}
+
+/*点评日记按钮*/
+.remark-diary-btn {
+    height: 20px;
+    width: 25%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    /*background-color: #f9f9f9;*/
+    font-size: 12px;
+    color: #F0B27A;
+
+}
+
+.remark-diary-btn > image {
+    height: 15px;
+    width: 15px;
+    margin-right: 4px;
+
+
+}
+
+/*点赞信息：点赞用户昵称*/
+.like-user-info {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    word-break: break-all;
+    height: auto;
+    background-color: whitesmoke;
+
+    padding-top: 5px;
+    padding-bottom: 5px;
+
+}
+
+.like-user-info image {
+    height: 15px;
+    width: 15px;
+    display: inline;
+    margin-left: 6px;
+}
+
+.like-user-info text {
+    margin-left: 15rpx;
+    font-size: 14px;
+    position: relative;
+    height: 20px;
+    line-height: 20px;
+
+    /*color: #0c61dd;*/
+    color: #F0B27A;
+}
+
+/*评论信息*/
+.commentInfo {
+    height: auto;
+    padding: 15rpx 15rpx 5rpx 15rpx;
+    background-color: whitesmoke;
+}
+
+.commentInfo view {
+    height: auto;
+    line-height: 1.1;
+    margin-bottom: 3px;
+}
+
+.commentInfo text {
+    text-align:left;
+    font-size: 14px;
+    color: #F0B27A;
+}
+
+/* 评论输入框*/
+.input_null{
+    color: #C9C9C9;
+}
+
+.receiverComment{
+    display: flex;
+    align-items: flex-end; /*底部对齐*/
+    justify-content: space-between; /*两端对齐*/
+    box-sizing: border-box;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    padding: 18rpx 0 18rpx 30rpx;
+    background-color: #F7F8F7;
+    font-size: 28rpx;
+    z-index: 999;
+}
+.receiverComment .receiverInput{
+    width: 84%;
+    min-height: 37rpx;
+    max-height: 111rpx; /*最多显示三行*/
+    border-width: 15rpx 20rpx; /*使用padding与预期留白不一致，故使用border*/
+    border-style: solid;
+    border-color: #ffffff;
+    line-height: 34rpx;
+    font-size: 28rpx;
+    background-color: #ffffff;
+    border-radius: 4rpx;
+}
+.receiverComment button{
+    width: 15%;
+    margin-right: 5px;
+    margin-left: 5px;
+    padding: 3px 10px;
+}
+
+/*无打卡日记时提示信息*/
+.not-punch-card-diary-notice {
+    width: auto;
+    height: auto;
+    margin: 25px 25% 0 25%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+
+    font-size: 12px;
+    color: #8a8a8a;
+}
+.line {
+    width: 40px;
+    height: 1px;
+    background-color: #C9C9C9;
+}
+.dot {
+    width: 4px;
+    height: 4px;
+    background-color: #C9C9C9;
+    border-radius: 50%;
+}
+
+
+
+/*圈子的圈主简介、圈子简介信息展示*/
+.project-detail-info {
+    width: 100%;
+    height: auto;
+    min-height: 400px;
+}
+
+/*圈主简介*/
+.creator-intr-info {
+    width: 100%;
+    height: auto;
+}
+/*头部的标题 & 修改按钮*/
+.creator-intr-info-header {
+    width: auto;
+    height: 60px;
+    margin: 0 10px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.separator{
+    width: 2px;
+    height: 18px;
+    background-color: #F0B27A;
+    margin-right: 5px;
+}
+
+.creator-intr-info-title {
+    width: 65%;
+    height: 60px;
+    line-height: 60px;
+    margin-right: 5px;
+
+    font-size: 17px;
+    color: black;
+    font-weight: bolder;
+}
+.edit-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+}
+.creator-intr-info-edit-notice {
+    width: 25%;
+    height: 60px;
+    line-height: 60px;
+    font-size: 14px;
+    color: #F0B27A;
+    text-align: right;
+}
+/*圈主基本信息*/
+.creator-base-info {
+    width: auto;
+    height: auto;
+    margin-left: 17px;
+    margin-right: 10px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+/*圈主头像*/
+.creator-intr-info-avatar {
+    width: 45px;
+    height: 45px;
+
+    display: inline-block;
+}
+.creator-intr-info-avatar > image {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+}
+
+/*性别*/
+.creator-sex-male{
+    width: 17px;
+    height: 17px;
+
+    border-radius: 50%;
+    background-color: white;
+
+    position: relative;
+    left: -15px;
+    bottom: -25px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+
+}
+.creator-sex-male > image{
+    width: 15px;
+    height: 15px;
+}
+
+.creator-sex-female {
+    width: 17px;
+    height: 17px;
+
+    border-radius: 50%;
+    background-color: white;
+
+    position: relative;
+    left: -15px;
+    bottom: -25px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+
+}
+.creator-sex-female > image{
+    width: 15px;
+    height: 15px;
+    transform: rotate(30deg);
+}
+.creator-sex-unknown {
+    width: 17px;
+    height: 17px;
+}
+
+/*圈主昵称*/
+.creator-base-info-nick-name {
+    width: 40%;
+    height: auto;
+    margin-right: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    background-color: white;
+
+}
+
+/*获取圈主微信*/
+.get-creator-we-chat {
+    width: auto;
+    height: 20px;
+    padding: 0 5px;
+    line-height: 20px;
+    background-color: #F0B27A;
+    border-radius: 3px;
+    font-size: 12px;
+    color: white;
+    margin-right: 8px;
+}
+
+/*给圈主发私信*/
+.send-message-to-creator {
+    width: auto;
+    height: 20px;
+    padding: 0 5px;
+    background-color: #F0B27A;
+    border-radius: 3px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+
+}
+.send-message-to-creator > image {
+    width: 20px;
+    height: 20px;
+    margin-right: 4px;
+}
+.send-message-to-creator > text {
+    width: auto;
+    height: 20px;
+    line-height: 20px;
+    font-size: 12px;
+    color: white;
+}
+
+/*圈主简介内容*/
+.creator-intr-content {
+    width: auto;
+    height: auto;
+    margin: 10px 10px 15px 77px;
+
+    font-size: 13px;
+    color: black;
+}
+
+
+/*圈子简介信息*/
+.project-intr-info {
+    width: 100%;
+    height: auto;
+}
+/*头部的标题 & 修改按钮*/
+.project-intr-info-header {
+    width: auto;
+    height: 60px;
+    margin: 0 10px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+
+.project-intr-info-title {
+    width: 65%;
+    height: 60px;
+    line-height: 60px;
+    margin-right: 5px;
+
+    font-size: 17px;
+    color: black;
+    font-weight: bolder;
+}
+
+.project-intr-info-edit-notice {
+    width: 25%;
+    height: 60px;
+    line-height: 60px;
+    font-size: 14px;
+    color: #F0B27A;
+    text-align: right;
+}
+/*展示填写的圈子简介信息*/
+.project-intr-content {
+    width: auto;
+    height: auto;
+    padding-bottom: 50px;
+    margin: 0 10px 15px 10px;
+}
+
+/*文本简介*/
+.project-text-intr {
+    width: 100%;
+    line-height: 1.2;
+    padding-bottom: 15px;
+}
+
+/*图片简介*/
+.project-image-intr {
+    width: 100%;
+}
+.project-image-intr > image {
+    width: 100%;
+    padding-bottom: 15px;
+}
+/*没有图片简介提示*/
+.not-project-intr-info-notice {
+    width: auto;
+    height: auto;
+    margin: 0 10px;
+    font-size: 13px;
+}
+
+
+
+/*打卡圈子的参与用户列表展示*/
+.punch-Card-project-attend-user-list {
+    width: 100%;
+    height: auto;
+    min-height: 400px;
+    padding-top: 15px;
+
+}
+
+/*（创建者）上传 or 获取已上传的微信群二维码*/
+.we-chat-group-qr-code-img {
+    width: auto;
+    height: auto;
+    margin: 0 10px 10px 10px;
+    padding: 10px 10px;
+    border-radius: 3px;
+    border: 1px #e5e5e5 solid;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.we-chat-group-qr-code-img > image {
+    width: 40px;
+    height: 40px;
+}
+.add-group-qr-code-img-notice-info {
+    width: 55%;
+    height: auto;
+    margin-left: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.notice-info-1 {
+    font-size: 14px;
+    color: black;
+}
+.notice-info-2 {
+    font-size: 12px;
+    color: #C9C9C9;
+}
+.we-chat-group-qr-code-img-operate-btn {
+    width:auto;
+    height: auto;
+    background-color: #FF6F00;
+    padding: 5px 10px;
+    border-radius: 10px;
+
+    font-size: 15px;
+    color: white;
+
+}
+
+/*搜索打卡圈子参与成员按钮*/
+.search-punch-card-project-attend-user-btn {
+    width: auto;
+    height: 30px;
+    margin: 0 10px;
+    border-radius: 5px;
+    /*background-color: whitesmoke;*/
+    border: 1px #e5e5e5 solid;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 0 36%;
+}
+.search-punch-card-project-attend-user-btn > image {
+    width: 15px;
+    height: 15px;
+}
+.search-punch-card-project-attend-user-btn > text {
+    width: auto;
+    font-size: 14px;
+    color: #8a8a8a;
+}
+
+/*展示加入的成员信息：头像、昵称、加入时间、性别*/
+.attend-user-list {
+    width: auto;
+    height: auto;
+    margin: 0 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+.attend-user-list-item {
+    width: 100%;
+    height: 60px;
+    border-bottom: 1px #e5e5e5 solid;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+.user-avatar {
+    width: 15%;
+    height: 60px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+.user-avatar > image {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+}
+
+/*性别*/
+.user-sex-male{
+    width: 17px;
+    height: 17px;
+
+    border-radius: 50%;
+    background-color: white;
+
+    position: relative;
+    left: -15px;
+    bottom: -10px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+.user-sex-male > image{
+    width: 15px;
+    height: 15px;
+}
+.user-sex-female {
+    width: 17px;
+    height: 17px;
+
+    border-radius: 50%;
+    background-color: white;
+
+    position: relative;
+    left: -15px;
+    bottom: -10px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+
+}
+.user-sex-female > image{
+    width: 15px;
+    height: 15px;
+    transform: rotate(30deg);
+}
+.user-sex-unknown {
+    width: 17px;
+    height: 17px;
+}
+/*用户昵称*/
+.user-nick-name {
+    width: 55%;
+    font-size: 15px;
+    color: black;
+}
+.attend-time {
+    width: 25%;
+    height: 60px;
+    text-align: right;
+    line-height: 60px;
+    font-size: 11px;
+    color: #8a8a8a;
+}
+
+
+
+
+
+
+/*底部的按钮：返回首页、打卡、进入发现页按钮*/
+.bottom {
+    width: 100%;
+    height: 50px;
+    position: fixed;
+    bottom: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    border-top: 1px #cccccc solid;
+    background-color: white;
+}
+
+/*返回首页按钮*/
+.into-index-page-btn {
+    width: 40%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+
+    font-size: 10px;
+    color: gray;
+}
+.into-index-page-btn > image {
+    width: 20px;
+    height: 20px;
+    margin: 8px 0 5px 0;
+}
+
+/*打卡按钮*/
+.punch-card-btn {
+    background-color: white;
+    width: 60px;
+    height: 60px;
+    margin-bottom: 18px;
+    border: 1px #F0B27A solid;
+    box-shadow:  0 0 1px rgba(240, 178, 122, 0.7);
+    border-radius: 50%;
+
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.punch-card-btn > view {
+    width: 94%;
+    height: 94%;
+    font-size: 15px;
+    color: white;
+    line-height: 57px;
+    text-align: center;
+
+    background-color: rgba(240, 178, 122, 0.9);
+    border-radius: 50%;
+}
+
+/*进入发现页按钮*/
+.into-find-page-btn {
+    width: 40%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+
+    font-size: 10px;
+    color: gray;
+}
+.into-find-page-btn > image {
+    width: 20px;
+    height: 20px;
+    margin: 8px 0 5px 0;
+
+}
+
+

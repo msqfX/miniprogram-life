@@ -1,0 +1,10 @@
+{
+  "enablePullDownRefresh": true,
+  "navigationBarTitleText": "首页",
+  "navigationBarBackgroundColor": "#FFFFFF",
+  "navigationBarTextStyle": "black",
+
+  "usingComponents": {
+    "punch-card-diary-audio-play": "/components/audioPlay/index"
+  }
+}
