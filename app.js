@@ -54,7 +54,9 @@ App({
     urlRootPath: "http://localhost/SmallPunchMiniProgramAfterEnd/public/",
     // 服务器图片访问BaseURl
     // imgBaseSeverUrl: "https://myxu.xyz/SmallPunchMiniProgramAfterEnd/"
-    imgBaseSeverUrl: "http://localhost.com/EndProject/SmallPunchMiniProgramAfterEnd/"
+    imgBaseSeverUrl: "http://localhost/SmallPunchMiniProgramAfterEnd/",
+
+    gateway:"http://localhost:9000/"
 
   }
 });

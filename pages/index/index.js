@@ -369,7 +369,7 @@ Page({
         if (currDiary.diaryResource.length <= 0 || parseInt(currDiary.diaryResource[0].type) === 2) {
             // 资源列表为空或者资源列表第一个元素存放的不是图片（type=1）都说明该日记不存在图片资源
             //  分享一张已设置的图片
-            imgUrl = 'http://myxu.xyz/SmallPunchMiniProgramAfterEnd/public/image_upload' +
+            imgUrl = 'http://localhost/SmallPunchMiniProgramAfterEnd/public/image_upload' +
                 '/project_cover_img/sys_recommend/20181001/520d70c0a777ec055df58c3fed943b37.png';
         } else {
             // 存在图片资源 设置第一张图片为分享图片
@@ -391,19 +391,19 @@ Page({
             success: function(res) {
                 if (res.code) {
                     wx.request({
-                        url: app.globalData.urlRootPath +
-                            'index/user/getOpenId',
+                        url: app.globalData.gateway +
+                          'life-user/api/user/getWxUserInfo',
                         data: {
                             code: res.code
                         },
                         success: function(response) {
                             switch (response.statusCode) {
                                 case 200:
-                                    app.globalData.openid = response.data.data.openid;
+                                    app.globalData.openid = response.data.data.openId;
                                     break;
                                 default:
                                     wx.showToast({
-                                        title: response.data.errMsg,
+                                        title: response.data.msg,
                                         icon: "none"
                                     });
                                     break;
@@ -732,14 +732,14 @@ Page({
             if (parseInt(diaryResourceList[i].type) === 1)
             // 加上图片访问的baseUrl  注意一定要改为http 不然预览网络图片一直黑屏
                 ImgResourceList[index++] =
-                    "https://myxu.xyz/SmallPunchMiniProgramAfterEnd/"
+                    "https://localhost/SmallPunchMiniProgramAfterEnd/"
                     + diaryResourceList[i].resource_url;
         }
 
         console.log(e.currentTarget.dataset.index);
         wx.previewImage({
             // 当前显示图片的http链接
-            current: "https://myxu.xyz/SmallPunchMiniProgramAfterEnd/"
+            current: "https://localhost/SmallPunchMiniProgramAfterEnd/"
                 + e.currentTarget.dataset.imgUrl,
 
             // 需要预览的图片http链接列表
