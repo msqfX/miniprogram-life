@@ -333,8 +333,8 @@ Page({
      */
     getMyPunchCardDiaryList: function(pageNo,dataNum,callback) {
         wx.request({
-            url: app.globalData.urlRootPath + 'index/User/getUserPunchCardDiaryList',
-            method: 'post',
+          url: app.globalData.gateway + 'life-punch/api/punchCardDiary/listUserPunchCardDiary',
+            method: 'get',
             data: {
                 visitedUserId: app.globalData.userInfo.id, // 被查看打卡日记列表的用户的id
                 visitorUserId: app.globalData.userInfo.id, // 查看者的id

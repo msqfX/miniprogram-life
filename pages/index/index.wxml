@@ -24,17 +24,17 @@
                             <view class="punch-card-project-item-view"
                             bindtap="intoPunchCardDetail"
                             data-project_id="{{item.id}}"
-                            data-is_creator="{{item.is_creator}}">
-                                <block wx:if ="{{item.cover_img_url === 'default_cover_img'}}">
+                            data-is_creator="{{item.isCreator}}">
+                                <block wx:if ="{{item.coverImgUrl === 'default_cover_img'}}">
                                     <image src="/images/default/project_cover_img.png">
                                     </image>
                                 </block>
                                 <block wx:else>
-                                    <image src="{{imgRootPath}}{{item.cover_img_url}}">
+                                    <image src="{{imgRootPath}}{{item.coverImgUrl}}">
                                     </image>
                                 </block>
                                 <view class="project-name">
-                                    <text>{{item.project_name}}</text>
+                                    <text>{{item.projectName}}</text>
                                 </view>
                             </view>
                         </view>
@@ -130,25 +130,25 @@
                                   data-project_id="{{item.projectInfo.id}}"
                                   data-is_creator="-1" >
                                 <view class="project-cover-img-info">
-                                    <block wx:if="{{item.projectInfo.cover_img_url == 'default_avatar'}}">
+                                    <block wx:if="{{item.projectInfo.coverImgUrl == 'default_avatar'}}">
                                         <image src="/images/default/project_cover_img.png"></image>
                                     </block>
                                     <block wx:else>
-                                        <image src="{{imgRootPath}}{{item.projectInfo.cover_img_url}}"></image>
+                                        <image src="{{imgRootPath}}{{item.projectInfo.coverImgUrl}}"></image>
                                     </block>
                                 </view>
 
                                 <view class="project-intr-info">
                                     <view class="project-name-info">
-                                        {{item.projectInfo.project_name}}
+                                        {{item.projectInfo.projectName}}
                                     </view>
                                     <view class="project-type-label-lists">
-                                        <block wx:for="{{item.projectInfo.type_label}}" wx:for-item="l"
-                                               wx:key="{{l.child_label}}">
+                                        <block wx:for="{{item.projectInfo.typeLabel}}" wx:for-item="l"
+                                               wx:key="{{l.childLabel}}">
                                             <view class="project-type-label-item"
-                                                  data-parent-name="{{l.parent_label}}"
+                                                  data-parent-name="{{l.parentLabel}}"
                                                   catchtap="searchProjectByType">
-                                                {{l.child_label}}
+                                                {{l.childLabel}}
                                             </view>
                                         </block>
                                     </view>
@@ -165,7 +165,7 @@
                                                 </image>
                                             </block>
                                             <block wx:else>
-                                                <image src="{{a.avatar_url}}"
+                                                <image src="{{a.avatarUrl}}"
                                                        style="z-index: {{3 - i}}">
                                                 </image>
                                             </block>
@@ -182,7 +182,7 @@
                             <view class="punch-card-diary-info"
                                   style="width: {{windowWidth - 30}}px;margin-left: 15px">
                                 <view class="diary-text-content">
-                                    <text>{{item.text_content}}</text>
+                                    <text>{{item.textContent}}</text>
                                 </view>
                                 <view class="diary-resource-show">
                                     <!--图片展示-->
@@ -230,9 +230,9 @@
                                       catchtap="intoPersonalHomePage"
                                       data-user-id="{{item.publisher.id}}">
                                     <!--使用默认的小程序内置的默认头像-->
-                                    <block wx:if="{{item.publisher.avatar_url == 'default_avatar'}}">
+                                    <block wx:if="{{item.publisher.avatarUrl == 'default_avatar'}}">
                                         <image src="/images/default/userAvatar.png">
-                                            <block wx:if="{{item.publisher.sex == 1}}">
+                                            <block wx:if="{{item.publisher.gender == 1}}">
                                                 <view class="publisher-sex-male"
                                                       bindtap="intoPersonalHomePage"
                                                       data-user-id="{{item.publisher.id}}">
@@ -240,7 +240,7 @@
                                                     </image>
                                                 </view>
                                             </block>
-                                            <block wx:if="{{item.publisher.sex == 2}}">
+                                            <block wx:if="{{item.publisher.gender == 2}}">
                                                 <view class="publisher-sex-female"
                                                       bindtap="intoPersonalHomePage"
                                                       data-user-id="{{item.publisher.id}}">
@@ -251,7 +251,7 @@
                                         </image>
                                     </block>
                                     <block wx:else>
-                                        <image src='{{item.publisher.avatar_url}}'>
+                                        <image src='{{item.publisher.avatarUrl}}'>
                                             <block wx:if="{{item.publisher.sex == 1}}">
                                                 <view class="publisher-sex-male"
                                                       bindtap="intoPersonalHomePage"
@@ -275,7 +275,7 @@
                                 <!--昵称-->
                                 <view class="diary-publisher-nick-name" catchtap="intoPersonalHomePage"
                                       data-user-id="{{item.publisher.id}}">
-                                    <text>{{item.publisher.nick_name}}</text> 发布
+                                    <text>{{item.publisher.nickName}}</text> 发布
                                 </view>
                             </view>
 

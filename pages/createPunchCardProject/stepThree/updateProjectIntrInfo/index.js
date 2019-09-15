@@ -258,13 +258,16 @@ Page({
             if (parseInt(newProjectIntrInfo[i].type) === 2) {
                 uploadTask[index++] = new Promise(function (resolve) {
                     wx.uploadFile({
-                        url: app.globalData.urlRootPath
-                            + "index/PunchCardProject/addProjectIntr",
+                        url: app.globalData.gateway
+                          + "life-punch/api/projectIntr/file/upload",
                         filePath: newProjectIntrInfo[i].content,
-                        name: "images",
+                        name: "file",
+                        header: {
+                          "Content-Type": "multipart/form-data"
+                        },
                         formData: {
-                            project_id: parseInt(that.data.projectId),
-                            order: parseInt(newProjectIntrInfo[i].order),
+                            projectId: parseInt(that.data.projectId),
+                            sort: parseInt(newProjectIntrInfo[i].order),
                             type: parseInt(newProjectIntrInfo[i].type)
                         },
                         success: function (res) {
@@ -280,12 +283,12 @@ Page({
                 //添加新数据： 添加文本简介
                 uploadTask[index++] = new Promise(function (resolve) {
                     wx.request({
-                        url: app.globalData.urlRootPath
-                            + 'index/PunchCardProject/addProjectIntr',
+                        url: app.globalData.gateway
+                          + 'life-punch/api/projectIntr',
                         method: "post",
                         data: {
-                            project_id: parseInt(that.data.projectId),
-                            order: parseInt(newProjectIntrInfo[i].order),
+                            projectId: parseInt(that.data.projectId),
+                            sort: parseInt(newProjectIntrInfo[i].order),
                             type: parseInt(newProjectIntrInfo[i].type),
                             content: newProjectIntrInfo[i].content
                         },

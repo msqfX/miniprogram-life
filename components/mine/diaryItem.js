@@ -257,7 +257,7 @@ Component({
                 if (parseInt(diaryResourceList[i].type) === 1)
                 // 加上图片访问的baseUrl  注意一定要改为http 不然预览网络图片一直黑屏
                     ImgResourceList[index++] =
-                        that.data.imgRootPath + diaryResourceList[i].resource_url;
+                      that.data.imgRootPath + diaryResourceList[i].resourceUrl;
             }
 
             wx.previewImage({
@@ -280,8 +280,8 @@ Component({
         _intoPunchCardAddress: function() {
             let that = this;
             wx.openLocation({
-                longitude: parseFloat(that.data.diaryItemData.address_longitude),
-                latitude: parseFloat(that.data.diaryItemData.address_latitude)
+              longitude: parseFloat(that.data.diaryItemData.addressLongitude),
+              latitude: parseFloat(that.data.diaryItemData.addressLatitude)
             })
         },
 
@@ -440,7 +440,7 @@ Component({
 
             // 修改对应打卡日记的本地点赞数据
             diaryList[data.diaryIndex].haveLike = data.haveLike;
-            diaryList[data.diaryIndex].like_user_num = data.like_user_num;
+            diaryList[data.diaryIndex].like_user_num = data.likeUserNum;
             diaryList[data.diaryIndex].tenLikeInfo = data.tenLikeInfo;
 
             currPage.setData({

@@ -180,11 +180,11 @@ Page({
      */
     searchPunchCardProject: function (keyword,pageNo,pageSize,callback) {
         wx.request({
-            url: app.globalData.urlRootPath + 'index/PunchCardProject/search',
-            'method': 'post',
+            url: app.globalData.gateway + 'life-punch/api/recommend/search',
+            'method': 'get',
             data: {
                 pageNo: pageNo,
-                pageSize: pageSize,
+                dataNum: pageSize,
                 keyword: keyword
             },
             success: function (res) {

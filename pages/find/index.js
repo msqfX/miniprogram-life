@@ -265,11 +265,11 @@ Page({
     getPunchCardProjectRecommendList: function (pageNo) {
         let that = this;
         wx.request({
-            url: app.globalData.urlRootPath
-                + 'index/PunchCardProject/getProjectListByRecommend',
-            method: 'post',
+            url: app.globalData.gateway
+                + 'life-punch/api/recommend/getProjectListByRecommend',
+            method: 'get',
             data: {
-                nextPage: pageNo,
+                pageNo: pageNo,
                 dataNum: that.data.dataNum
             },
             success: function (res) {

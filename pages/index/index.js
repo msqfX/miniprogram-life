@@ -399,7 +399,7 @@ Page({
                         success: function(response) {
                             switch (response.statusCode) {
                                 case 200:
-                                    app.globalData.openid = response.data.data.openId;
+                                    app.globalData.openId = response.data.data.openId;
                                     break;
                                 default:
                                     wx.showToast({
@@ -433,13 +433,14 @@ Page({
         let that = this;
         let avatarUrl = app.globalData.userInfo.avatar_url;
         wx.request({
-            url: app.globalData.urlRootPath + 'index/user/addUserInfo',
+            url: app.globalData.gateway + 'life-user/api/user',
             data: {
-                open_id: app.globalData.openid,
-                nick_name: app.globalData.userInfo.nick_name, // 微信昵称
-                avatar_url: avatarUrl === "" ? "default_avatar": avatarUrl, // 微信用户头像
-                sex: parseInt(app.globalData.userInfo.sex) // 性别 0-未知，1-男性，2-女性
+                openId: app.globalData.openId,
+                nickName: app.globalData.userInfo.nick_name, // 微信昵称
+                avatarUrl: avatarUrl === "" ? "default_avatar": avatarUrl, // 微信用户头像
+                gender: parseInt(app.globalData.userInfo.sex) // 性别 0-未知，1-男性，2-女性
             },
+            method: "POST",
             header: {
                 'content-type': 'application/json'
             },
@@ -447,11 +448,11 @@ Page({
                 switch (res.statusCode) {
                     case 200:
                         // 本地保存服务器端返回的用户信息
-                        app.globalData.userInfo = res.data.userInfo;
+                        app.globalData.userInfo = res.data.data;
                         break;
                     default:
                         wx.showToast({
-                            title: res.data.errMsg,
+                            title: res.data.msg,
                             icon: 'none',
                             duration: 2000
                         });
@@ -466,7 +467,7 @@ Page({
                 // 因为Page.onLoad结束在request之前，这时候获取的变量是空值
                 // 因此加入全局回调函数
                 if (app.userInfoReadyCallBack !== '') {
-                    app.userInfoReadyCallBack(res.data.userInfo);
+                    app.userInfoReadyCallBack(res.data.data);
                 }
 
             },
@@ -504,10 +505,10 @@ Page({
     getMyPunchCardProject: function () {
         let that = this;
         wx.request({
-            url: app.globalData.urlRootPath + 'index/User/getAllProject',
-            method: 'post',
+          url: app.globalData.gateway + 'life-punch/api/punchCardProject/getProjectInfoByUserId/' + app.globalData.userInfo.id,
+            method: 'get',
             data: {
-              userId: app.globalData.userInfo.id
+              
             },
             success: function (res) {
                 console.log(res);
@@ -567,7 +568,7 @@ Page({
 
                                 default:
                                     wx.showToast({
-                                        title: respData.errMsg,
+                                        title: respData.msg,
                                         icon: 'none',
                                         duration: 2000
                                     });
@@ -666,18 +667,15 @@ Page({
     getRecommendDiaryList: function (pageNo, dataNum,callback) {
         let that = this;
         wx.request({
-            url: app.globalData.urlRootPath +
-                'index/punchCardDiary/getDiaryListByRecommend',
-
-            method: 'post',
-
+            url: app.globalData.gateway +
+                'life-punch/api/recommend/listDiary',
+            method: 'get',
             data: {
                 userId: parseInt(that.data.userInfo.id),
                 pageNo: pageNo,
                 dataNum: dataNum,
                 projectIdList: that.data.punchCardProjectIdList
                 // projectIdList: []
-
             },
 
             success: function (res) {
@@ -965,11 +963,10 @@ Page({
     getUnreadNewsNum: function () {
       let that = this;
       wx.request({
-          url: app.globalData.urlRootPath
-              + 'index/UnreadNewsCount/getUnreadNewsNum',
-          method: 'post',
+          url: app.globalData.gateway
+            + 'life-user/api/news/getUnreadNewsCount/' + app.globalData.userInfo.id,
+          method: 'get',
           data: {
-              user_id: that.data.userInfo.id
           },
           success: function (res) {
               let respData = res.data;

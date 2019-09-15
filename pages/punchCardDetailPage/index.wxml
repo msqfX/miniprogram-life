@@ -19,7 +19,7 @@
         <!--头部信息: 圈子封面图、邀请按钮、圈子名称、参与者信息、总打卡次数-->
         <view class="container-not-join-in-pro-header">
           <!--圈子封面图-->
-          <block wx:if="{{projectInfo.cover_img_url==='default_cover_img'}}">
+          <block wx:if="{{projectInfo.coverImgUrl==='default_cover_img'}}">
             <view class="not-join-in-project-cover-img">
               <image src="../../images/default/project_cover_img.png">
               </image>
@@ -27,7 +27,7 @@
           </block>
           <block wx:else>
             <view class="not-join-in-project-cover-img">
-              <image src="{{imgRootPath}}{{projectInfo.cover_img_url}}">
+              <image src="{{imgRootPath}}{{projectInfo.coverImgUrl}}">
               </image>
             </view>
           </block>
@@ -39,7 +39,7 @@
           </view>
           <!--圈子名称-->
           <view class="not-join-in-project-name">
-            {{projectInfo.project_name}}
+            {{projectInfo.projectName}}
           </view>
 
           <!--TODO 需要替换 最近新加入的三个用户信息列表 & 总打卡次数 -->
@@ -172,9 +172,9 @@
                             bindtap="intoPersonalHomePage"
                             data-user-id="{{item.publisher.id}}">
                         <!--使用默认的小程序内置的默认头像-->
-                        <block wx:if="{{item.publisher.avatar_url == 'default_avatar'}}">
+                        <block wx:if="{{item.publisher.avatarUrl == 'default_avatar'}}">
                           <image src="/images/default/userAvatar.png">
-                            <block wx:if="{{item.publisher.sex == 1}}">
+                            <block wx:if="{{item.publisher.gender == 1}}">
                               <view class="publisher-sex-male"
                                     bindtap="intoPersonalHomePage"
                                     data-user-id="{{item.publisher.id}}">
@@ -182,7 +182,7 @@
                                 </image>
                               </view>
                             </block>
-                            <block wx:if="{{item.publisher.sex == 2}}">
+                            <block wx:if="{{item.publisher.gender == 2}}">
                               <view class="publisher-sex-female"
                                     bindtap="intoPersonalHomePage"
                                     data-user-id="{{item.publisher.id}}">
@@ -193,8 +193,8 @@
                           </image>
                         </block>
                         <block wx:else>
-                          <image src='{{item.publisher.avatar_url}}'>
-                            <block wx:if="{{item.publisher.sex == 1}}">
+                          <image src='{{item.publisher.avatarUrl}}'>
+                            <block wx:if="{{item.publisher.gender == 1}}">
                               <view class="publisher-sex-male"
                                     bindtap="intoPersonalHomePage"
                                     data-user-id="{{item.publisher.id}}">
@@ -202,7 +202,7 @@
                                 </image>
                               </view>
                             </block>
-                            <block wx:if="{{item.publisher.sex == 2}}">
+                            <block wx:if="{{item.publisher.gender == 2}}">
                               <view class="publisher-sex-female"
                                     bindtap="intoPersonalHomePage"
                                     data-user-id="{{item.publisher.id}}">
@@ -220,7 +220,7 @@
                         <view class="publisher-nick-name"
                               bindtap="intoPersonalHomePage"
                               data-user-id="{{item.publisher.id}}">
-                          {{item.publisher.nick_name}}
+                          {{item.publisher.nickName}}
                         </view>
 
                         <!--打卡时间 & 坚持天数即日记在圈子的总打卡天数-->

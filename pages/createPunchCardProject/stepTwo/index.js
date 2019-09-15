@@ -64,9 +64,9 @@ Page({
     // 动态获取打卡圈子类型所有标签
     getAllTypeLabel: function (callback) {
         wx.request({
-            url: app.globalData.urlRootPath +
-            "Admin/ProjectTypeLabelManage/getAllTypeLabel",
-
+            url: app.globalData.gateway +
+            "life-punch/api/projectTypeLabel",
+            method: 'get',
             success:function (response) {
 
                 let parentLabel = response.data.data.parentLabel;
@@ -343,17 +343,15 @@ Page({
 
         // 向服务器端发送请求执行创建打卡圈子
         wx.request({
-            url: app.globalData.urlRootPath + "index/PunchCardProject/create",
+            url: app.globalData.gateway + 'life-punch/api/punchCardProject',
             method: "post",
             data: {
-                project_name:that.data.projectName,
-                privacy_type: parseInt(that.data.privacyType),
-                type_label: that.data.labelNameString,
-                creator_id: parseInt(app.globalData.userInfo.id)
-
+              projectName:that.data.projectName,
+              privacyType: parseInt(that.data.privacyType),
+              typeLabel: that.data.labelNameString,
+              creatorId: parseInt(app.globalData.userInfo.id)
             },
             success:function (response) {
-
                 switch (response.statusCode) {
                     case 200:
                         // 服务器端创建打卡圈子成功，客户端开始生成打卡圈子邀请图片
@@ -363,7 +361,6 @@ Page({
                             wx.showLoading({
                                 title: "加载中..."
                             });
-
                             // 获取生成的邀请图片临时地址
                             that.createPunchCardInviteImg();
 
@@ -400,7 +397,7 @@ Page({
 
                     default:
                         wx.hideLoading();
-                        let title = response.data.errMsg;
+                        let title = response.data.msg;
                         wx.showToast({
                             title: title,
                             icon: "none"

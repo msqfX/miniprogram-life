@@ -94,13 +94,12 @@ Page({
 
         if (that.data.creatorWeiXinNumFlag === true) {
             wx.request({
-                url: app.globalData.urlRootPath
-                    + "index/PunchCardProject/updateCreatorInfo",
-                method: "post",
+              url: app.globalData.gateway + 'life-punch/api/punchCardProject/' + that.data.projectId,
+                method: "put",
                 data:{
-                    project_id: that.data.projectId,
-                    creator_introduce: that.data.creatorIntrInfo,
-                    weixin_num: that.data.creatorWeiXinNum
+                    id: that.data.projectId,
+                    creatorIntroduce: that.data.creatorIntrInfo,
+                    weixinNum: that.data.creatorWeiXinNum
                 },
                 success: function (response) {
                     console.log(response);
@@ -112,7 +111,7 @@ Page({
                             break;
                         default:
                             wx.showToast({
-                                title: response.data.errMsg,
+                                title: response.data.msg,
                                 icon: "none"
                             });
                             break;

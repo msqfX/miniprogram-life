@@ -42,11 +42,11 @@ App({
 
   },
   globalData: {
-    openid: '0',
+    openId: '0',
     userInfo: {
-      nick_name: '',
-      avatar_url: '',
-      sex: 0 // 性别 0-未知，1-男性，2-女性
+      nickName: '',
+      avatarUrl: '',
+      gender: 0 // 性别 0-未知，1-男性，2-女性
     },
     // urlRootPath: "https://myxu.xyz/SmallPunchMiniProgramAfterEnd/public/",
     // urlRootPath_local:

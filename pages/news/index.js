@@ -87,11 +87,10 @@ Page({
         });
 
         wx.request({
-            url: app.globalData.urlRootPath
-                + 'index/UnreadNewsCount/getUnreadNewsNum',
-            method: 'post',
+            url: app.globalData.gateway
+              + 'life-user/api/news/getUnreadNewsCount/' + that.data.userInfo.id,
+            method: 'get',
             data: {
-                user_id: that.data.userInfo.id
             },
             success: function (res) {
                 wx.hideLoading();
@@ -146,12 +145,11 @@ Page({
     setNewsReadStatus: function(unreadNewsType) {
         let that = this;
         wx.request({
-            url: app.globalData.urlRootPath
-                + 'index/UnreadNewsCount/setNewsReadStatus',
-            method: 'post',
+            url: app.globalData.gateway
+              + 'life-user/api/news/setNewsReadStatus/' + that.data.userInfo.id
+              + '?unreadNewsType=' + unreadNewsType,
+            method: 'put',
             data: {
-                user_id: that.data.userInfo.id,
-                unread_news_type: unreadNewsType
             },
             success: function (res) {
                 if (res.statusCode === 200) {
