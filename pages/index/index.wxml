@@ -30,7 +30,7 @@
                                     </image>
                                 </block>
                                 <block wx:else>
-                                    <image src="{{imgRootPath}}{{item.coverImgUrl}}">
+                                    <image src="{{item.coverImgUrl}}">
                                     </image>
                                 </block>
                                 <view class="project-name">
@@ -134,7 +134,7 @@
                                         <image src="/images/default/project_cover_img.png"></image>
                                     </block>
                                     <block wx:else>
-                                        <image src="{{imgRootPath}}{{item.projectInfo.coverImgUrl}}"></image>
+                                        <image src="{{item.projectInfo.coverImgUrl}}"></image>
                                     </block>
                                 </view>
 

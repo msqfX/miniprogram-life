@@ -9,7 +9,7 @@
             </image>
         </block>
         <block wx:else>
-            <image src="{{imgRootPath}}{{punchCardProjectItemData.coverImgUrl}}">
+            <image src="{{punchCardProjectItemData.coverImgUrl}}">
             </image>
         </block>
     </view>
