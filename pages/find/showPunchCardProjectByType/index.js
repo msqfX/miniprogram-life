@@ -76,8 +76,8 @@ Page({
             // 2.获取该类型的所有子类型标签
             let getChildrenLabel = new Promise(function (resolve) {
                 wx.request({
-                    url: app.globalData.urlRootPath + "index/ProjectTypeLabel/getChildrenLabel",
-                    method: 'post',
+                  url: app.globalData.gateway + "life-punch/api/projectTypeLabel/getChildrenLabel",
+                    method: 'get',
                     data: {
                         parentLabelName: that.data.typeName
                     },
@@ -103,7 +103,7 @@ Page({
                             default:
                                 resolve(false);
                                 wx.showToast({
-                                    title: respData.errMsg,
+                                    title: respData.msg,
                                     icon: 'none',
                                     duration: 2000
                                 });
@@ -389,9 +389,9 @@ Page({
     getProjectListByType: function (pageNo,pageSize,successCallback) {
         let that = this;
         wx.request({
-            url: app.globalData.urlRootPath
-                + 'index/PunchCardProject/getProjectListByType',
-            method: 'post',
+            url: app.globalData.gateway
+              + 'life-punch/api/punchCardProject/getProjectListByType',
+            method: 'get',
             data: {
                 pageNo: pageNo,
                 pageSize: pageSize,

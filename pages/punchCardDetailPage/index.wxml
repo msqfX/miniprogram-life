@@ -27,7 +27,7 @@
           </block>
           <block wx:else>
             <view class="not-join-in-project-cover-img">
-              <image src="{{imgRootPath}}{{projectInfo.coverImgUrl}}">
+              <image src="{{projectInfo.coverImgUrl}}">
               </image>
             </view>
           </block>
@@ -61,7 +61,7 @@
                     <view class="user-avatar-list-item img-{{index}}"
                           bindtap="intoPersonalHomePage"
                           data-user-id="{{item.id}}">
-                      <image src="{{item.avatar_url}}">
+                      <image src="{{item.avatarUrl}}">
                       </image>
                     </view>
                   </block>
@@ -71,7 +71,7 @@
 
             <!--参与者昵称两个字符后省略使用符号...替代-->
             <view class="attend-user-nick-name">
-              <text>{{attendUserInfo[0].nick_name}}</text>
+              <text>{{attendUserInfo[0].nickName}}</text>
             </view>
             <!--总参与人数-->
             <view class="attend-user-num">
@@ -111,7 +111,7 @@
                         bindtap="previewProjectIntrImage"
                         data-img-url="{{item.content}}">
                     <image mode="widthFix"
-                           src="{{imgRootPath}}{{item.content}}">
+                           src="{{item.content}}">
                     </image>
                   </view>
                 </block>
@@ -134,16 +134,16 @@
                 </image>
               </block>
               <block wx:else>
-                <image src="{{creatorInfo.avatar_url}}">
+                <image src="{{creatorInfo.creatorAvatarUrl}}">
                 </image>
               </block>
               <!--创建者昵称-->
-              <text>{{creatorInfo.nick_name}}</text>
+              <text>{{creatorInfo.niccreatorNickNamekName}}</text>
             </view>
 
             <!--简介-->
             <view class="not-join-in-project-creator-intr-info">
-              {{creatorInfo.introduce}}
+              {{creatorInfo.creatorIntroduce}}
             </view>
           </view>
         </block>
@@ -227,7 +227,7 @@
                         <view class="punch-time"
                               bindtap="intoDiaryDetailPage"
                               data-diary-id="{{item.id}}">
-                          <text>{{item.punch_card_time}} · 已坚持{{item.curr_diary_punch_card_day_num}}天</text>
+                          <text>{{item.punchCardTime}} · 已坚持{{item.currDiaryPunchCardDayNum}}天</text>
 
                           <!-- 日记隐私类型 -->
                           <block wx:if="{{item.visible_type==1}}">
@@ -279,7 +279,7 @@
                       <view class="diary-text"
                             bindtap="intoDiaryDetailPage"
                             data-diary-id="{{item.id}}">
-                        <text>{{item.text_content}}</text>
+                        <text>{{item.textContent}}</text>
                       </view>
 
                       <!-- 打卡图片 & 视频 & 音频，一张图片直接显示，二张以上九宫格格式展示 -->
@@ -290,7 +290,7 @@
                           <view class="one-image" catchtap="previewDiaryImage"
                                 data-index="{{index}}"
                                 data-img-url="{{item.diaryResource[0].resource_url}}">
-                            <image src="{{imgRootPath}}{{item.diaryResource[0].resource_url}}" mode="widthFix">
+                            <image src="{{item.diaryResource[0].resource_url}}" mode="widthFix">
                             </image>
                           </view>
                         </block>
@@ -302,8 +302,8 @@
                                 <view class="diary-img-item"
                                       style="width:{{diaryImgWidth}}px;height: {{diaryImgWidth}}px"
                                       catchtap="previewDiaryImage" data-index="{{index}}"
-                                      data-img-url="{{v.resource_url}}">
-                                  <image src="{{imgRootPath}}{{v.resource_url}}">
+                                      data-img-url="{{v.resourceUrl}}">
+                                  <image src="{{v.resourceUrl}}">
                                   </image>
                                 </view>
                               </block>
@@ -316,7 +316,7 @@
                                wx:key="{{audioItem.id}}">
                           <block wx:if="{{audioItem.type == '2'}}">
                             <punch-card-diary-audio-play
-                                    audio-name="{{item.publisher.nick_name}}的录音视频"
+                                    audio-name="{{item.publisher.nickName}}的录音视频"
                                     audio-file-info="{{audioItem}}">
                             </punch-card-diary-audio-play>
                           </block>
@@ -334,7 +334,7 @@
                         <view class="punch-card-address" bindtap="intoPunchCardAddress"
                               data-diary-index="{{index}}">
                           <image src="/images/button/address_light.png"></image>
-                          <text>{{item.punch_card_address}}</text>
+                          <text>{{item.punchCardAddress}}</text>
                         </view>
                       </block>
 
@@ -393,13 +393,13 @@
                               <!--只显示十个用户昵称-->
                               <block wx:if="{{i < 10}}">
                                 <text bindtap="intoPersonalHomePage"
-                                      data-user-id="{{likeUserItem.admirer.id}}">{{likeUserItem.admirer.nick_name}}
+                                      data-user-id="{{likeUserItem.admirer.id}}">{{likeUserItem.admirer.nickName}}
                                   <block wx:if="{{i+1 !== item.tenLikeInfo.length}}">,</block>
                                 </text>
                               </block>
                             </block>
-                            <block wx:if="{{item.like_user_num > 10}}">
-                              <text>共{{item.like_user_num}}人觉得很赞</text>
+                            <block wx:if="{{item.likeUserNum > 10}}">
+                              <text>共{{item.likeUserNum}}人觉得很赞</text>
                             </block>
                           </view>
 
@@ -413,7 +413,7 @@
                             <block wx:for="{{item.allCommentInfo}}" wx:for-item="i"
                                    wx:for-index="k" wx:key="{{i.id}}">
                               <view data-reviewer-id="{{i.reviewer.id}}"
-                                    data-reviewer-nick-name="{{i.reviewer.nick_name}}"
+                                    data-reviewer-nick-name="{{i.reviewer.nickName}}"
                                     data-diary-id="{{item.id}}"
                                     data-diary-index="{{index}}"
                                     data-pid="{{i.pid}}"
@@ -422,15 +422,15 @@
                                     catchtap="replyComment">
                                 <!--评论者昵称-->
                                 <text data-user-id="{{i.reviewer.id}}"
-                                      catchtap="intoPersonalHomePage">{{i.reviewer.nick_name}}</text>
+                                      catchtap="intoPersonalHomePage">{{i.reviewer.nickName}}</text>
                                 <block wx:if="{{i.pid != 0}}">
                                   <!--该评论所回复的用户昵称 一级评论不显示被评论者信息 因为被评论者是日记发表-->
                                   <text style="color: black"> @ </text>
                                   <text data-user-id="{{i.respondent.id}}"
-                                        bindtap="intoPersonalHomePage">{{i.respondent.nick_name}}</text>
+                                        bindtap="intoPersonalHomePage">{{i.respondent.nickName}}</text>
                                 </block>
                                 <!--评论内容-->
-                                <text style="color: black"> : {{i.text_comment}}</text>
+                                <text style="color: black"> : {{i.textComment}}</text>
                               </view>
                             </block>
                           </view>
@@ -561,7 +561,7 @@
               </image>
             </block>
             <block wx:else>
-              <image src="{{imgRootPath}}{{projectInfo.cover_img_url}}">
+              <image src="{{projectInfo.coverImgUrl}}">
               </image>
             </block>
 
@@ -656,8 +656,8 @@
               <!--昵称-->
               <view class="creator-nick-name"
                     bindtap="intoPersonalHomePage"
-                    data-user-id="{{creatorInfo.creator_id}}">
-                <text>{{creatorInfo.nick_name}}</text>
+                    data-user-id="{{creatorInfo.creatorId}}">
+                <text>{{creatorInfo.nickName}}</text>
                 <image src="../../images/button/into_btn_gray.png">
                 </image>
               </view>
@@ -804,9 +804,9 @@
                           bindtap="intoPersonalHomePage"
                           data-user-id="{{item.publisher.id}}">
                       <!--使用默认的小程序内置的默认头像-->
-                      <block wx:if="{{item.publisher.avatar_url == 'default_avatar'}}">
+                      <block wx:if="{{item.publisher.avatarUrl == 'default_avatar'}}">
                         <image src="/images/default/userAvatar.png">
-                          <block wx:if="{{item.publisher.sex == 1}}">
+                          <block wx:if="{{item.publisher.gender == 1}}">
                             <view class="publisher-sex-male"
                                   bindtap="intoPersonalHomePage"
                                   data-user-id="{{item.publisher.id}}">
@@ -814,7 +814,7 @@
                               </image>
                             </view>
                           </block>
-                          <block wx:if="{{item.publisher.sex == 2}}">
+                          <block wx:if="{{item.publisher.gender == 2}}">
                             <view class="publisher-sex-female"
                                   bindtap="intoPersonalHomePage"
                                   data-user-id="{{item.publisher.id}}">
@@ -825,8 +825,8 @@
                         </image>
                       </block>
                       <block wx:else>
-                        <image src='{{item.publisher.avatar_url}}'>
-                          <block wx:if="{{item.publisher.sex == 1}}">
+                        <image src='{{item.publisher.avatarUrl}}'>
+                          <block wx:if="{{item.publisher.gender == 1}}">
                             <view class="publisher-sex-male"
                                   bindtap="intoPersonalHomePage"
                                   data-user-id="{{item.publisher.id}}">
@@ -834,7 +834,7 @@
                               </image>
                             </view>
                           </block>
-                          <block wx:if="{{item.publisher.sex == 2}}">
+                          <block wx:if="{{item.publisher.gender == 2}}">
                             <view class="publisher-sex-female"
                                   bindtap="intoPersonalHomePage"
                                   data-user-id="{{item.publisher.id}}">
@@ -852,14 +852,14 @@
                       <view class="publisher-nick-name"
                             bindtap="intoPersonalHomePage"
                             data-user-id="{{item.publisher.id}}">
-                        {{item.publisher.nick_name}}
+                        {{item.publisher.nickName}}
                       </view>
 
                       <!--打卡时间 & 坚持天数即日记在圈子的总打卡天数-->
                       <view class="punch-time"
                             bindtap="intoDiaryDetailPage"
                             data-diary-id="{{item.id}}">
-                        <text>{{item.punch_card_time}} · 已坚持{{item.curr_diary_punch_card_day_num}}天</text>
+                        <text>{{item.punchCardTime}} · 已坚持{{item.currDiaryPunchCardDayNum}}天</text>
 
                         <!-- 日记隐私类型 -->
                         <block wx:if="{{item.visible_type==1}}">
@@ -911,7 +911,7 @@
                     <view class="diary-text"
                           bindtap="intoDiaryDetailPage"
                           data-diary-id="{{item.id}}">
-                      <text>{{item.text_content}}</text>
+                      <text>{{item.textContent}}</text>
                     </view>
 
                     <!-- 打卡图片 & 视频 & 音频，一张图片直接显示，二张以上九宫格格式展示 -->
@@ -921,8 +921,8 @@
                         <!--一张图片则根据图片大小显示-->
                         <view class="one-image" catchtap="previewDiaryImage"
                               data-index="{{index}}"
-                              data-img-url="{{item.diaryResource[0].resource_url}}">
-                          <image src="{{imgRootPath}}{{item.diaryResource[0].resource_url}}" mode="widthFix">
+                              data-img-url="{{item.diaryResource[0].resourceUrl}}">
+                          <image src="{{item.diaryResource[0].resourceUrl}}" mode="widthFix">
                           </image>
                         </view>
                       </block>
@@ -936,8 +936,8 @@
                                     style="width:{{diaryImgWidth}}px;height: {{diaryImgWidth}}px"
                                     catchtap="previewDiaryImage"
                                     data-index="{{index}}"
-                                    data-img-url="{{v.resource_url}}">
-                                <image src="{{imgRootPath}}{{v.resource_url}}">
+                                    data-img-url="{{v.resourceUrl}}">
+                                <image src="{{v.resourceUrl}}">
                                 </image>
                               </view>
                             </block>
@@ -951,7 +951,7 @@
                              wx:key="{{audioItem.id}}">
                         <block wx:if="{{audioItem.type == '2'}}">
                           <punch-card-diary-audio-play
-                                  audio-name="{{item.publisher.nick_name}}的录音视频"
+                                  audio-name="{{item.publisher.nickName}}的录音视频"
                                   audio-file-info="{{audioItem}}">
                           </punch-card-diary-audio-play>
                         </block>
@@ -969,7 +969,7 @@
                       <view class="punch-card-address" bindtap="intoPunchCardAddress"
                             data-diary-index="{{index}}">
                         <image src="/images/button/address_light.png"></image>
-                        <text>{{item.punch_card_address}}</text>
+                        <text>{{item.punchCardAddress}}</text>
                       </view>
                     </block>
 
@@ -1027,13 +1027,13 @@
                             <!--只显示十个用户昵称-->
                             <block wx:if="{{i < 10}}">
                               <text bindtap="intoPersonalHomePage"
-                                    data-user-id="{{likeUserItem.admirer.id}}">{{likeUserItem.admirer.nick_name}}
+                                    data-user-id="{{likeUserItem.admirer.id}}">{{likeUserItem.admirer.nickName}}
                                 <block wx:if="{{i+1 !== item.tenLikeInfo.length}}">,</block>
                               </text>
                             </block>
                           </block>
-                          <block wx:if="{{item.like_user_num > 10}}">
-                            <text>共{{item.like_user_num}}人觉得很赞</text>
+                          <block wx:if="{{item.likeUserNum > 10}}">
+                            <text>共{{item.likeUserNum}}人觉得很赞</text>
                           </block>
                         </view>
                       </block>
@@ -1047,7 +1047,7 @@
                           <block wx:for="{{item.allCommentInfo}}" wx:for-item="i"
                                  wx:for-index="k" wx:key="{{i.id}}">
                             <view data-reviewer-id="{{i.reviewer.id}}"
-                                  data-reviewer-nick-name="{{i.reviewer.nick_name}}"
+                                  data-reviewer-nick-name="{{i.reviewer.nickName}}"
                                   data-diary-id="{{item.id}}"
                                   data-diary-index="{{index}}"
                                   data-pid="{{i.pid}}"
@@ -1056,7 +1056,7 @@
                                   catchtap="replyComment">
                               <!--评论者昵称-->
                               <text data-user-id="{{i.reviewer.id}}"
-                                    catchtap="intoPersonalHomePage">{{i.reviewer.nick_name}}</text>
+                                    catchtap="intoPersonalHomePage">{{i.reviewer.nickName}}</text>
                               <!--
                                   该评论所回复的用户昵称 一级评论不显示被评论者信息
                                   因为被评论者是日记发表者
@@ -1064,10 +1064,10 @@
                               <block wx:if="{{i.pid != 0}}">
                                 <text style="color: black"> @ </text>
                                 <text data-user-id="{{i.respondent.id}}"
-                                      catchtap="intoPersonalHomePage">{{i.respondent.nick_name}}</text>
+                                      catchtap="intoPersonalHomePage">{{i.respondent.nickName}}</text>
                               </block>
                               <!--评论内容-->
-                              <text style="color: black"> : {{i.text_comment}}</text>
+                              <text style="color: black"> : {{i.textComment}}</text>
                             </view>
                           </block>
                         </view>
@@ -1303,7 +1303,7 @@
                           bindtap="previewProjectIntrImage"
                           data-img-url="{{item.content}}">
                       <image mode="widthFix"
-                             src="{{imgRootPath}}{{item.content}}">
+                             src="{{item.content}}">
                       </image>
                     </view>
                   </block>

@@ -809,12 +809,12 @@ Page({
         } else {
             // 进行点赞
             wx.request({
-                url: app.globalData.urlRootPath + 'index/DiaryLike/like',
+                url: app.globalData.gateway + 'life-punch/api/diaryLike/like',
                 method: 'post',
                 data: {
-                    diary_id: diaryId,
-                    liked_user_id: that.data.recommendDiaryList[diaryIndex].publisher.id, // 被点赞者
-                    'admirer_id': that.data.userInfo.id
+                  diaryId: diaryId,
+                  likedUserId: that.data.recommendDiaryList[diaryIndex].publisher.id, // 被点赞者
+                  admirerId: that.data.userInfo.id
                 },
                 success: function (res) {
                     console.log(res);
@@ -823,18 +823,18 @@ Page({
                         case 200:
                             // 设置当前用户对当前这条日记已点赞 点赞总人数+1
                             that.data.recommendDiaryList[diaryIndex].haveLike = true;
-                            that.data.recommendDiaryList[diaryIndex].like_user_num =
-                                parseInt(that.data.recommendDiaryList[diaryIndex].like_user_num) + 1;
+                        that.data.recommendDiaryList[diaryIndex].likeUserNum =
+                              parseInt(that.data.recommendDiaryList[diaryIndex].likeUserNum) + 1;
 
                             // 点赞成功后本地保存点赞记录id
-                            that.data.recommendDiaryList[diaryIndex].likeRecordId = data.data.like_record_id;
+                            that.data.recommendDiaryList[diaryIndex].likeRecordId = data.data.id;
                             that.setData({
                                 recommendDiaryList: that.data.recommendDiaryList
                             });
                             break;
                         default:
                             wx.showToast({
-                                title: data.errMsg,
+                                title: data.msg,
                                 icon: 'none',
                                 duration: 2000
                             });
@@ -906,14 +906,14 @@ Page({
             return false;
         }
         wx.request({
-            url: app.globalData.urlRootPath + 'index/DiaryComment/addComment',
+          url: app.globalData.gateway + 'life-punch/api/punchCardDiary/comment',
             method: 'post',
             data: {
-                diary_id: that.data.diaryId,
-                pid: that.data.pid,
-                reviewer_id: app.globalData.userInfo.id, // 评论者id
-                text_comment: that.data.commentText,
-                respondent_id: that.data.respondentId // 被评论者id
+              diaryId: that.data.diaryId,
+              pid: that.data.pid,
+              reviewerId: app.globalData.userInfo.id, // 评论者id
+              textComment: that.data.commentText,
+              respondentId: that.data.respondentId // 被评论者id
             },
             success: function (res) {
                 console.log(res);
@@ -925,7 +925,7 @@ Page({
                     case 200:
                         // 设置评论数+1
                         let currDiary = that.data.recommendDiaryList[that.data.diaryIndex];
-                        currDiary.comment_num = parseInt(currDiary.comment_num) + 1;
+                        currDiary.commentNum = parseInt(currDiary.commentNum) + 1;
 
                         that.setData({
                             recommendDiaryList: that.data.recommendDiaryList
@@ -937,7 +937,7 @@ Page({
                         break;
                     default:
                         wx.showToast({
-                            title: respData.errMsg,
+                            title: respData.msg,
                             icon: 'none',
                             duration: 2000
                         });

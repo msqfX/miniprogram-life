@@ -186,8 +186,8 @@ Page({
             },20000);
 
             wx.request({
-               url: app.globalData.urlRootPath + 'index/User/checkUserIsAttend',
-               method: 'post',
+              url: app.globalData.gateway + 'life-punch/api/punchCardProject/checkUserIsAttend',
+               method: 'get',
                data: {
                    userId: app.globalData.userInfo.id,
                    projectId: that.data.projectId
@@ -229,10 +229,10 @@ Page({
             },20000);
 
             wx.request({
-                url: app.globalData.urlRootPath + 'index/PunchCardProject/getProjectInfoById',
-                method: 'post',
+              url: app.globalData.gateway + 'life-punch/api/punchCardProject/' + that.data.projectId,
+                method: 'get',
                 data: {
-                    projectId: that.data.projectId,
+                    //projectId: that.data.projectId,
                     userId: app.globalData.userInfo.id
                 },
                 success:function (res) {
@@ -245,18 +245,18 @@ Page({
                                 === parseInt(app.globalData.userInfo.id);
 
                             that.setData({
-                                'projectInfo.project_name': data.project_name,
-                                'projectInfo.cover_img_url' : data.cover_img_url,
+                              'projectInfo.projectName': data.projectName,
+                              'projectInfo.coverImgUrl': data.coverImgUrl,
                                 'projectInfo.IntrInfoList' : data.projectIntrInfo,
-                                'projectInfo.attendUserNum' : parseInt(data.attend_user_num),
-                                'projectInfo.allPunchCardNum' : parseInt(data.all_punch_card_num),
+                              'projectInfo.attendUserNum': parseInt(data.attendUserNum),
+                              'projectInfo.allPunchCardNum': parseInt(data.allPunchCardNum),
 
-                                'creatorInfo.creator_id' : data.creator_id,
-                                'creatorInfo.nick_name' : data.creator_nick_name,
-                                'creatorInfo.sex' : parseInt(data.creator_sex),
-                                'creatorInfo.avatar_url' : data.creator_avatar_url,
-                                'creatorInfo.introduce' : data.creator_introduce,
-                                'creatorInfo.weChat' : data.weixin_num,
+                              'creatorInfo.creatorId': data.creatorId,
+                              'creatorInfo.creatorNickName': data.creatorNickName,
+                              'creatorInfo.creatorGender': parseInt(data.creatorGender),
+                              'creatorInfo.creatorAvatarUrl': data.creatorAvatarUrl,
+                                'creatorInfo.creatorIntroduce': data.creatorIntroduce,
+                              'creatorInfo.weixinNum': data.weixinNum,
 
                                 attendUserInfo: data.attendUserList,
                                 isCreator: isCreatorFlag ? 1:0 // 1为创建者
@@ -534,7 +534,7 @@ Page({
                 '/project_cover_img/sys_recommend/20181001/520d70c0a777ec055df58c3fed943b37.png';
         } else {
             // 存在图片资源 设置第一张图片为分享图片
-            imgUrl = app.globalData.imgBaseSeverUrl + currDiary.diaryResource[0].resource_url;
+            imgUrl = app.globalData.imgBaseSeverUrl + currDiary.diaryResource[0].resourceUrl;
         }
         console.log(imgUrl);
 
@@ -772,9 +772,9 @@ Page({
         console.log(pageNo);
         let that = this;
         wx.request({
-            url: app.globalData.urlRootPath
-                + 'index/punchCardDiary/getDiaryListByProjectId',
-            method: 'post',
+            url: app.globalData.gateway
+              + 'life-punch/api/punchCardDiary/getDiaryListByProjectId',
+            method: 'get',
             data: {
                 isCreator: that.data.isCreator,
                 pageNo: pageNo,
@@ -1007,7 +1007,7 @@ Page({
             if (parseInt(diaryResourceList[i].type) === 1)
             // 加上图片访问的baseUrl  注意一定要改为http 不然预览网络图片一直黑屏
                 ImgResourceList[index++] =
-                    that.data.imgRootPath + diaryResourceList[i].resource_url;
+                    that.data.imgRootPath + diaryResourceList[i].resourceUrl;
         }
 
         console.log(e.currentTarget.dataset.index);
@@ -1058,8 +1058,8 @@ Page({
                 }
             }
             wx.request({
-                url: app.globalData.urlRootPath + 'index/DiaryLike/cancelLike',
-                method: 'post',
+                url: app.globalData.gateway + 'life-punch/api/diaryLike/cancelLike',
+                method: 'delete',
                 data: {
                     likeRecordId: likeRecordId,
                     diaryId: diaryId,
@@ -1071,7 +1071,7 @@ Page({
                         case 200:
                             // 设置当前用户对当前这条日记未点赞 点赞总人数-1
                             that.data.punchCardDiaryList[diaryIndex].haveLike = false;
-                            that.data.punchCardDiaryList[diaryIndex].like_user_num -= 1;
+                            that.data.punchCardDiaryList[diaryIndex].likeUserNum -= 1;
 
                             // 清除当前日记的该用户的点赞信息
                             tenLikeInfo.splice(i,1);
@@ -1103,12 +1103,12 @@ Page({
         } else {
             // 进行点赞
             wx.request({
-                url: app.globalData.urlRootPath + 'index/DiaryLike/like',
+                url: app.globalData.gateway + 'life-punch/api/diaryLike/like',
                 method: 'post',
                 data: {
-                    diary_id: diaryId,
-                    liked_user_id: that.data.punchCardDiaryList[diaryIndex].publisher.id, // 被点赞者
-                    'admirer_id': that.data.userInfo.id
+                  diaryId: diaryId,
+                  likedUserId: that.data.punchCardDiaryList[diaryIndex].publisher.id, // 被点赞者
+                  admirerId: that.data.userInfo.id
                 },
                 success: function (res) {
                     console.log(res);
@@ -1117,15 +1117,16 @@ Page({
                         case 200:
                             // 设置当前用户对当前这条日记已点赞 点赞总人数+1
                             that.data.punchCardDiaryList[diaryIndex].haveLike = true;
-                            that.data.punchCardDiaryList[diaryIndex].like_user_num =
-                                parseInt(that.data.punchCardDiaryList[diaryIndex].like_user_num) + 1;
+                        that.data.punchCardDiaryList[diaryIndex].likeUserNum =
+                              parseInt(that.data.punchCardDiaryList[diaryIndex].likeUserNum) + 1;
 
                             // 将该条点赞记录添加至最点赞记录首部
                             let newLikeInfo =
                                 [{
-                                    id: data.data.like_record_id,
+                                    id: data.data.id,
                                     admirer:{
-                                        id: that.data.userInfo.id, nick_name: that.data.userInfo.nick_name
+                                        id: that.data.userInfo.id,
+                                        nickName: that.data.userInfo.nickName
                                     }
                                 }];
                             for (let i = 0; i < tenLikeInfo.length; i++) {
@@ -1141,7 +1142,7 @@ Page({
                             break;
                         default:
                             wx.showToast({
-                                title: data.errMsg,
+                                title: data.msg,
                                 icon: 'none',
                                 duration: 2000
                             });
@@ -1447,11 +1448,11 @@ Page({
 
         console.log(that.data.projectId);
         wx.request({
-            url: app.globalData.urlRootPath + '/index/PunchCardProject/joinInProject',
-            method: 'post',
+          url: app.globalData.gateway + 'life-punch/api/punchCardProject/joinProject',
+            method: 'put',
             data: {
-                user_id: that.data.userInfo.id,
-                project_id: that.data.projectId
+                userId: that.data.userInfo.id,
+                projectId: that.data.projectId
             },
             success: function (res) {
                 console.log(res);
@@ -1468,7 +1469,7 @@ Page({
                         break;
                     default:
                         wx.showToast({
-                            title: respData.errMsg,
+                            title: respData.msg,
                             icon: 'none',
                             duration: 2000
                         });

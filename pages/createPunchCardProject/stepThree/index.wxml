@@ -47,7 +47,7 @@
                 </image>
             </block>
             <block wx:else>
-                <image src="{{imgRootPath}}{{projectCoverImgUrl}}" class="cover-img">
+                <image src="{{projectCoverImgUrl}}" class="cover-img">
                 </image>
             </block>
 
@@ -138,7 +138,7 @@
                         <block wx:if="{{item.type === '2'}}">
                             <view class="project-intr-image-content">
                                 <image mode="widthFix"
-                                       src="{{imgRootPath}}{{item.content}}">
+                                       src="{{item.content}}">
                                 </image>
                             </view>
                         </block>

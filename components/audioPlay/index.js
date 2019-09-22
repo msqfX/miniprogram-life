@@ -41,7 +41,7 @@ Component({
     let innerAudioContext = that.getInnerAudioContext();
 
     // 设置音频文件播放源
-    innerAudioContext.src = that.data.resRootPath + that.data.audioFileInfo.resource_url;
+    innerAudioContext.src = that.data.resRootPath + that.data.audioFileInfo.resourceUrl;
 
     //音频进入可以播放状态，但不保证后面可以流畅播放
     // innerAudioContext.onCanplay(() => {
@@ -79,7 +79,7 @@ Component({
       let innerAudioContext = that.getInnerAudioContext();
 
       // 设置音频文件播放源
-      innerAudioContext.src = that.data.resRootPath + that.data.audioFileInfo.resource_url;
+      innerAudioContext.src = that.data.audioFileInfo.resourceUrl;
 
 
       innerAudioContext.play();

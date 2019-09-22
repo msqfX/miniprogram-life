@@ -249,9 +249,9 @@ Page({
     getDiaryDetailInfo: function (diaryId) {
         let that = this;
         wx.request({
-            url: app.globalData.urlRootPath
-                + 'index/PunchCardDiary/getDiaryDetailInfoById',
-            method: 'post',
+            url: app.globalData.gateway
+              + 'life-punch/api/punchCardDiary/getDiaryDetailInfoById',
+            method: 'get',
             data: {
                 diaryId: diaryId,
                 visitorId: app.globalData.userInfo.id // 当前访问者用户id
@@ -272,7 +272,7 @@ Page({
                     case 400:
                         // 日记不存在
                         wx.showToast({
-                            title: respData.errMsg,
+                            title: respData.msg,
                             icon: 'none',
                             duration: 1000,
                         });
@@ -286,7 +286,7 @@ Page({
                         break;
                     default:
                         wx.showToast({
-                            title: respData.errMsg,
+                            title: respData.msg,
                             icon: 'none'
                         });
                         break;
@@ -479,7 +479,7 @@ Page({
                 }
             }
             wx.request({
-                url: app.globalData.urlRootPath + 'index/DiaryLike/cancelLike',
+              url: app.globalData.gateway + 'life-punch/api/diaryLike/cancelLike',
                 method: 'post',
                 data: {
                     likeRecordId: likeRecordId,
@@ -493,7 +493,7 @@ Page({
                             // 取消成功后则对页面的本地点赞数据的更新
                             // 设置当前用户对当前这条日记未点赞 点赞总人数-1
                             that.data.diaryInfo.haveLike = false;
-                            that.data.diaryInfo.like_user_num = that.data.diaryInfo.like_user_num - 1;
+                        that.data.diaryInfo.likeUserNum = that.data.diaryInfo.likeUserNum - 1;
 
                             // 清除当前日记的该用户的点赞信息
                             allLikeInfo.splice(i,1);
@@ -508,7 +508,7 @@ Page({
                             break;
                         default:
                             wx.showToast({
-                                title: data.errMsg,
+                                title: data.msg,
                                 icon: 'none',
                                 duration: 2000
                             });
@@ -630,14 +630,14 @@ Page({
             return false;
         }
         wx.request({
-            url: app.globalData.urlRootPath + 'index/DiaryComment/addComment',
+          url: app.globalData.gateway + 'life-punch/api/punchCardDiary/comment',
             method: 'post',
             data: {
-                diary_id: that.data.diaryId,
+              diaryId: that.data.diaryId,
                 pid: that.data.pid,
-                reviewer_id: app.globalData.userInfo.id, // 评论者id
-                text_comment: that.data.commentText,
-                respondent_id: that.data.respondentId // 被评论者id
+              reviewerId: app.globalData.userInfo.id, // 评论者id
+              textComment: that.data.commentText,
+              respondentId: that.data.respondentId // 被评论者id
             },
             success: function (res) {
                 console.log(res);
@@ -649,7 +649,7 @@ Page({
                     case 200:
                         // 设置评论数+1
                         let diaryInfo = that.data.diaryInfo;
-                        diaryInfo.comment_num = parseInt(diaryInfo.comment_num) + 1;
+                    diaryInfo.commentNum = parseInt(diaryInfo.commentNum) + 1;
 
                         // 将新评论添加至本地数据中
                         let newCommentInfo = [respData.data];
@@ -669,7 +669,7 @@ Page({
                         break;
                     default:
                         wx.showToast({
-                            title: respData.errMsg,
+                            title: respData.msg,
                             icon: 'none',
                             duration: 2000
                         });

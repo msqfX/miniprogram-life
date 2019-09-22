@@ -299,8 +299,8 @@
                                         <image src="/images/button/like_btn_2.png"></image>
                                     </block>
 
-                                    <block wx:if="{{item.like_user_num > 0}}">
-                                        <text>{{item.like_user_num}}</text>
+                                    <block wx:if="{{item.likeUserNum > 0}}">
+                                        <text>{{item.likeUserNum}}</text>
                                     </block>
                                     <block wx:else>
                                         <text>赞</text>
@@ -308,11 +308,11 @@
                                 </view>
 
                                 <!-- 评论 对日记发表者评论默认为一级评论-->
-                                <block wx:if="{{item.comment_num > 0}}">
+                                <block wx:if="{{item.commentNum > 0}}">
                                     <view class="diary-comment-btn" catchtap="intoDiaryDetailPage"
                                           data-diary-id="{{item.id}}">
                                         <image src="/images/button/comment_btn.png"></image>
-                                        <text>{{item.comment_num}}</text>
+                                        <text>{{item.commentNum}}</text>
                                     </view>
                                 </block>
                                 <block wx:else>

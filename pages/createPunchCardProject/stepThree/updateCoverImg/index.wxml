@@ -15,7 +15,7 @@
             <block wx:for="{{systemRecommendCoverImgList}}">
                 <view class="cover-img-item" data-url="{{item.img_url}}"
                       data-id="{{item.id}}" bindtap="useSystemRecommendCoverImg">
-                    <image src="{{imgRootPath}}{{item.img_url}}"></image>
+                    <image src="{{item.img_url}}"></image>
                 </view>
             </block>
         </block>

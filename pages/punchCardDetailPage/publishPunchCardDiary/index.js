@@ -528,26 +528,26 @@ Page({
     let addPunchCardDiary;
     addPunchCardDiary = new Promise(function (resolve) {
       wx.request({
-        url: app.globalData.urlRootPath + 'index/PunchCardDiary/addPunchCardDiary',
+        url: app.globalData.gateway + 'life-punch/api/punchCardDiary/',
         method: 'post',
         data: {
-          project_id: that.data.projectId,
-          user_id: app.globalData.userInfo.id,
-          text_content: that.data.textContent,     // 打卡日记文件内容
-          punch_card_address: that.data.address,   // 打卡日记的地理位置信息
-          address_longitude: that.data.longitude,  // 地理位置对应的经度
-          address_latitude: that.data.latitude, // 地理位置对应的纬度
-          visible_type: parseInt(that.data.index),      // 打卡日记可见类型
-          is_repair_diary: 0,                           // 0--非补打卡日记
+          projectId: that.data.projectId,
+          userId: app.globalData.userInfo.id,
+          textContent: that.data.textContent,     // 打卡日记文件内容
+          punchCardAddress: that.data.address,   // 打卡日记的地理位置信息
+          addressLongitude: that.data.longitude,  // 地理位置对应的经度
+          addressLatitude: that.data.latitude, // 地理位置对应的纬度
+          visibleType: parseInt(that.data.index),      // 打卡日记可见类型
+          isRepairDiary: 0,                           // 0--非补打卡日记
         },
         success: function (res) {
           console.log(res);
           if (res.statusCode === 200) {
-            that.data.diaryId = parseInt(res.data.data.diaryId);
+            that.data.diaryId = parseInt(res.data.data.id);
             resolve(true);
           } else {
             wx.showToast({
-              title: res.data.errMsg,
+              title: res.data.msg,
               icon: 'none',
               duration: 2000
             });
@@ -662,10 +662,10 @@ Page({
     let uploadTask;
     uploadTask = new Promise(function (resolve) {
       wx.uploadFile({
-        url: app.globalData.urlRootPath
-            + 'index/PunchCardDiary/uploadDiaryResourceFile',
+        url: app.globalData.gateway
+          + 'life-punch/api/punchCardDiary/file/upload',
         filePath: currResFileInfo.filePath,
-        name: 'diaryResourceFile',
+        name: 'file',
         formData: {
           projectId: that.data.projectId,
           diaryId: that.data.diaryId,
@@ -677,7 +677,7 @@ Page({
             resolve(true);
           } else {
             wx.showToast({
-              title: res.data.errMsg,
+              title: res.data.msg,
               icon: 'none',
               duration: 2000
             });

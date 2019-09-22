@@ -103,7 +103,7 @@
                         <!--预览已经存在的图片简介-->
                         <block wx:if="{{item.id}}">
                             <image mode="widthFix"
-                                   src="{{imgRootPath}}{{item.content}}"></image>
+                                   src="{{item.content}}"></image>
                         </block>
                         <block wx:else>
                             <!--新添加的本地图片预览 尚未上传至服务器-->

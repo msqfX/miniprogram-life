@@ -37,9 +37,9 @@
                 data-user-id="{{diaryInfo.publisher.id}}"
                 bindtap="_intoPersonalHomePage">
             <!--使用默认的小程序内置的默认头像-->
-            <block wx:if="{{diaryInfo.publisher.avatar_url == 'default_avatar'}}">
+            <block wx:if="{{diaryInfo.publisher.avatarUrl == 'default_avatar'}}">
               <image src="/images/default/userAvatar.png">
-                <block wx:if="{{diaryInfo.publisher.sex == 1}}">
+                <block wx:if="{{diaryInfo.publisher.gender == 1}}">
                   <view class="publisher-sex-male"
                         data-user-id="{{diaryInfo.publisher.id}}"
                         bindtap="_intoPersonalHomePage">
@@ -47,7 +47,7 @@
                     </image>
                   </view>
                 </block>
-                <block wx:if="{{diaryInfo.publisher.sex == 2}}">
+                <block wx:if="{{diaryInfo.publisher.gender == 2}}">
                   <view class="publisher-sex-female"
                         data-user-id="{{diaryInfo.publisher.id}}"
                         bindtap="_intoPersonalHomePage">
@@ -58,8 +58,8 @@
               </image>
             </block>
             <block wx:else>
-              <image src='{{diaryInfo.publisher.avatar_url}}'>
-                <block wx:if="{{diaryInfo.publisher.sex == 1}}">
+              <image src='{{diaryInfo.publisher.avatarUrl}}'>
+                <block wx:if="{{diaryInfo.publisher.gender == 1}}">
                   <view class="publisher-sex-male"
                         data-user-id="{{diaryInfo.publisher.id}}"
                         bindtap="_intoPersonalHomePage">
@@ -67,7 +67,7 @@
                     </image>
                   </view>
                 </block>
-                <block wx:if="{{diaryInfo.publisher.sex == 2}}">
+                <block wx:if="{{diaryInfo.publisher.gender == 2}}">
                   <view class="publisher-sex-female"
                         data-user-id="{{diaryInfo.publisher.id}}"
                         bindtap="_intoPersonalHomePage">
@@ -85,12 +85,12 @@
             <view class="publisher-nick-name"
                   data-user-id="{{diaryInfo.publisher.id}}"
                   bindtap="_intoPersonalHomePage">
-              {{diaryInfo.publisher.nick_name}}
+              {{diaryInfo.publisher.nickName}}
             </view>
 
             <!--打卡时间 & 坚持天数即日记在圈子的总打卡天数-->
             <view class="punch-time">
-              <text>{{diaryInfo.punch_card_time}} · 已坚持{{diaryInfo.curr_diary_punch_card_day_num}}天</text>
+              <text>{{diaryInfo.punchCardTime}} · 已坚持{{diaryInfo.currDiaryPunchCardDayNum}}天</text>
 
               <!-- 日记隐私类型 -->
               <block wx:if="{{diaryInfo.visible_type==1}}">
@@ -121,7 +121,7 @@
         <view class="diary-detail-content">
           <!-- 打卡文字内容 -->
           <view class="diary-text">
-            <text>{{diaryInfo.text_content}}</text>
+            <text>{{diaryInfo.textContent}}</text>
           </view>
 
           <!-- 打卡图片 & 视频 & 音频，一张图片直接显示，二张以上九宫格格式展示 -->
@@ -132,8 +132,8 @@
             <block wx:if="{{(diaryInfo.diaryResource.length == 1 && diaryInfo.diaryResource[0].type == '1' ) || (diaryInfo.diaryResource.length == 2 && diaryInfo.diaryResource[1].type == '2')}}">
               <!--一张图片则根据图片大小显示-->
               <view class="one-image" catchtap="_previewDiaryImage"
-                    data-img-url="{{diaryInfo.diaryResource[0].resource_url}}">
-                <image src="{{imgRootPath}}{{diaryInfo.diaryResource[0].resource_url}}" mode="widthFix">
+                    data-img-url="{{diaryInfo.diaryResource[0].resourceUrl}}">
+                <image src="{{diaryInfo.diaryResource[0].resourceUrl}}" mode="widthFix">
                 </image>
               </view>
             </block>
@@ -144,8 +144,8 @@
                   <block wx:if="{{v.type == '1'}}">
                     <view class="diary-img-item" style="width:{{diaryImgWidth}}px;height: {{diaryImgWidth}}px"
                           catchtap="_previewDiaryImage"
-                          data-img-url="{{v.resource_url}}">
-                      <image src="{{imgRootPath}}{{v.resource_url}}">
+                          data-img-url="{{v.resourceUrl}}">
+                      <image src="{{v.resourceUrl}}">
                       </image>
                     </view>
                   </block>
@@ -159,7 +159,7 @@
                    wx:key="{{audioItem.id}}">
               <block wx:if="{{audioItem.type == '2'}}">
                 <punch-card-diary-audio-play audio-file-info="{{audioItem}}"
-                                             audio-name="{{diaryInfo.publisher.nick_name}}的录音视频">
+                                             audio-name="{{diaryInfo.publisher.nickName}}的录音视频">
                 </punch-card-diary-audio-play>
               </block>
             </block>
@@ -167,7 +167,7 @@
           </view>
 
           <!-- 打卡地点 -->
-          <block wx:if="{{diaryInfo.punch_card_address == ''}}">
+          <block wx:if="{{diaryInfo.punchCardAddress == ''}}">
             <view class="not-punch-card-address">
               <image src="/images/button/diaryPunchAddress.png"></image>
               <text>银河系某个未知的神秘星球</text>
@@ -176,26 +176,26 @@
           <block wx:else>
             <view class="punch-card-address" bindtap="_intoPunchCardAddress">
               <image src="/images/button/address_light.png"></image>
-              <text>{{diaryInfo.punch_card_address}}</text>
+              <text>{{diaryInfo.punchCardAddress}}</text>
             </view>
           </block>
 
           <!--头部打卡圈子相关信息-->
           <view class="punch-card-project-info" catchtap="_intoProjectDetailPage">
             <view class="project-cover-img-info">
-              <block wx:if="{{diaryInfo.projectInfo.cover_img_url == 'default_cover_img'}}">
+              <block wx:if="{{diaryInfo.projectInfo.coverImgUrl == 'default_cover_img'}}">
                 <image src="/images/default/project_cover_img.png"></image>
               </block>
               <block wx:else>
-                <image src="{{imgRootPath}}{{diaryInfo.projectInfo.cover_img_url}}"></image>
+                <image src="{{diaryInfo.projectInfo.coverImgUrl}}"></image>
               </block>
             </view>
 
             <view class="project-intr-info">
-              <view class="project-name-info">{{diaryInfo.projectInfo.project_name}}</view>
+              <view class="project-name-info">{{diaryInfo.projectInfo.projectName}}</view>
               <view class="project-punch-card-info">
-                <view style="margin-right: 8px">{{diaryInfo.projectInfo.attend_user_num}}人参加</view>
-                <view>{{diaryInfo.projectInfo.all_punch_card_num}}篇日记</view>
+                <view style="margin-right: 8px">{{diaryInfo.projectInfo.attendUserNum}}人参加</view>
+                <view>{{diaryInfo.projectInfo.allPunchCardNum}}篇日记</view>
               </view>
             </view>
 
@@ -205,11 +205,11 @@
       </view>
 
       <view class="diary-interaction-info">
-        <block wx:if="{{diaryInfo.like_user_num > 0 || diaryInfo.comment_num > 0}}">
+        <block wx:if="{{diaryInfo.likeUserNum > 0 || diaryInfo.commentNum > 0}}">
           <view class="separator-height-8px"></view>
         </block>
         <!--显示点赞信息-->
-        <block wx:if="{{diaryInfo.like_user_num > 0}}">
+        <block wx:if="{{diaryInfo.likeUserNum > 0}}">
           <view class="diary-like-show">
             <view class="diary-like-icon">
               <image src="/images/button/like_btn_2.png"></image>
@@ -221,11 +221,11 @@
                 <view class="diary-like-user-list-item"
                       data-user-id="{{likeItem.admirer.id}}"
                       catchtap="_intoPersonalHomePage">
-                  <block wx:if="{{likeItem.admirer.avatar_url == 'default_avatar'}}">
+                  <block wx:if="{{likeItem.admirer.avatarUrl == 'default_avatar'}}">
                     <image src="/images/default/userAvatar.png"></image>
                   </block>
                   <block wx:else>
-                    <image src="{{likeItem.admirer.avatar_url}}"></image>
+                    <image src="{{likeItem.admirer.avatarUrl}}"></image>
                   </block>
                 </view>
               </block>
@@ -234,8 +234,8 @@
         </block>
 
         <!--显示评论信息-->
-        <block wx:if="{{diaryInfo.comment_num > 0}}">
-          <block wx:if="{{diaryInfo.like_user_num > 0}}">
+        <block wx:if="{{diaryInfo.commentNum > 0}}">
+          <block wx:if="{{diaryInfo.likeUserNum > 0}}">
             <!--分割点赞view-->
             <view class="separator-like-comment"></view>
           </block>
@@ -258,9 +258,9 @@
                     <!--一级评论用户头像-->
                     <view class="comment-user-avatar-info">
                       <!--使用默认的小程序内置的默认头像-->
-                      <block wx:if="{{cItem.reviewer.avatar_url == 'default_avatar'}}">
+                      <block wx:if="{{cItem.reviewer.avatarUrl == 'default_avatar'}}">
                         <image src="/images/default/userAvatar.png">
-                          <block wx:if="{{cItem.reviewer.sex == 1}}">
+                          <block wx:if="{{cItem.reviewer.gender == 1}}">
                             <view class="comment-publisher-sex-male"
                                   data-user-id="{{cItem.reviewer.id}}"
                                   bindtap="_intoPersonalHomePage">
@@ -268,7 +268,7 @@
                               </image>
                             </view>
                           </block>
-                          <block wx:if="{{cItem.reviewer.sex == 2}}">
+                          <block wx:if="{{cItem.reviewer.gender == 2}}">
                             <view class="comment-publisher-sex-female"
                                   data-user-id="{{cItem.reviewer.id}}"
                                   bindtap="_intoPersonalHomePage">
@@ -279,8 +279,8 @@
                         </image>
                       </block>
                       <block wx:else>
-                        <image src='{{cItem.reviewer.avatar_url}}'>
-                          <block wx:if="{{cItem.reviewer.sex == 1}}">
+                        <image src='{{cItem.reviewer.avatarUrl}}'>
+                          <block wx:if="{{cItem.reviewer.gender == 1}}">
                             <view class="comment-publisher-sex-male"
                                   data-user-id="{{cItem.reviewer.id}}"
                                   bindtap="_intoPersonalHomePage">
@@ -288,7 +288,7 @@
                               </image>
                             </view>
                           </block>
-                          <block wx:if="{{cItem.reviewer.sex == 2}}">
+                          <block wx:if="{{cItem.reviewer.gender == 2}}">
                             <view class="comment-publisher-sex-female"
                                   data-user-id="{{cItem.reviewer.id}}"
                                   bindtap="_intoPersonalHomePage">
@@ -301,9 +301,9 @@
                     </view>
                     <view class="comment-user-info-right">
                       <!--一级评论用户昵称信息-->
-                      <view class="comment-user-name">{{cItem.reviewer.nick_name}}</view>
+                      <view class="comment-user-name">{{cItem.reviewer.nickName}}</view>
                       <!--一级评论发布时间-->
-                      <view class="comment-time">{{cItem.create_time}}</view>
+                      <view class="comment-time">{{cItem.createTime}}</view>
                     </view>
                   </view>
                   <!--一级评论评论内容-->
@@ -312,7 +312,7 @@
                     <view class="parent-comment-content"
                           catchtap="deleteComment"
                           data-comment-id="{{cItem.id}}"
-                          data-diary-id="{{diaryInfo.id}}">{{cItem.text_comment}}
+                          data-diary-id="{{diaryInfo.id}}">{{cItem.textComment}}
                     </view>
                   </block>
                   <block wx:else>
@@ -320,7 +320,7 @@
                     <view class="parent-comment-content"
                           catchtap="showCommentBox" data-pid="{{cItem.id}}"
                           data-respondent-id="{{diaryInfo.publisher.id}}"
-                          data-diary-id="{{diaryInfo.id}}">{{cItem.text_comment}}
+                          data-diary-id="{{diaryInfo.id}}">{{cItem.textComment}}
                     </view>
                   </block>
 
@@ -335,17 +335,17 @@
                         <view class="child-comment-list-item">
                           <text class="reviewer-nick-name"
                                 data-user-id="{{childCItem.reviewer.id}}"
-                                catchtap="_intoPersonalHomePage">{{childCItem.reviewer.nick_name}}
+                                catchtap="_intoPersonalHomePage">{{childCItem.reviewer.nickName}}
                           </text>
                           <text>回复</text>
                           <text class="respondent-nick-name"
                                 data-user-id="{{childCItem.respondent.id}}"
-                                catchtap="_intoPersonalHomePage">{{childCItem.respondent.nick_name}}</text>
+                                catchtap="_intoPersonalHomePage">{{childCItem.respondent.nickName}}</text>
                           <block wx:if="{{childCItem.reviewer.id == userInfo.id}}">
                             <!--如果是自己的评论 绑定点击删除评论事件-->
                             <text catchtap="deleteComment"
                                   data-comment-id="{{childCItem.id}}"
-                                  data-diary-id="{{diaryInfo.id}}"> : {{childCItem.text_comment}}</text>
+                                  data-diary-id="{{diaryInfo.id}}"> : {{childCItem.textComment}}</text>
                           </block>
                           <block wx:else>
                             <!--如果不是是自己的评论 绑定点击显示评论框事件
@@ -353,7 +353,7 @@
                             被评论者是该条评论的发布者-->
                             <text catchtap="showCommentBox" data-pid="{{childCItem.pid}}"
                                   data-respondent-id="{{childCItem.reviewer.id}}"
-                                  data-diary-id="{{diaryInfo.id}}"> : {{childCItem.text_comment}}</text>
+                                  data-diary-id="{{diaryInfo.id}}"> : {{childCItem.textComment}}</text>
                           </block>
                         </view>
                       </block>

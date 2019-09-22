@@ -51,10 +51,10 @@
                      scroll-left="{{true}}">
             <block wx:for="{{childrenLabelList}}">
                 <view class="children-label-item" data-index="{{index}}"
-                      data-label-name="{{item.label_name}}"
+                      data-label-name="{{item.labelName}}"
                       bindtap="selectTap"
                       style="color: {{item.selectedStatus === true ? '#F0B27A':'black'}}">
-                    {{item.label_name}}
+                    {{item.labelName}}
                 </view>
             </block>
             <!--标识出当前选择的类型选项卡 默认为全部（即父类标签类型以及父类下的子类类型）-->

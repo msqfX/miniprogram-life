@@ -109,7 +109,7 @@
         <!--一张图片则根据图片大小显示-->
         <view class="one-image" catchtap="_previewDiaryImage"
               data-img-url="{{diaryItemData.diaryResource[0].resourceUrl}}">
-          <image src="{{imgRootPath}}{{diaryItemData.diaryResource[0].resourceUrl}}" mode="widthFix">
+          <image src="{{diaryItemData.diaryResource[0].resourceUrl}}" mode="widthFix">
           </image>
         </view>
       </block>
@@ -121,7 +121,7 @@
               <view class="diary-img-item" style="width:{{diaryImgWidth}}px;height: {{diaryImgWidth}}px"
                     catchtap="_previewDiaryImage"
                     data-img-url="{{v.resourceUrl}}">
-                <image src="{{imgRootPath}}{{v.resourceUrl}}">
+                <image src="{{v.resourceUrl}}">
                 </image>
               </view>
             </block>
@@ -164,7 +164,7 @@
           </image>
         </block>
         <block wx:else>
-          <image src="{{imgRootPath}}{{diaryItemData.punchCardProject.coverImgUrl}}">
+          <image src="{{diaryItemData.punchCardProject.coverImgUrl}}">
           </image>
         </block>
       </view>
