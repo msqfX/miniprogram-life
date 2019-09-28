@@ -18,6 +18,9 @@ Component({
     },
     audioName: {
       type: String
+    },
+    audioPlayStatusFlag: {
+      type: String
     }
   },
 
@@ -58,6 +61,19 @@ Component({
     console.log('audioPlayComponent attached');
   },
 
+  observers: {
+    'audioPlayStatusFlag': function (audioPlayStatusFlag) {
+      console.log('音频组件--'+ this.data.audioFileInfo.id +'播放状态'+ audioPlayStatusFlag);
+      if (audioPlayStatusFlag === 'play') {
+        this.startAudioPlayNoNotify()
+      }
+
+      if (audioPlayStatusFlag === 'pause') {
+        this.pauseAudioPlayNoNotify()
+      }
+    }
+  },
+
   /**
    * 组件的方法列表
    */
@@ -80,7 +96,6 @@ Component({
 
       // 设置音频文件播放源
       innerAudioContext.src = that.data.audioFileInfo.resourceUrl;
-
 
       innerAudioContext.play();
 
@@ -112,13 +127,13 @@ Component({
         that.setData({
           audioPlayStatus: 'pause',
         });
+
+        console.log('音频暂停');
       });
 
       that.setData({
         audioPlayStatus: 'play'
       });
-
-      this.triggerEvent('test',{audioPlayStatus: 'play'});
     },
 
     // 暂停播放录制好的音频
@@ -135,7 +150,26 @@ Component({
         audioPlayStatus: 'pause'
       });
 
-      this.triggerEvent('test',{audioPlayStatus: 'pause'});
+      console.log('音频暂停');
+      // 音频组件播放状态发生改变，通知父级组件或者使用该组件的页面
+      let eventDetail = {
+        audioId: that.data.audioFileInfo.id,
+        audioPlayStatus: 'pause'
+      };
+      that.triggerEvent('audioStatusChangeNotice', eventDetail);
+    },
+    pauseAudioPlayNoNotify: function () {
+      let that = this;
+      let innerAudioContext = that.getInnerAudioContext();
+      innerAudioContext.pause();
+      innerAudioContext.onPause(function () {
+        // 取消监听音频播放进度更新事件
+        innerAudioContext.offTimeUpdate();
+      });
+
+      that.setData({
+        audioPlayStatus: 'pause'
+      });
     },
   }
 });

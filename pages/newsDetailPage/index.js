@@ -105,11 +105,11 @@ Page({
     getMyLikedList: function () {
         let that = this;
         wx.request({
-            url: app.globalData.urlRootPath
-                + 'index/DiaryLike/getMyLikedList',
-            method: 'post',
+            url: app.globalData.gateway
+                + 'life-user/api/news/getMyLikedList',
+            method: 'get',
             data: {
-                user_id: that.data.userInfo.id,
+                userId: that.data.userInfo.id,
             },
             success: function (res) {
                 let respData = res.data;
@@ -131,7 +131,7 @@ Page({
                         break;
                     default:
                         wx.showToast({
-                            title: respData.errMsg,
+                            title: respData.msg,
                             icon: 'none'
                         });
                         setTimeout(function () {
@@ -157,11 +157,11 @@ Page({
     getMyCommentedList: function () {
     let that = this;
     wx.request({
-        url: app.globalData.urlRootPath
-            + 'index/DiaryComment/getMyCommentedList',
-        method: 'post',
+        url: app.globalData.gateway
+          + 'life-user/api/news/getMyCommentedList',
+        method: 'get',
         data: {
-            user_id: that.data.userInfo.id,
+            userId: that.data.userInfo.id,
         },
         success: function (res) {
             let respData = res.data;
@@ -183,7 +183,7 @@ Page({
                     break;
                 default:
                     wx.showToast({
-                        title: respData.errMsg,
+                        title: respData.msg,
                         icon: 'none'
                     });
                     setTimeout(function () {

@@ -18,23 +18,23 @@
             <!-- 显示日记被点赞的记录列表-->
             <block wx:for="{{myLikedList}}">
                 <view class="liked-news-list-item" bindtap="intoDiaryDetailPage"
-                      data-diary-id="{{item.diary_id}}">
+                      data-diary-id="{{item.diaryId}}">
                     <view class="admirer-avatar"
                           catchtap="intoPersonalHomePage"
                           data-user-id="{{item.admirer.id}}">
-                        <block wx:if="{{item.admirer.avatar_url == 'default_avatar'}}">
+                        <block wx:if="{{item.admirer.avatarUrl == 'default_avatar'}}">
                             <image src="/images/default/userAvatar.png"></image>
                         </block>
                         <block wx:else>
-                            <image src='{{item.admirer.avatar_url}}'></image>
+                            <image src='{{item.admirer.avatarUrl}}'></image>
                         </block>
                     </view>
                     <view class="like-info-area" style="width: {{windowWidth - 70}}px;">
                         <view class="like-info">
                             <view class="admirer-nikc-name"
                                   catchtap="intoPersonalHomePage"
-                                  data-user-id="{{item.admirer.id}}">{{item.admirer.nick_name}} 赞了你的日记</view>
-                            <view class="like-create_time">{{item.create_time}}</view>
+                                  data-user-id="{{item.admirer.id}}">{{item.admirer.nickName}} 赞了你的日记</view>
+                            <view class="like-create_time">{{item.createTime}}</view>
                         </view>
                         <view class="into-diary-detail-page-btn">
                             <image src="/images/button/into_btn_gray.png"></image>
@@ -49,15 +49,15 @@
             <!-- 显示r日记被评论的记录列表-->
             <block wx:for="{{myCommentedList}}">
                 <view class="commented-news-list-item" bindtap="intoDiaryDetailPage"
-                      data-diary-id="{{item.diary_id}}">
+                      data-diary-id="{{item.diaryId}}">
                     <view class="reviewer-avatar"
                           catchtap="intoPersonalHomePage"
                           data-user-id="{{item.reviewer.id}}">
-                        <block wx:if="{{item.reviewer.avatar_url == 'default_avatar'}}">
+                        <block wx:if="{{item.reviewer.avatarUrl == 'default_avatar'}}">
                             <image src="/images/default/userAvatar.png"></image>
                         </block>
                         <block wx:else>
-                            <image src='{{item.reviewer.avatar_url}}'></image>
+                            <image src='{{item.reviewer.avatarUrl}}'></image>
                         </block>
                     </view>
                     <view class="comment-info-area" style="width: {{windowWidth - 70}}px;">
@@ -65,14 +65,14 @@
                             <view class="comment-user-info">
                                 <view class="reviewer-nick-name"
                                       catchtap="intoPersonalHomePage"
-                                      data-user-id="{{item.reviewer.id}}">{{item.reviewer.nick_name}}</view>
+                                      data-user-id="{{item.reviewer.id}}">{{item.reviewer.nickName}}</view>
                                 <view style="margin: 0 2px;">回复@</view>
                                 <view class="respondent-nick-name"
                                       catchtap="intoPersonalHomePage"
-                                      data-user-id="{{userInfo.id}}">{{userInfo.nick_name}}</view>
+                                      data-user-id="{{userInfo.id}}">{{userInfo.nickName}}</view>
                             </view>
-                            <view class="comment-text">{{item.text_comment}}</view>
-                            <view class="comment-create_time">{{item.create_time}}</view>
+                            <view class="comment-text">{{item.textComment}}</view>
+                            <view class="comment-create_time">{{item.createTime}}</view>
                         </view>
                         <view class="comment-news-into-diary-detail-page-btn">
                             <image src="/images/button/into_btn_gray.png"></image>

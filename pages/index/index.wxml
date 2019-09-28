@@ -199,10 +199,10 @@
                                         <view class="diary-img-list">
                                             <block wx:for="{{item.diaryResource}}" wx:for-item="v"
                                                    wx:for-index="k" wx:key="{{v.id}}">
-                                                <block wx:if="{{v.type == '1'}}">
-                                                    <view class="diary-img-item" style="width:{{diaryImgWidth}}px;height: {{diaryImgWidth}}px" catchtap="previewDiaryImage" data-index="{{index}}"
-                                                          data-img-url="{{v.resource_url}}">
-                                                        <image src="{{imgRootPath}}{{v.resource_url}}">
+                                                <view class="diary-img-item" style="width:{{diaryImgWidth}}px;height: {{diaryImgWidth}}px"
+                                                      catchtap="previewDiaryImage" data-index="{{index}}"
+                                                      data-img-url="{{v.resourceUrl}}">
+                                                        <image src="{{v.resourceUrl}}">
                                                         </image>
                                                     </view>
                                                 </block>
@@ -215,8 +215,10 @@
                                            wx:key="{{audioItem.id}}">
                                         <block wx:if="{{audioItem.type == '2'}}">
                                             <punch-card-diary-audio-play
-                                                    audio-name="{{item.publisher.nick_name}}的录音视频"
-                                                    audio-file-info="{{audioItem}}" >
+                                                  audio-name="{{item.publisher.nick_name}}的录音--{{audioItem.id}}"
+                                                  audio-file-info="{{audioItem}}"
+                                                  bind:audioStatusChangeNotice="parentPageGetAudioPlayStatus"
+                                                  audio-play-status-flag="{{audioIdCurrentlyPlay === audioItem.id ? 'play':'pause'}}">
                                             </punch-card-diary-audio-play>
                                         </block>
                                     </block>
@@ -275,7 +277,8 @@
                                 <!--昵称-->
                                 <view class="diary-publisher-nick-name" catchtap="intoPersonalHomePage"
                                       data-user-id="{{item.publisher.id}}">
-                                    <text>{{item.publisher.nickName}}</text> 发布
+                                    <text>{{item.publisher.nickName}}</text>
+                                    发布
                                 </view>
                             </view>
 

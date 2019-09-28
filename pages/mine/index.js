@@ -80,6 +80,9 @@ Page({
         emptyDiaryListNotice: false, // 控制还没有日记列表数据时的提示信息
         moreDiaryDataLoad: false, // 控制上拉加载更多打卡日记的加载动画
         notMoreDiaryData: false, // 打卡日记已全部加载
+
+        // 记录当前播放音频的打卡日记的下标 -1代表所有的打卡日记都没有播放音频
+        currPlayAudioDiaryItemIndex: -1,
     },
 
     /**
@@ -158,12 +161,16 @@ Page({
 
     },
 
-    onShow: function () {},
+    onShow: function () {
+
+    },
 
     /**
      * 生命周期函数--监听页面初次渲染完成
      */
-    onReady: function () {},
+    onReady: function () {
+
+    },
 
     /**
      * 页面下拉刷新事件的处理函数
@@ -299,11 +306,10 @@ Page({
         if (currDiary.diaryResource.length <= 0 || parseInt(currDiary.diaryResource[0].type) === 2) {
             // 资源列表为空或者资源列表第一个元素存放的不是图片（type=1）都说明该日记不存在图片资源
             //  分享一张已设置的图片
-            imgUrl = 'http://myxu.xyz/SmallPunchMiniProgramAfterEnd/public/image_upload' +
-                '/project_cover_img/sys_recommend/20181001/520d70c0a777ec055df58c3fed943b37.png';
+            imgUrl = 'http://pxpir6goi.bkt.clouddn.com/520d70c0a777ec055df58c3fed943b37.png';
         } else {
             // 存在图片资源 设置第一张图片为分享图片
-            imgUrl = app.globalData.imgBaseSeverUrl + currDiary.diaryResource[0].resource_url;
+            imgUrl = currDiary.diaryResource[0].resourceUrl;
         }
         console.log(imgUrl);
 
@@ -377,5 +383,30 @@ Page({
           duration: 1000
       })
     },
+
+    // 当音频组件的播放状态发生改变时，会触发父组件该方法
+    // 父组件会重新更新一个用来标识是哪个打卡日记中的音频文件被播放的变量的值
+    parentPageGetAudioPlayStatus: function (e) {
+        // console.log('父级页面接收到音频组件播放状态改变通知:');
+        // console.log(e);
+        let diaryItemIndex  = e.detail.diaryItemIndex,
+            audioPlayStatus = e.detail.audioPlayStatus;
+        console.log('音频播放状态发生改变，此时的状态是：' + audioPlayStatus);
+        console.log('播放状态发生改变的音频所处的日记子项的index：' + diaryItemIndex);
+        let that = this;
+
+        if (audioPlayStatus === 'pause') {
+            that.data.currPlayAudioDiaryItemIndex = -1;
+        }
+
+        if (audioPlayStatus === 'play') {
+            that.data.currPlayAudioDiaryItemIndex = diaryItemIndex;
+        }
+        console.log('父页面参数currPlayAudioDiaryItemIndex = ' + that.data.currPlayAudioDiaryItemIndex);
+
+        that.setData({
+            currPlayAudioDiaryItemIndex: that.data.currPlayAudioDiaryItemIndex
+        });
+    }
 
 });

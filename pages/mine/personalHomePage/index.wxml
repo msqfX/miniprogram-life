@@ -92,10 +92,10 @@
                 <!-- 访客人数 -->
                 <!--TODO 动态获取访客人数-->
                 <block wx:if="{{isMyself}}">
-                    <view class="visitorNum">{{visitedUserInfo.personal_page_visit_num}}人来看过你</view>
+                    <view class="visitorNum">{{visitedUserInfo.personalPageVisitNum}}人来看过你</view>
                 </block>
                 <block wx:else>
-                    <view class="visitorNum">{{visitedUserInfo.personal_page_visit_num}}人来看过他</view>
+                    <view class="visitorNum">{{visitedUserInfo.personalPageVisitNum}}人来看过他</view>
                 </block>
 
                 <!-- 最新五个访客头像 -->
@@ -156,7 +156,7 @@
 
                             <!-- 所在圈子打卡天数、排名 -->
                             <view class="punchCardDaysAndRand">
-                                打卡 {{item.curr_diary_punch_card_day_num}}天 | 排名 {{item.rank}}
+                                打卡 {{item.currDiaryPunchCardDayNum}}天 | 排名 {{item.rank}}
                             </view>
                             <view></view>
                         </view>
@@ -204,7 +204,9 @@
                     <!--组件化形式显示每条打卡日记-->
                     <mine-diary-item diary-item-data="{{item}}"
                                      diary-item-index="{{index}}"
-                                     user-info="{{userInfo}}">
+                                     user-info="{{userInfo}}"
+                                     audio-play-diary-index="{{currPlayAudioDiaryItemIndex}}"
+                                     bind:audioStatusChangeNotice="parentPageGetAudioPlayStatus">
                     </mine-diary-item>
                 </block>
             </view>

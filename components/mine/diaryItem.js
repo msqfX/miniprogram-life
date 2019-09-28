@@ -74,6 +74,12 @@ Component({
         },
         userInfo: {
             type: Object
+        },
+
+        // 当前播放音频的打卡日记子项的在整个打卡日记列表中的下标
+        // 如果这个下标 === 本打卡日记组件的下标则说明用户点击的是本条打卡日记中的音频
+        audioPlayDiaryIndex: {
+            type: Number
         }
     },
 
@@ -86,7 +92,27 @@ Component({
         // 日记存在两张以上图片时每张图片显示的长、宽度
         diaryImgWidth: Math.floor((app.globalData.windowWidth-(10+40+8+5+5+5+10))/3),
         diaryImgCount: 0, // 打卡日记的图片张数
-        hiddenMoreDiaryOperateBtn: true, // 控制对日记更多操作按钮显示、隐藏
+        hiddenMoreDiaryOperateBtn: true, // 控制对日记更多操作按钮显示、隐藏,
+
+        audioPlayStatus: 'pause'
+    },
+
+    // 监听当前播放音频的打卡日记子项的在整个打卡日记列表中的下标
+    observers: {
+        'audioPlayDiaryIndex': function (audioPlayDiaryIndex) {
+            let that = this;
+            console.log(that.data.diaryItemIndex + '--' + audioPlayDiaryIndex);
+
+            that.data.audioPlayStatus = 'pause'; // 先预设播放的不是本条打卡日记的音频文件
+
+            if (that.data.diaryItemIndex === audioPlayDiaryIndex) {
+                that.data.audioPlayStatus = 'play';
+            }
+            console.log('audioPlayStatus: '+ that.data.audioPlayStatus);
+            that.setData({
+                audioPlayStatus: that.data.audioPlayStatus
+            });
+        }
     },
 
     /*
@@ -137,11 +163,12 @@ Component({
         },
 
         // 阻止模态框之外的页面点击事件
-        _preventTab: function () {},
+        _preventTab: function () {
+        },
 
         // 弹出框蒙层截断touchmove事件
-        _preventTouchMove: function() {},
-
+        _preventTouchMove: function () {
+        },
 
         // 弹出模态对话框，显示更多的日记操作按钮 删除、投诉
         _showDiaryOperateBtn: function(e) {
@@ -252,8 +279,7 @@ Component({
                 ImgResourceList = [],
                 index = 0;
 
-            for (let i = 0; i < length; i++)
-            {
+            for (let i = 0; i < length; i++) {
                 if (parseInt(diaryResourceList[i].type) === 1)
                 // 加上图片访问的baseUrl  注意一定要改为http 不然预览网络图片一直黑屏
                     ImgResourceList[index++] =
@@ -307,8 +333,7 @@ Component({
                 likeRecordId = 0;
 
             // 已经点赞 则需要取消点赞
-            if (haveLike === true)
-            {
+            if (haveLike === true) {
                 // 获取该用户的点赞记录id
                 let i = 0;
                 for (i; i < tenLikeInfo.length; i++) {
@@ -481,8 +506,7 @@ Component({
                     content: '确定删除评论?',
                     success: function (res) {
                         // 确认删除
-                        if (res.confirm)
-                        {
+                        if (res.confirm) {
                             wx.request({
                                 url: app.globalData.urlRootPath
                                     + 'index/DiaryComment/deleteComment',
@@ -551,6 +575,17 @@ Component({
                 url: '/pages/publishComment/index' + paramStr
             });
         },
+// 当音频组件播放状态发生变化的时候会被触发
+        getAudioPlayStatus: function (e) {
+            console.log('第' + this.data.diaryItemIndex + '个打卡日记子项的音频组件状态发生变化' + ':');
+            console.log(e);
+            let eventDetail = {
+                diaryItemIndex: this.data.diaryItemIndex,
+                audioPlayStatus: e.detail.audioPlayStatus
+            };
 
+            // 音频组件播放状态发生改变，通知父级组件或者使用该组件的页面
+            this.triggerEvent('audioStatusChangeNotice', eventDetail);
+        }
     }
 });

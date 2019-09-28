@@ -132,6 +132,8 @@ Page({
         moreDiaryDataLoad: false, // 控制下拉加载更多打卡日记的加载动画
         notMoreDiaryData: false, // 打卡日记已全部加载
 
+        // 记录当前播放音频的打卡日记的下标 -1代表所有的打卡日记都没有播放音频
+        currPlayAudioDiaryItemIndex: -1,
     },
 
     /**
@@ -157,11 +159,11 @@ Page({
             ],
             // TODO 动态获取最新五个访客的头像地址
             latestFiveUserAvatarList: [
-                app.globalData.userInfo.avatar_url,
-                app.globalData.userInfo.avatar_url,
-                app.globalData.userInfo.avatar_url,
-                app.globalData.userInfo.avatar_url,
-                app.globalData.userInfo.avatar_url
+              app.globalData.userInfo.avatarUrl,
+              app.globalData.userInfo.avatarUrl,
+              app.globalData.userInfo.avatarUrl,
+              app.globalData.userInfo.avatarUrl,
+              app.globalData.userInfo.avatarUrl
             ]
         })
 
@@ -172,7 +174,9 @@ Page({
     /**
      * 生命周期函数--监听页面初次渲染完成
      */
-    onReady: function () {},
+    onReady: function () {
+
+    },
 
     /**
      * 生命周期函数--监听页面显示
@@ -187,11 +191,11 @@ Page({
         // 获取指定用户的获取详细的信息
         // 1.用户基本信息、5.访问者记录 TODO 2.个人主页背景图、3.粉丝、关注者情况、4.个人标签、
         wx.request({
-            url: app.globalData.urlRootPath + 'index/User/getUserDetailInfoById',
-            method: 'post',
+            url: app.globalData.gateway + 'life-user/api/user/getUserDetailInfoById',
+            method: 'get',
             data: {
-                visited_id: that.data.visitedUserId,
-                visitor_id: that.data.visitorUserId
+                visitedId: that.data.visitedUserId,
+                visitorId: that.data.visitorUserId
             },
             success: function (res) {
                 console.log(res);
@@ -200,7 +204,7 @@ Page({
                     case 200:
                         wx.hideLoading();
                         wx.setNavigationBarTitle({
-                            title: data.data.nick_name + '的个人主页'
+                            title: data.data.nickName + '的个人主页'
                         });
                         that.setData({
                             showLoading: false,
@@ -209,7 +213,7 @@ Page({
                         break;
                     default:
                         wx.showToast({
-                            title: data.errMsg,
+                            title: data.msg,
                             icon: 'none',
                             duration: 2000
                         });
@@ -230,11 +234,10 @@ Page({
         // 其他用户查看则后端只返回公开类型的打卡圈子列表
         let getPunchCardProjectList = new Promise(function (resolve) {
             wx.request({
-                url: app.globalData.urlRootPath + 'index/User/getUserPunchCardProjectListByType',
-                method: 'post',
+                url: app.globalData.gateway + 'life-user/api/userPunchCard/getUserPunchCardProjectListByType',
+                method: 'get',
                 data: {
                     userId: that.data.visitedUserId,
-
                     // 代表查询自己的打卡圈子列表 0则代表查看他人的
                     isDiaryCreator: that.data.isMyself === true ? 1 : 0
                 },
@@ -267,7 +270,7 @@ Page({
                         default:
                             resolve(false);
                             wx.showToast({
-                                title: respData.errMsg,
+                                title: respData.msg,
                                 icon: 'none',
                                 duration: 2000
                             });
@@ -461,8 +464,8 @@ Page({
     getMyPunchCardDiaryList: function(pageNo,dataNum,callback) {
         let that = this;
         wx.request({
-            url: app.globalData.urlRootPath + 'index/User/getUserPunchCardDiaryList',
-            method: 'post',
+          url: app.globalData.gateway + 'life-punch/api/punchCardDiary/listUserPunchCardDiary',
+            method: 'get',
             data: {
                 visitedUserId: that.data.visitedUserId, // 被查看打卡日记列表的用户的id
                 visitorUserId: that.data.visitorUserId, // 查看者的id
@@ -536,4 +539,29 @@ Page({
                 + "&isCreator=" + -1
         });
     },
+
+    // 当音频组件的播放状态发生改变时，会触发父组件该方法
+    // 父组件会重新更新一个用来标识是哪个打卡日记中的音频文件被播放的变量的值
+    parentPageGetAudioPlayStatus: function (e) {
+        // console.log('父级页面接收到音频组件播放状态改变通知:');
+        // console.log(e);
+        let diaryItemIndex = e.detail.diaryItemIndex,
+            audioPlayStatus = e.detail.audioPlayStatus;
+        console.log('音频播放状态发生改变，此时的状态是：' + audioPlayStatus);
+        console.log('播放状态发生改变的音频所处的日记子项的index：' + diaryItemIndex);
+        let that = this;
+
+        if (audioPlayStatus === 'pause') {
+            that.data.currPlayAudioDiaryItemIndex = -1;
+        }
+
+        if (audioPlayStatus === 'play') {
+            that.data.currPlayAudioDiaryItemIndex = diaryItemIndex;
+        }
+        console.log('父页面参数currPlayAudioDiaryItemIndex = ' + that.data.currPlayAudioDiaryItemIndex);
+
+        that.setData({
+            currPlayAudioDiaryItemIndex: that.data.currPlayAudioDiaryItemIndex
+        });
+    }
 });
