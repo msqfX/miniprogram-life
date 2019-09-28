@@ -480,7 +480,7 @@ Page({
             }
             wx.request({
               url: app.globalData.gateway + 'life-punch/api/diaryLike/cancelLike',
-                method: 'post',
+                method: 'delete',
                 data: {
                     likeRecordId: likeRecordId,
                     diaryId: diaryId,
@@ -527,12 +527,12 @@ Page({
         } else {
             // 进行点赞
             wx.request({
-                url: app.globalData.urlRootPath + 'index/DiaryLike/like',
+              url: app.globalData.gateway + 'life-punch/api/diaryLike/like',
                 method: 'post',
                 data: {
-                    diary_id: diaryId,
-                    liked_user_id: that.data.diaryInfo.publisher.id, // 被点赞者
-                    'admirer_id': that.data.userInfo.id
+                  diaryId: diaryId,
+                  likedUserId: that.data.diaryInfo.publisher.id, // 被点赞者
+                  admirerId: that.data.userInfo.id
                 },
                 success: function (res) {
                     console.log(res);
