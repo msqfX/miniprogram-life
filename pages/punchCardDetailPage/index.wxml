@@ -49,7 +49,7 @@
               <block wx:for="{{attendUserInfo}}" wx:key="{{item.id}}">
                 <block wx:if="{{index <= 2 }}">
                   <!--使用默认的小程序内置的默认头像-->
-                  <block wx:if="{{item.avatar_url == 'default_avatar'}}">
+                  <block wx:if="{{item.avatarUrl == 'default_avatar'}}">
                     <view class="user-avatar-list-item img-{{index}}"
                           bindtap="intoPersonalHomePage"
                           data-user-id="{{item.id}}">
@@ -129,7 +129,7 @@
             <view class="title">圈主简介</view>
             <view class="not-join-in-project-creator-info">
               <!--头像-->
-              <block wx:if="{{creatorInfo.avatar_url == 'default_avatar'}}">
+              <block wx:if="{{creatorInfo.avatarUrl == 'default_avatar'}}">
                 <image src="../../images/default/userAvatar.png">
                 </image>
               </block>
@@ -638,7 +638,7 @@
             <!--创建者信息-->
             <view class="creator-info">
               <!--头像-->
-              <block wx:if="{{creatorInfo.avatar_url == 'default_avatar'}}">
+              <block wx:if="{{creatorInfo.avatarUrl == 'default_avatar'}}">
                 <image src="../../images/default/userAvatar.png"
                        class="creator-avatar"
                        bindtap="intoPersonalHomePage"
@@ -646,7 +646,7 @@
                 </image>
               </block>
               <block wx:else>
-                <image src="{{creatorInfo.avatar_url}}"
+                <image src="{{creatorInfo.avatarUrl}}"
                        class="creator-avatar"
                        bindtap="intoPersonalHomePage"
                        data-user-id="{{creatorInfo.creator_id}}">
@@ -1183,12 +1183,12 @@
               <view class="creator-intr-info-avatar"
                     bindtap="intoPersonalHomePage"
                     data-user-id="{{creatorInfo.creator_id}}">
-                <block wx:if="{{creatorInfo.avatar_url=='default_avatar'}}">
+                <block wx:if="{{creatorInfo.avatarUrl=='default_avatar'}}">
                   <image src="/images/default/userAvatar.png">
                   </image>
                 </block>
                 <block wx:else>
-                  <image src="{{creatorInfo.avatar_url}}"></image>
+                  <image src="{{creatorInfo.avatarUrl}}"></image>
                 </block>
               </view>
 
@@ -1219,7 +1219,7 @@
                     bindtap="intoPersonalHomePage"
                     data-user-id="{{creatorInfo.creator_id}}">
                 <view style="color: cornflowerblue;font-size: 15px">
-                  {{creatorInfo.nick_name}}
+                  {{creatorInfo.nickName}}
                 </view>
                 <view style="color: #8a8a8a;font-size: 12px">
                   圈主
@@ -1388,7 +1388,7 @@
               <view class="attend-user-list-item"
                     bindtap="intoPersonalHomePage"
                     data-user-id="{{item.id}}">
-                <block wx:if="{{item.avatar_url=='default_avatar'}}">
+                <block wx:if="{{item.avatarUrl=='default_avatar'}}">
                   <!--头像: 在头像右下角标识性别-->
                   <view class="user-avatar">
                     <image src="/images/default/userAvatar.png">
@@ -1397,7 +1397,7 @@
                 </block>
                 <block wx:else>
                   <view class="user-avatar">
-                    <image src="{{item.avatar_url}}"></image>
+                    <image src="{{item.avatarUrl}}"></image>
                   </view>
                 </block>
 
@@ -1418,7 +1418,7 @@
                   <view class="user-sex-unknown"></view>
                 </block>
 
-                <view class="user-nick-name">{{item.nick_name}}</view>
+                <view class="user-nick-name">{{item.nickName}}</view>
                 <view class="attend-time">
                   {{item.pivot.attend_time}}加入
                 </view>

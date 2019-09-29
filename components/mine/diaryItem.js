@@ -25,8 +25,8 @@ Component({
             //     publisher: {
             //         id: 0,// 日记发表者userId
             //         sex:'0--未知 1--男性 2--女性',
-            //         nick_name:'',
-            //         avatar_url: ''
+            //         nickName:'',
+            //         avatarUrl: ''
             //     },
             //     diaryResource:{
             //         id: '打卡日记相关的资源文件记录id',
@@ -41,7 +41,7 @@ Component({
             //         {
             //              id: 点赞记录id,
             //              admirer:{
-            //                          id: 点赞者id,  nick_name: 点赞者昵称
+            //                          id: 点赞者id,  nickName: 点赞者昵称
             //                      }
             //         }
             //     ],
@@ -55,16 +55,16 @@ Component({
             //              create_time: 评论发表时间
             //              reviewer: {
             //                            id: 评论者用户id
-            //                            nick_name: 评论者昵称
+            //                            nickName: 评论者昵称
             //                            sex: 评论者性别
-            //                            avatar_url: 评论者头像
+            //                            avatarUrl: 评论者头像
             //                        }
             //              一级评论则不显示评论所回复的用户的信息 因为这是针对日记发表者进行评论的
             //              respondent: {
             //                            id: 评论所回复的用户id
-            //                            nick_name: 评论所回复的用户昵称
+            //                            nickName: 评论所回复的用户昵称
             //                            sex: 评论所回复的用户性别
-            //                            avatar_url: 评论所回复的用户头像
+            //                            avatarUrl: 评论所回复的用户头像
             //                        }
             //        }]
             // }
@@ -417,7 +417,7 @@ Component({
                                     [{
                                         id: data.data.like_record_id,
                                         admirer:{
-                                            id: that.data.userInfo.id, nick_name: that.data.userInfo.nick_name
+                                            id: that.data.userInfo.id, nickName: that.data.userInfo.nickName
                                         }
                                     }];
 

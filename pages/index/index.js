@@ -51,8 +51,8 @@ Page({
             //     publisher: {
             //         id: 0,// 日记发表者userId
             //         sex:'0--未知 1--男性 2--女性',
-            //         nick_name:'',
-            //         avatar_url: ''
+            //         nickName:'',
+            //         avatarUrl: ''
             //     },
             //     diaryResource:{
             //         id: '打卡日记相关的资源文件记录id',
@@ -60,7 +60,7 @@ Page({
             //         type: '1-图片 2-音频 3-视频'
             //     },
             //     recentThreeAttendUserList: {
-            //         avatar_url: ''
+            //         avatarUrl: ''
             //     }
             // }
         ], // 推荐的打卡日记数据列表
@@ -133,9 +133,9 @@ Page({
                                 console.log(res);
 
                                 // 保存用户微信信息至全局变量,同时保证字段名与表字段名一致
-                                app.globalData.userInfo.avatar_url = res.userInfo.avatarUrl;
-                                app.globalData.userInfo.nick_name = res.userInfo.nickName;
-                                app.globalData.userInfo.sex = parseInt(res.userInfo.gender);
+                                app.globalData.userInfo.avatarUrl = res.userInfo.avatarUrl;
+                                app.globalData.userInfo.nickName = res.userInfo.nickName;
+                              app.globalData.userInfo.gender = parseInt(res.userInfo.gender);
 
                                 // 3.提交所获取的微信用户授权信息至服务器、服务器进行新用户的注册，
                                 // 已注册用户则直接返回服务器端该用户的详细信息
@@ -362,9 +362,9 @@ Page({
         let shareTitle = '';
         if (isDiaryPublisher) {
             // 分享的是自己的打卡日记
-            shareTitle = '【' + app.globalData.userInfo.nick_name + '】的打卡日记';
+            shareTitle = '【' + app.globalData.userInfo.nickName + '】的打卡日记';
         } else {
-            shareTitle = currDiary.publisher.nick_name + '的打卡日记';
+            shareTitle = currDiary.publisher.nickName + '的打卡日记';
         }
 
         // 设置分享的图片的url
@@ -376,7 +376,7 @@ Page({
                 '/project_cover_img/sys_recommend/20181001/520d70c0a777ec055df58c3fed943b37.png';
         } else {
             // 存在图片资源 设置第一张图片为分享图片
-            imgUrl = app.globalData.imgBaseSeverUrl + currDiary.diaryResource[0].resource_url;
+            imgUrl = app.globalData.imgBaseSeverUrl + currDiary.diaryResource[0].resourceUrl;
         }
         console.log(imgUrl);
 
@@ -434,12 +434,12 @@ Page({
     addWeiXinUserInfo: function() {
         console.log(app.globalData.userInfo);
         let that = this;
-        let avatarUrl = app.globalData.userInfo.avatar_url;
+        let avatarUrl = app.globalData.userInfo.avatarUrl;
         wx.request({
             url: app.globalData.gateway + 'life-user/api/user',
             data: {
                 openId: app.globalData.openId,
-                nickName: app.globalData.userInfo.nick_name, // 微信昵称
+                nickName: app.globalData.userInfo.nickName, // 微信昵称
                 avatarUrl: avatarUrl === "" ? "default_avatar": avatarUrl, // 微信用户头像
                 gender: parseInt(app.globalData.userInfo.sex) // 性别 0-未知，1-男性，2-女性
             },
@@ -781,7 +781,7 @@ Page({
                         case 200:
                             // 设置当前用户对当前这条日记未点赞 点赞总人数-1
                             that.data.recommendDiaryList[diaryIndex].haveLike = false;
-                            that.data.recommendDiaryList[diaryIndex].like_user_num -= 1;
+                            that.data.recommendDiaryList[diaryIndex].likeUserNum -= 1;
                             that.data.recommendDiaryList[diaryIndex].likeRecordId   = 0;
 
                             that.setData({

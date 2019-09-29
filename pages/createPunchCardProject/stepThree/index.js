@@ -8,8 +8,8 @@ Page({
         // 用于访问服务器图片
         imgRootPath: "https://myxu.xyz/SmallPunchMiniProgramAfterEnd/",
 
-        userAvatar: app.globalData.userInfo.avatar_url,
-        creatorNickName: app.globalData.userInfo.nick_name,
+        userAvatar: app.globalData.userInfo.avatarUrl,
+        creatorNickName: app.globalData.userInfo.nickName,
 
         // 圈子相关信息
         punchCardProjectId: 0,
@@ -45,8 +45,8 @@ Page({
             getInviteImgFlag: options.getInviteImgFlag,
             projectTypeLabel: options.projectTypeLabel,
 
-            userAvatar: app.globalData.userInfo.avatar_url,
-            creatorNickName: app.globalData.userInfo.nick_name
+            userAvatar: app.globalData.userInfo.avatarUrl,
+            creatorNickName: app.globalData.userInfo.nickName
         })
     },
 
@@ -175,7 +175,7 @@ Page({
         // 获取邀请者id
         let inviteUserId = app.globalData.userInfo.id;
         let shareObj = {
-            title: app.globalData.userInfo.nick_name + "邀请你打卡",
+            title: app.globalData.userInfo.nickName + "邀请你打卡",
             path: "pages/punchCardDetailPage/index"
                 + "?inviteUserId=" + inviteUserId
                 + "&projectId=" + that.data.punchCardProjectId

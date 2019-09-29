@@ -57,8 +57,8 @@ Page({
         //                     console.log(app.globalData.openid);
         //
         //                     // 保存用户微信信息至全局变量,同时保证字段名与表字段名一致
-        //                     app.globalData.userInfo.avatar_url = res.userInfo.avatarUrl;
-        //                     app.globalData.userInfo.nick_name = res.userInfo.nickName;
+        //                     app.globalData.userInfo.avatarUrl = res.userInfo.avatarUrl;
+        //                     app.globalData.userInfo.nickName = res.userInfo.nickName;
         //                     app.globalData.userInfo.sex = parseInt(res.userInfo.gender);
         //
         //                     // 为了防止在用户第一次授权的时候，服务器未能成功添加用户信息
@@ -86,8 +86,8 @@ Page({
         if (e.detail.userInfo) {
 
             // 保存用户微信信息至全局变量,同时保证字段名与表字段名一致
-            app.globalData.userInfo.avatar_url = e.detail.userInfo.avatarUrl;
-            app.globalData.userInfo.nick_name = e.detail.userInfo.nickName;
+            app.globalData.userInfo.avatarUrl = e.detail.userInfo.avatarUrl;
+            app.globalData.userInfo.nickName = e.detail.userInfo.nickName;
             app.globalData.userInfo.sex = e.detail.userInfo.gender;
 
             // 一般而言，授权只有一次，也就是第一次，在授权成功后需要将微信的一些信息
@@ -122,13 +122,13 @@ Page({
     addWeiXinUserInfo: function() {
         console.log(app.globalData.userInfo);
         let that = this;
-        let avatarUrl = app.globalData.userInfo.avatar_url;
+        let avatarUrl = app.globalData.userInfo.avatarUrl;
         wx.request({
             url: app.globalData.urlRootPath + 'index/user/addUserInfo',
             data: {
                 open_id: app.globalData.openid,
-                nick_name: app.globalData.userInfo.nick_name, // 微信昵称
-                avatar_url: avatarUrl === "" ? "default_avatar": avatarUrl, // 微信用户头像
+                nickName: app.globalData.userInfo.nickName, // 微信昵称
+                avatarUrl: avatarUrl === "" ? "default_avatar": avatarUrl, // 微信用户头像
                 sex: parseInt(app.globalData.userInfo.sex) // 性别 0-未知，1-男性，2-女性
             },
             header: {

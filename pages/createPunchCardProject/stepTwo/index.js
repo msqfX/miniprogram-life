@@ -439,14 +439,14 @@ Page({
         // 
         let getUserAvatar = new Promise(function (resolve) {
             
-            let avatar_url = app.globalData.userInfo.avatar_url;
-            if (avatar_url === 'default_avatar') {
+            let avatarUrl = app.globalData.userInfo.avatarUrl;
+            if (avatarUrl === 'default_avatar') {
                 // default_avatar 代表使用的头像为小程序内置的默认头像图片
-                avatar_url = '../../../images/default/userAvatar.png';
+                avatarUrl = '../../../images/default/userAvatar.png';
             }
-            console.log(avatar_url);
+            console.log(avatarUrl);
             wx.getImageInfo({
-                src: avatar_url,
+                src: avatarUrl,
                 success: function (res) {
                     resolve(res);
                 }
@@ -488,7 +488,7 @@ Page({
                 ctx.arc(cx,cy,r,0,2 * Math.PI); // 绘制圆
                 ctx.clip(); //画好了圆 剪切  原始画布中剪切任意形状和尺寸。
 
-                if (app.globalData.userInfo.avatar_url === 'default_avatar') {
+                if (app.globalData.userInfo.avatarUrl === 'default_avatar') {
                     ctx.drawImage("../../../"+res[1].path,0,140,16,16);
                 } else {
                     ctx.drawImage(res[1].path,0,140,16,16);

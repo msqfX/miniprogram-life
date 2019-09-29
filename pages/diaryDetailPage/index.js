@@ -36,9 +36,9 @@ Page({
             //     "type": "1"
             // }],
             // // 日记发表者信息
-            // "publisher": {"id": "8", "avatar_url": "default_avatar", "nick_name": "徐茂勇", "sex": "2"},
+            // "publisher": {"id": "8", "avatarUrl": "default_avatar", "nickName": "徐茂勇", "sex": "2"},
             // // 点赞记录信息
-            // "allLikeInfo": [{"id": "92", "admirer": {"id": "1", "avatar_url": "头像地址"}}],
+            // "allLikeInfo": [{"id": "92", "admirer": {"id": "1", "avatarUrl": "头像地址"}}],
             // "allCommentInfo": [{
             //     "id": "30",
             //     "diary_id": "24",
@@ -47,9 +47,9 @@ Page({
             //     "sound_comment": "",
             //     "create_time": "2019-05-07 17:03:53",
             //     // 评论者信息
-            //     "reviewer": {"id": "1", "avatar_url": "头像地址", "nick_name": "MYXuu", "sex": "1"},
+            //     "reviewer": {"id": "1", "avatarUrl": "头像地址", "nickName": "MYXuu", "sex": "1"},
             //     // 被评论者信息
-            //     "respondent": {"id": "8", "avatar_url": "default_avatar", "nick_name": "徐茂勇", "sex": "2"}
+            //     "respondent": {"id": "8", "avatarUrl": "default_avatar", "nickName": "徐茂勇", "sex": "2"}
             // }]
         },
 
@@ -193,9 +193,9 @@ Page({
         let shareTitle = '';
         if (isDiaryPublisher) {
             // 分享的是自己的打卡日记
-            shareTitle = '【' + app.globalData.userInfo.nick_name + '】的打卡日记';
+            shareTitle = '【' + app.globalData.userInfo.nickName + '】的打卡日记';
         } else {
-            shareTitle = currDiary.publisher.nick_name + '的打卡日记';
+            shareTitle = currDiary.publisher.nickName + '的打卡日记';
         }
 
         // 设置分享的图片的url
@@ -551,7 +551,7 @@ Page({
                                     id: data.data.like_record_id,
                                     admirer:{
                                         id: that.data.userInfo.id,
-                                        avatar_url: that.data.userInfo.avatar_url
+                                        avatarUrl: that.data.userInfo.avatarUrl
                                     }
                                 }];
                             that.data.diaryInfo.allLikeInfo = newLikeInfo.concat(allLikeInfo);

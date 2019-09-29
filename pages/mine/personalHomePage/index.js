@@ -16,8 +16,8 @@ Page({
         visitedUserInfo: {
             //  属性说明
             // "id": 1,
-            // "avatar_url": "用户头像地址",
-            // "nick_name": "MYXuu",
+            // "avatarUrl": "用户头像地址",
+            // "nickName": "MYXuu",
             // "weixin_num": null,
             // "birthday": null,
             // "sex": 1,
@@ -30,7 +30,7 @@ Page({
             //     "create_time": "2019-05-10 12:02:00",
             //     "visitorInfo": {
             //         "id": 8, // 访问者用户id
-            //         "avatar_url": "访问者头像"
+            //         "avatarUrl": "访问者头像"
             //     }
             // }]
         },
@@ -81,8 +81,8 @@ Page({
             //     publisher: {
             //         id: 0,// 日记发表者userId
             //         sex:'0--未知 1--男性 2--女性',
-            //         nick_name:'',
-            //         avatar_url: ''
+            //         nickName:'',
+            //         avatarUrl: ''
             //     },
             //     diaryResource:{
             //         id: '打卡日记相关的资源文件记录id',
@@ -97,7 +97,7 @@ Page({
             //         {
             //              id: 点赞记录id,
             //              admirer:{
-            //                          id: 点赞者id,  nick_name: 点赞者昵称
+            //                          id: 点赞者id,  nickName: 点赞者昵称
             //                      }
             //         }
             //     ],
@@ -111,16 +111,16 @@ Page({
             //              create_time: 评论发表时间
             //              reviewer: {
             //                            id: 评论者用户id
-            //                            nick_name: 评论者昵称
+            //                            nickName: 评论者昵称
             //                            sex: 评论者性别
-            //                            avatar_url: 评论者头像
+            //                            avatarUrl: 评论者头像
             //                        }
             //              一级评论则不显示评论所回复的用户的信息 因为这是针对日记发表者进行评论的
             //              respondent: {
             //                            id: 评论所回复的用户id
-            //                            nick_name: 评论所回复的用户昵称
+            //                            nickName: 评论所回复的用户昵称
             //                            sex: 评论所回复的用户性别
-            //                            avatar_url: 评论所回复的用户头像
+            //                            avatarUrl: 评论所回复的用户头像
             //                        }
             //        }]
             // }
@@ -506,9 +506,9 @@ Page({
         let shareTitle = '';
         if (isDiaryPublisher) {
             // 分享的是自己的打卡日记
-            shareTitle = '【' + app.globalData.userInfo.nick_name + '】的打卡日记';
+          shareTitle = '【' + app.globalData.userInfo.nickName + '】的打卡日记';
         } else {
-            shareTitle = currDiary.publisher.nick_name + '的打卡日记';
+          shareTitle = currDiary.publisher.nickName + '的打卡日记';
         }
 
         // 设置分享的图片的url

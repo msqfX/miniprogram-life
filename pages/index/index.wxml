@@ -159,7 +159,7 @@
                                     <block wx:for="{{item.recentThreeAttendUserList}}" wx:for-item="a"
                                            wx:for-index="i" wx:key="{{i}}">
                                         <view class="user-avatar-item">
-                                            <block wx:if="{{a.avatar_url == 'default_avatar'}}">
+                                            <block wx:if="{{a.avatarUrl == 'default_avatar'}}">
                                                 <image src="/images/default/project_cover_img.png"
                                                        style="z-index: {{3 - i}}">
                                                 </image>
@@ -216,7 +216,7 @@
                                            wx:key="{{audioItem.id}}">
                                         <block wx:if="{{audioItem.type == '2'}}">
                                             <punch-card-diary-audio-play
-                                                  audio-name="{{item.publisher.nick_name}}的录音--{{audioItem.id}}"
+                                                  audio-name="{{item.publisher.nickName}}的录音--{{audioItem.id}}"
                                                   audio-file-info="{{audioItem}}"
                                                   bind:audioStatusChangeNotice="parentPageGetAudioPlayStatus"
                                                   audio-play-status-flag="{{audioIdCurrentlyPlay === audioItem.id ? 'play':'pause'}}">

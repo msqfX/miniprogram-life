@@ -236,7 +236,7 @@
             <!--只显示十个用户昵称-->
             <block wx:if="{{i < 10}}">
               <text bindtap="_intoPersonalHomePage"
-                    data-user-id="{{likeUserItem.admirer.id}}">{{likeUserItem.admirer.nick_name}}
+                    data-user-id="{{likeUserItem.admirer.id}}">{{likeUserItem.admirer.nickName}}
                 <block wx:if="{{i+1 !== diaryItemData.tenLikeInfo.length}}">,</block>
               </text>
             </block>
