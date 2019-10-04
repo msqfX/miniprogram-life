@@ -21,9 +21,6 @@ Component({
      * 组件的初始数据
      */
     data: {
-
-        imgRootPath: app.globalData.imgBaseSeverUrl, // 服务器图片访问BaseURL
-
         // 打卡圈子子项右边圈子信息的宽度
         projectBaseInfoWidth: app.globalData.windowWidth - (10 + 100 + 5 + 10),
 

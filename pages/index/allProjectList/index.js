@@ -1,12 +1,9 @@
 let app = getApp();
 Page({
-
     /**
      * 页面的初始数据
      */
     data: {
-        // 服务器图片访问BaseURL
-        imgRootPath: app.globalData.imgBaseSeverUrl,
         punchCardProjectList: []
     },
 
@@ -36,19 +33,16 @@ Page({
 
     },
 
-
     /**
      * 页面相关事件处理函数--监听用户下拉动作
      */
     onPullDownRefresh: function () {
-
     },
 
     /**
      * 页面上拉触底事件的处理函数
      */
     onReachBottom: function () {
-
     },
 
     // 进入打卡详情页点击事件

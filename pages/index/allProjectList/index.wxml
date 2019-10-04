@@ -2,21 +2,20 @@
     <block wx:if="{{punchCardProjectList.length > 0}}">
         <block wx:for="{{punchCardProjectList}}">
             <view class="punch-card-project-item" bindtap="intoPunchCardDetail"
-            data-project-id="{{item.id}}" data-is-creator="{{item.is_creator}}">
+            data-project-id="{{item.id}}" data-is-creator="{{item.isCreator}}">
                 <view class="punch-card-project-cover-img">
-                    <block wx:if ="{{item.cover_img_url === 'default_cover_img'}}">
-                        <image src="/images/default/project_cover_img.png"></image>
+                    <block wx:if="{{item.coverImgUrl == 'default_cover_img'}}">
+                       <image src="/images/default/project_cover_img.png"></image>
                     </block>
                     <block wx:else>
-                        <image src="{{imgRootPath}}{{item.cover_img_url}}"></image>
+                        <image src="{{item.coverImgUrl}}"></image>
                     </block>
                 </view>
-
                 <view class="punch-card-project-info">
                     <view class="info-head">
                         <view class="punch-card-project-name">
-                            <view>{{item.project_name}}
-                                <block wx:if="{{item.is_creator == 1}}">
+                            <view>{{item.projectName}}
+                                <block wx:if="{{item.isCreator == 1}}">
                                     <text class="punch-card-project-creator">圈主</text>
                                 </block>
                             </view>

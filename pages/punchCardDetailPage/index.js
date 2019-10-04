@@ -7,8 +7,7 @@ Page({
     data: {
         userInfo: [], // 当前使用小程序的用户信息
         showLoading: true, // 在未从服务器端获取到打卡圈子信息之前则显示加载动画&&空白页面
-        imgRootPath: app.globalData.imgBaseSeverUrl, // 服务器图片访问BaseURL
-
+  
         showUpdateProjectNameModel: false, // 控制显示、隐藏修改圈子名称的自定义模态框
         newProjectNameCheckFlag: false, // 修改后的圈子名是否合法标志
 
@@ -45,65 +44,6 @@ Page({
 
         // 用户打卡日记列表
         punchCardDiaryList: [
-            // 属性值说明
-            // {
-            //     id: '打卡日记记录id',
-            //     text_content: '打卡日记文本内容',
-            //     punch_card_time: '打卡时间',
-            //     punch_card_address: '打卡地理位置信息',
-            //     address_longitude: '经度',
-            //     address_latitude: '纬度',
-            //     visible_type: '日记可见类型', // 0-公开 圈子成员可见 1--仅圈主可见
-            //     curr_diary_punch_card_day_num: '当前日记已坚持天数',
-            //     have_sticky: '是否置顶', // 0--不置顶 1--置顶
-            //     is_repair_diary: '是否为补打卡日记', // 0--不是 1--是
-            //     repair_punch_card_time: '补打卡时间',
-            //     publisher: {
-            //         id: 0,// 日记发表者userId
-            //         sex:'0--未知 1--男性 2--女性',
-            //         nickName:'',
-            //         avatarUrl: ''
-            //     },
-            //     diaryResource:{
-            //         id: '打卡日记相关的资源文件记录id',
-            //         resource_url: '资源文件路径信息',
-            //         type: '1-图片 2-音频 3-视频'
-            //     },
-            //     like_user_num: 点赞总人数
-            //     comment_num: 评论总数
-            //     haveLike: 当前小程序使用者对本条日记的点赞情况 true已点赞 false未点赞
-            //     // 每条日记只显示前十条点赞记录
-            //     tenLikeInfo:[
-            //         {
-            //              id: 点赞记录id,
-            //              admirer:{
-            //                          id: 点赞者id,  nickName: 点赞者昵称
-            //                      }
-            //         }
-            //     ],
-            //     该日记的所有评论
-            //     allCommentInfo:[{
-            //              id: 评论记录id
-            //              pid: 该条评论所属一级评论的id
-            //              diary_id: 日记记录id
-            //              text_comment: 文本评论内容
-            //              sound_comment: 音频评论内容文件路径
-            //              create_time: 评论发表时间
-            //              reviewer: {
-            //                            id: 评论者用户id
-            //                            nickName: 评论者昵称
-            //                            sex: 评论者性别
-            //                            avatarUrl: 评论者头像
-            //                        }
-            //              一级评论则不显示评论所回复的用户的信息 因为这是针对日记发表者进行评论的
-            //              respondent: {
-            //                            id: 评论所回复的用户id
-            //                            nickName: 评论所回复的用户昵称
-            //                            sex: 评论所回复的用户性别
-            //                            avatarUrl: 评论所回复的用户头像
-            //                        }
-            //        }]
-            // }
         ],
         diaryListPageNo: 1, // 当前已经加载的页号
         diaryListDataNum: 2, // 每页显示的数据条数
@@ -121,17 +61,6 @@ Page({
 
         // 最新加入打卡圈子的三个用户信息
         attendUserInfo: [
-            // 属性值说明
-            // {
-            //     id: '用户id',
-            //     nickName: '用户名',
-            //     avatarUrl: '用户头像url',
-            //     sex: 0-未知，1-男性，2-女性
-            //     pivot: {
-            //         id: '用户加入打卡圈子的记录id',
-            //         attend_time: '加入时间'
-            //     }
-            // }
         ],
 
         haveCollect: false,      // 是否已经收藏该打卡圈子 false--未收藏
@@ -194,6 +123,9 @@ Page({
                    userId: app.globalData.userInfo.id,
                    projectId: that.data.projectId
                },
+                header: {
+                    token: app.globalData.token
+                },
                success:function (res) {
                    clearTimeout(id);
                    switch (res.statusCode) {
@@ -237,19 +169,22 @@ Page({
                     //projectId: that.data.projectId,
                     userId: app.globalData.userInfo.id
                 },
+                header: {
+                    token: app.globalData.token
+                },
                 success:function (res) {
                     clearTimeout(id);
                     switch (res.statusCode) {
                         case 200:
                             let data = res.data.data;
 
-                            let isCreatorFlag = parseInt(data.creator_id)
+                            let isCreatorFlag = parseInt(data.creatorId)
                                 === parseInt(app.globalData.userInfo.id);
 
                             that.setData({
                               'projectInfo.projectName': data.projectName,
                               'projectInfo.coverImgUrl': data.coverImgUrl,
-                                'projectInfo.IntrInfoList' : data.projectIntrInfo,
+                              'projectInfo.IntrInfoList' : data.projectIntrInfo,
                               'projectInfo.attendUserNum': parseInt(data.attendUserNum),
                               'projectInfo.allPunchCardNum': parseInt(data.allPunchCardNum),
 
@@ -536,7 +471,7 @@ Page({
                 '/project_cover_img/sys_recommend/20181001/520d70c0a777ec055df58c3fed943b37.png';
         } else {
             // 存在图片资源 设置第一张图片为分享图片
-            imgUrl = app.globalData.imgBaseSeverUrl + currDiary.diaryResource[0].resourceUrl;
+            imgUrl = currDiary.diaryResource[0].resourceUrl;
         }
         console.log(imgUrl);
 
@@ -639,10 +574,14 @@ Page({
 
         // 新圈子名合法则提交服务器
         wx.request({
-            'url': app.globalData.urlRootPath + 'index/PunchCardProject/updateName',
+            'url': app.globalData.gateway + 'life-punch/punchCardProject/updateName',
+            method: 'put',
             data: {
-                'project_id': that.data.projectId,
-                'project_name': that.data.newProjectName
+                'projectId': that.data.projectId,
+                'projectName': that.data.newProjectName
+            },
+            header:{
+                token: app.globalData.token
             },
             success: function (response) {
                 wx.hideLoading();
@@ -784,6 +723,9 @@ Page({
                 projectId: that.data.projectId,
                 userId: app.globalData.userInfo.id
             },
+            header:{
+                token: app.globalData.token
+            },
             success: function (res) {
                 console.log(res);
                 let data = res.data;
@@ -843,12 +785,15 @@ Page({
             haveStick = parseInt(that.data.punchCardDiaryList[diaryIndex].have_sticky);
 
         wx.request({
-            url: app.globalData.urlRootPath
-                + 'index/PunchCardDiary/dealDiarySticky',
-            method: 'post',
+            url: app.globalData.gateway
+                + 'life-punch/punchCardDiary/dealDiarySticky',
+            method: 'delete',
             data: {
                 diaryId: that.data.punchCardDiaryList[diaryIndex].id,
                 haveSticky: haveStick === 1 ? 0 : 1 // 1--置顶 0--不置顶
+            },
+            header:{
+                token: app.globalData.token
             },
             success: function (res) {
                 console.log(res);
@@ -948,9 +893,9 @@ Page({
                 // 确认删除
                 if (res.confirm) {
                     wx.request({
-                        url: app.globalData.urlRootPath
-                            + 'index/PunchCardDiary/deleteDiaryById',
-                        method: 'post',
+                        url: app.globalData.gateway
+                            + 'life-punch/api/punchCardDiary/deleteDiaryById',
+                        method: 'delete',
                         data: {
                             projectId: that.data.projectId,
                             diaryId: that.data.punchCardDiaryList[diaryIndex].id,
@@ -1008,14 +953,13 @@ Page({
         {
             if (parseInt(diaryResourceList[i].type) === 1)
             // 加上图片访问的baseUrl  注意一定要改为http 不然预览网络图片一直黑屏
-                ImgResourceList[index++] =
-                    that.data.imgRootPath + diaryResourceList[i].resourceUrl;
+                ImgResourceList[index++] = diaryResourceList[i].resourceUrl;
         }
 
         console.log(e.currentTarget.dataset.index);
         wx.previewImage({
             // 当前显示图片的http链接
-            current: that.data.imgRootPath + e.currentTarget.dataset.imgUrl,
+            current: e.currentTarget.dataset.imgUrl,
 
             // 需要预览的图片http链接列表
             urls: ImgResourceList,
@@ -1112,6 +1056,9 @@ Page({
                   likedUserId: that.data.punchCardDiaryList[diaryIndex].publisher.id, // 被点赞者
                   admirerId: that.data.userInfo.id
                 },
+                header: {
+                    token: app.globalData.token
+                },
                 success: function (res) {
                     console.log(res);
                     let data = res.data;
@@ -1201,12 +1148,15 @@ Page({
                     if (res.confirm)
                     {
                         wx.request({
-                            url: app.globalData.urlRootPath
-                                + 'index/DiaryComment/deleteComment',
+                            url: app.globalData.gateway
+                                + 'life-punch/api/diaryComment/deleteComment',
                             method: 'post',
                             data: {
                                 diaryId: diaryId,
                                 commentId: commentId
+                            },
+                            header:{
+                                token: app.globalData.token
                             },
                             success: function (res) {
                                 console.log(res);
@@ -1455,6 +1405,9 @@ Page({
             data: {
                 userId: that.data.userInfo.id,
                 projectId: that.data.projectId
+            },
+            header: {
+                token: app.globalData.token
             },
             success: function (res) {
                 console.log(res);

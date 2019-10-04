@@ -5,21 +5,11 @@ Page({
      * 页面的初始数据
      */
     data: {
-        // 用于访问服务器图片
-        imgRootPath: app.globalData.imgBaseSeverUrl,
-
         projectId: 0,
         projectIntrInfoList: [
-            // {order: 0, type: 1, content: 'text'},
-            // {order: 1, type: 2, content: 'imgUrl'},
-            // {order: 2, type: 3, content: 'soundFileUrl'},
-            // {order: 3, type: 4, content: 'videoFileUrl'},
-            // 具有id、project_id这两个字段的简介记录是已经保存至数据库中的，若本地删除则同时也要删除数据库中的
-            // {id: 1,project_id: 2 ,order: 4, type: 4, content: 'videoFileUrl'},
         ],
         deleteIntrInfoIdList: [], // 记录数据库中需要被删除的圈子简介id
         isExistProjectIntrInfo: false,// 根据stepThree页面传递的projectIntrInfo来判断是否存在简介记录
-
     },
 
     /**
@@ -36,23 +26,19 @@ Page({
                 projectIntrInfoList: JSON.parse(options.projectIntrInfo)
             });
         }
-
         console.log(that.data.projectIntrInfoList);
-
     },
 
     /**
      * 生命周期函数--监听页面初次渲染完成
      */
     onReady: function () {
-
     },
 
     /**
      * 生命周期函数--监听页面显示
      */
     onShow: function () {
-
     },
 
     // 在数组后面追加数据 type: '1'--文字 '2'--图片 '3'--音频 '4'--视频
@@ -184,7 +170,6 @@ Page({
     // 保存圈子信息至服务器
     updateProjectIntrInfo: function () {
         let that = this;
-
         wx.showLoading({
             title: "加载中...",
             mask: true
@@ -193,11 +178,14 @@ Page({
         // 若是存在需要从数据库中删除的简介记录则先删除
         if (that.data.deleteIntrInfoIdList.length > 0)  {
             wx.request({
-                url: app.globalData.urlRootPath + 'index/PunchCardProject/deleteProjectIntr',
-                method: "post",
+              url: app.globalData.gateway + 'life-punch/api/projectIntr/deleteProjectIntr',
+                method: "delete",
                 data:{
                     projectId: parseInt(that.data.projectId),
                     deleteIdList:that.data.deleteIntrInfoIdList,
+                },
+                header: {
+                    token: app.globalData.token
                 },
                 success: function (res) {
                     console.log(res);
@@ -209,7 +197,7 @@ Page({
                         default:
                             wx.hideLoading();
                             wx.showToast({
-                                title: res.data.errMsg,
+                                title: res.data.msg,
                                 icon: "none"
                             });
                     }
@@ -232,9 +220,8 @@ Page({
     //保存最新编辑的内容
     saveTheLastIntrInfo: function () {
         let that = this,
-            length = that.data.projectIntrInfoList.length,
-            projectIntrInfo = that.data.projectIntrInfoList;
-
+        length = that.data.projectIntrInfoList.length,
+        projectIntrInfo = that.data.projectIntrInfoList;
         console.log(that.data.projectIntrInfoList);
 
         // 根据projectIntrInfoList中的简介记录是否存在id or project_id 来
@@ -247,7 +234,6 @@ Page({
             else
                 newProjectIntrInfo.push(projectIntrInfo[i])
         }
-
 
         // 添加新记录
         let uploadTask = [];
@@ -263,7 +249,8 @@ Page({
                         filePath: newProjectIntrInfo[i].content,
                         name: "file",
                         header: {
-                          "Content-Type": "multipart/form-data"
+                          "Content-Type": "multipart/form-data",
+                          "token": app.globalData.token
                         },
                         formData: {
                             projectId: parseInt(that.data.projectId),
@@ -292,6 +279,9 @@ Page({
                             type: parseInt(newProjectIntrInfo[i].type),
                             content: newProjectIntrInfo[i].content
                         },
+                        header: {
+                            token: app.globalData.token
+                        },
                         success: function (res) {
                             resolve(res);
                         },
@@ -306,11 +296,14 @@ Page({
         // 更新旧数据
         uploadTask[index] = new Promise(function (resolve) {
             wx.request({
-                url: app.globalData.urlRootPath
-                    + 'index/PunchCardProject/updateProjectIntr',
-                method: "post",
+                url: app.globalData.gateway
+                  + 'life-punch/api/projectIntr/batchUpdate',
+                method: "put",
                 data: {
                     projectIntrInfo: oldProjectIntrInfo
+                },
+                header: {
+                    token: app.globalData.token
                 },
                 success: function (res) {
                     resolve(res);

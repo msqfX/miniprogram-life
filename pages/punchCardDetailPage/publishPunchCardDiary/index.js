@@ -541,6 +541,9 @@ Page({
           visibleType: parseInt(that.data.index),      // 打卡日记可见类型
           isRepairDiary: 0,                           // 0--非补打卡日记
         },
+        header: {
+          token: app.globalData.token
+        },
         success: function (res) {
           console.log(res);
           if (res.statusCode === 200) {
@@ -590,13 +593,16 @@ Page({
               // 只要一个资源上传失败发起请求删除前面相关所有提交包括日记的基本信息
               let deleteDiary = new Promise(function (resolve) {
                 wx.request({
-                  url: app.globalData.urlRootPath
-                      + 'index/PunchCardDiary/deleteDiaryById',
-                  method: 'post',
+                  url: app.globalData.gateway
+                      + 'life-punch/api/punchCardDiary/deleteDiaryById',
+                  method: 'delete',
                   data: {
                     diaryId: that.data.diaryId,
                     projectId: that.data.projectId,
                     userId: that.globalData.userInfo.id
+                  },
+                  header:{
+                    token: app.globalData.token
                   },
                   success: function (res) {
                     console.log(res);
@@ -672,6 +678,9 @@ Page({
           diaryId: that.data.diaryId,
           resourceType: currResFileInfo.resourceType, // 资源类型 1--图片 2--音频 3--视频
         },
+        header: {
+          token: app.globalData.token
+        },
         success: function (res) {
           if (res.statusCode === 200) {
             wx.hideLoading();
@@ -720,13 +729,16 @@ Page({
 
     let deleteDiary = new Promise(function (resolve) {
       wx.request({
-        url: app.globalData.urlRootPath
-            + 'index/PunchCardDiary/deleteDiaryById',
-        method: 'post',
+        url: app.globalData.gateway
+            + 'life-punch/api/punchCardDiary/deleteDiaryById',
+        method: 'delete',
         data: {
           projectId: that.data.projectId,
           diaryId: that.data.diaryId,
           userId: that.globalData.userInfo.id
+        },
+        header:{
+          token: app.globalData.token
         },
         success: function (res) {
           console.log(res);

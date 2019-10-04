@@ -81,6 +81,9 @@ Page({
                     data: {
                         parentLabelName: that.data.typeName
                     },
+                    header: {
+                        token: app.globalData.token
+                    },
                     success: function (res) {
                         let respData = res.data;
                         switch (res.statusCode) {
@@ -359,12 +362,15 @@ Page({
      */
     getRecommendList: function (pageNo,pageSize,successCallback) {
         wx.request({
-            url: app.globalData.urlRootPath
-                + 'index/PunchCardProject/getProjectListByRecommend',
-            method: 'post',
+            url: app.globalData.gateway
+                + 'life-punch/api/punchCardProject/getProjectListByRecommend',
+            method: 'get',
             data: {
                 nextPage: pageNo,
                 dataNum: pageSize
+            },
+            header:{
+                token: app.globalData.token
             },
             success: function (res) {
                 // 请求成功后执行对应的函数进行后续处理
@@ -397,6 +403,9 @@ Page({
                 pageSize: pageSize,
                 typeName: that.data.typeName === '全部' ?
                     that.data.parentLabelName: that.data.typeName
+            },
+            header: {
+                token: app.globalData.token
             },
             success: function (res) {
                 // 请求成功后执行对应的函数进行后续处理

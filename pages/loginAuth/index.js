@@ -124,15 +124,16 @@ Page({
         let that = this;
         let avatarUrl = app.globalData.userInfo.avatarUrl;
         wx.request({
-            url: app.globalData.urlRootPath + 'index/user/addUserInfo',
+            url: app.globalData.gateway + 'life-user/api/user/addUserInfo',
             data: {
-                open_id: app.globalData.openid,
+                openId: app.globalData.openid,
                 nickName: app.globalData.userInfo.nickName, // 微信昵称
                 avatarUrl: avatarUrl === "" ? "default_avatar": avatarUrl, // 微信用户头像
                 sex: parseInt(app.globalData.userInfo.sex) // 性别 0-未知，1-男性，2-女性
             },
             header: {
-                'content-type': 'application/json'
+                'content-type': 'application/json',
+                'token': app.globalData.token
             },
             success: function (res) {
                 that.setData({

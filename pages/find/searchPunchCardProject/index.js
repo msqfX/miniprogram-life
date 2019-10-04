@@ -187,6 +187,9 @@ Page({
                 dataNum: pageSize,
                 keyword: keyword
             },
+            header: {
+                token: app.globalData.token
+            },
             success: function (res) {
                 // 请求成功后执行对应的函数进行后续处理
                 callback && callback(res);

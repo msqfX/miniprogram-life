@@ -101,6 +101,9 @@ Page({
                     creatorIntroduce: that.data.creatorIntrInfo,
                     weixinNum: that.data.creatorWeiXinNum
                 },
+                header: {
+                    token: app.globalData.token
+                },
                 success: function (response) {
                     console.log(response);
                     switch (response.statusCode) {

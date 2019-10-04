@@ -81,7 +81,7 @@ Page({
             return false;
         }
         wx.request({
-          url: app.globalData.gateway + 'life-punch/api/punchCardDiary/comment',
+          url: app.globalData.gateway + 'life-punch/api/diaryComment',
             method: 'post',
             data: {
               diaryId: that.data.diaryId,
@@ -89,6 +89,9 @@ Page({
               reviewerId: app.globalData.userInfo.id, // 评论者id
               textComment: that.data.textComment,
               respondentId: that.data.respondentId // 被评论者id
+            },
+            header: {
+                token: app.globalData.token
             },
             success: function (res) {
                 console.log(res);

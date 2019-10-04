@@ -5,7 +5,6 @@ Page({
      * 页面的初始数据
      */
     data: {
-        imgRootPath: app.globalData.imgBaseSeverUrl, // 服务器图片访问BaseURL
         userInfo: {},
 
         // 打卡日记列表信息显示
@@ -306,7 +305,7 @@ Page({
         if (currDiary.diaryResource.length <= 0 || parseInt(currDiary.diaryResource[0].type) === 2) {
             // 资源列表为空或者资源列表第一个元素存放的不是图片（type=1）都说明该日记不存在图片资源
             //  分享一张已设置的图片
-            imgUrl = 'http://pxpir6goi.bkt.clouddn.com/520d70c0a777ec055df58c3fed943b37.png';
+            imgUrl = 'http://upload.dliony.com/520d70c0a777ec055df58c3fed943b37.png';
         } else {
             // 存在图片资源 设置第一张图片为分享图片
             imgUrl = currDiary.diaryResource[0].resourceUrl;
@@ -347,6 +346,9 @@ Page({
                 pageNo: parseInt(pageNo),
                 dataNum: parseInt(dataNum),
                 isDiaryCreator: 1, // 代表查询自己的打卡日记列表 0则代表查看他人的
+            },
+            header: {
+                token: app.globalData.token
             },
             success: function (res) {
                 // 请求成功执行回调函数进行对应的处理

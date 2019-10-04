@@ -352,7 +352,7 @@
                             与该评论属于同一个一级评论的二级评论
                             被评论者是该条评论的发布者-->
                             <text catchtap="showCommentBox" data-pid="{{childCItem.pid}}"
-                                  data-respondent-id="{{childCItem.reviewer.id}}"
+                                  data-respondent-id="{{childCItem.reviewer.id}}" 
                                   data-diary-id="{{diaryInfo.id}}"> : {{childCItem.textComment}}</text>
                           </block>
                         </view>
@@ -456,7 +456,7 @@
         <!-- 评论 对日记发表者评论默认为一级评论-->
         <view class="diary-comment-btn four-item" catchtap="showCommentBox"
               data-pid="0" data-respondent-id="{{diaryInfo.publisher.id}}"
-              data-diary-id="{{diaryInfo.id}}"
+              data-diary-id="{{diaryInfo.id}}" 
               style="border-left: 1px solid #e5e5e5; border-right: 1px solid #e5e5e5;">
           <image src="/images/button/comment_btn.png"></image>
           <text>评论</text>

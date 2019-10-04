@@ -67,6 +67,9 @@ Page({
             url: app.globalData.gateway +
             "life-punch/api/projectTypeLabel",
             method: 'get',
+            header: {
+                token: app.globalData.token
+            },
             success:function (response) {
 
                 let parentLabel = response.data.data.parentLabel;
@@ -350,6 +353,9 @@ Page({
               privacyType: parseInt(that.data.privacyType),
               typeLabel: that.data.labelNameString,
               creatorId: parseInt(app.globalData.userInfo.id)
+            },
+            header: {
+                token: app.globalData.token
             },
             success:function (response) {
                 switch (response.statusCode) {

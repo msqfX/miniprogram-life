@@ -146,10 +146,13 @@ Page({
 
         // 新圈子名合法则提交服务器
         wx.request({
-            'url': app.globalData.urlRootPath + 'index/PunchCardProject/updateName',
+            'url': app.globalData.gateway + 'life-punch/api/punchCardProject/updateName',
             data: {
-                'project_id': that.data.projectId,
-                'project_name': that.data.newProjectName
+                'projectId': that.data.projectId,
+                'projectName': that.data.newProjectName
+            },
+            header:{
+                token: app.globalData.token
             },
             success: function (response) {
                 wx.hideLoading();

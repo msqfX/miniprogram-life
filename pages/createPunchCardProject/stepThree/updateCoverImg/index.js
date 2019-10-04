@@ -6,8 +6,6 @@ Page({
      * 页面的初始数据
      */
     data: {
-        // 服务器图片访问BaseURL
-        imgRootPath: app.globalData.imgBaseSeverUrl,
         projectId: 0,
         // 当前圈子使用的系统推荐封面背景图的图片id,0--代表使用的是自定义上传的图片
         // 或者小程序内置的默认图片images/default/project_cover_img.png
@@ -76,8 +74,11 @@ Page({
 
         // 获取系统推荐的圈子封面背景图列表
         wx.request({
-            url: app.globalData.urlRootPath + "index/PunchCardProject/getSysRecommendCoverImg",
-            method: "post",
+          url: app.globalData.gateway + "life-punch/api/sysConfig/getSysRecommendCoverImg",
+            method: "get",
+            header: {
+                token: app.globalData.token
+            },
             success: function (res) {
                 wx.hideLoading();
                 console.log(res);
@@ -94,7 +95,7 @@ Page({
                             sysRecommendCoverImgLoadNotice: "暂无系统推荐封面背景图!"
                         });
                         wx.showToast({
-                            title: res.data.errMsg,
+                            title: res.data.msg,
                             icon: "none"
                         });
                         break;
@@ -118,8 +119,8 @@ Page({
         });
 
         wx.request({
-            url: app.globalData.urlRootPath + "index/PunchCardProject/updateCoverImg",
-            method: "post",
+            url: app.globalData.gateway + "life-punch/api/punchCardProject/updateCoverImg",
+            method: "put",
             data: {
                 // 若修改前使用的是推荐封面背景图，则在修改时要设置其被使用数-1,因此需要pre~Id
                 preSysRecommendCoverImgId: that.data.sysRecommendCoverImgId,
@@ -127,6 +128,9 @@ Page({
                 newImgUrl: e.currentTarget.dataset.url,
                 curCoverImgUrl: that.data.curCoverImgUrl,
                 projectId: parseInt(that.data.projectId)
+            },
+            header: {
+                token: app.globalData.token
             },
             success: function (res) {
                 wx.hideLoading();
@@ -148,7 +152,7 @@ Page({
 
                     default:
                         wx.showToast({
-                            title: res.data.errMsg,
+                            title: res.data.msg,
                             icon: "none"
                         });
                         break;
@@ -187,8 +191,8 @@ Page({
         chooseImg.then(function (res) {
             console.log(res);
             wx.uploadFile({
-                url: app.globalData.urlRootPath
-                    + "index/PunchCardProject/updateCoverImg",
+                url: app.globalData.gateway
+                  + "life-punch/api/punchCardProject/uploadCoverImg",
                 filePath: that.data.tempFilePaths,
                 name: "image",
                 formData: {
@@ -196,6 +200,9 @@ Page({
                     preSysRecommendCoverImgId: that.data.sysRecommendCoverImgId,
                     curCoverImgUrl: that.data.curCoverImgUrl,
                     projectId: parseInt(that.data.projectId)
+                },
+                header: {
+                    token: app.globalData.token
                 },
                 success: function (res) {
                     wx.hideLoading();
@@ -208,7 +215,7 @@ Page({
                             let pages = getCurrentPages();
                             let prePage = pages[pages.length - 2];
                             prePage.setData({
-                                projectCoverImgUrl: data.data.cover_img_url,
+                              projectCoverImgUrl: data.data.coverImgUrl,
                                 sysRecommendCoverImgId: 0,
                             });
                             wx.navigateBack({
@@ -218,7 +225,7 @@ Page({
 
                         default:
                             wx.showToast({
-                                title: data.errMsg,
+                                title: data.msg,
                                 icon: "none"
                             });
                             break;

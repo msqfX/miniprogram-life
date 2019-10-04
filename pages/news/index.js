@@ -8,7 +8,6 @@ Page({
     data: {
         userInfo: '',
         // 服务器图片访问BaseURL
-        imgRootPath: app.globalData.imgBaseSeverUrl,
         windowWidth: app.globalData.windowWidth,
         unreadLikeNewsNum: 0, // 未读的被点赞消息数
         unreadCommentNewsNum: 0, // 未读的被评论消息数
@@ -92,6 +91,9 @@ Page({
             method: 'get',
             data: {
             },
+            header: {
+                token: app.globalData.token
+            },
             success: function (res) {
                 wx.hideLoading();
                 wx.stopPullDownRefresh();
@@ -150,6 +152,9 @@ Page({
               + '?unreadNewsType=' + unreadNewsType,
             method: 'put',
             data: {
+            },
+            header: {
+                token: app.globalData.token
             },
             success: function (res) {
                 if (res.statusCode === 200) {

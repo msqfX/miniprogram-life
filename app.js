@@ -18,9 +18,6 @@ App({
         console.log(res);
       }
     })
-
-
-
   },
 
   /**
@@ -44,20 +41,16 @@ App({
   },
   globalData: {
     openId: '0',
+    token: '',
     userInfo: {
       nickName: '',
       avatarUrl: '',
       gender: 0 // 性别 0-未知，1-男性，2-女性
     },
-    // urlRootPath: "https://myxu.xyz/SmallPunchMiniProgramAfterEnd/public/",
-    // urlRootPath_local:
-    //     "http://myxu.com/EndProject/SmallPunchMiniProgramAfterEnd/public/",
-    urlRootPath: "http://localhost/SmallPunchMiniProgramAfterEnd/public/",
-    // 服务器图片访问BaseURl
-    // imgBaseSeverUrl: "https://myxu.xyz/SmallPunchMiniProgramAfterEnd/"
-    imgBaseSeverUrl: "http://localhost/SmallPunchMiniProgramAfterEnd/",
+     urlRootPath: "https://myxu.xyz/SmallPunchMiniProgramAfterEnd/public/",
+     urlRootPath: "https://www.dliony.com/",
 
-    gateway:"http://localhost:9000/"
+    gateway: "http://localhost:9000/"
 
   }
 });

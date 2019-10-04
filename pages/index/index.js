@@ -1,18 +1,10 @@
 let app = getApp();
 Page({
-
-    /**
-     * 页面的初始数据
-     */
     data: {
-        // 服务器图片访问BaseURL
-        imgRootPath: app.globalData.imgBaseSeverUrl,
         // 在未从服务器端获取到打卡圈子信息之前则显示加载动画&&空白页面
         showLoading: true,
-
         canIUse: wx.canIUse('button.open-type.getUserInfo'),
         userInfo: '',
-
         getPunchCardProjectListStatus: false, // 我参与或者创建的打卡圈子列表数据的获取状态标识
         punchCardProjectList: [], // 我参与或者创建的打卡圈子列表
         punchCardProjectIdList:[],// 我参与或者创建的打卡圈子ID列表
@@ -31,38 +23,6 @@ Page({
         diaryImgWidth: Math.floor((app.globalData.windowWidth-(15 * 2 + 5 * 3)) / 3),
 
         recommendDiaryList: [
-            // 属性值说明
-            // {
-            //     id: '打卡日记记录id',
-            //     text_content: '打卡日记文本内容',
-            //     punch_card_time: '打卡时间',
-            //     punch_card_address: '打卡地理位置信息',
-            //     address_longitude: '经度',
-            //     address_latitude: '纬度',
-            //     like_user_num: 点赞总人数
-            //     comment_num: 评论总数
-            //     haveLike: 当前小程序使用者对本条日记的点赞情况 true已点赞 false未点赞
-            //     likeRecordId: 当前小程序用户对本条打卡日记点赞记录的ID号
-            //     punchCardProject: {
-            //         id: 0,// 日记所属的打卡圈子的圈子编号
-            //         project_name:'圈子名称',
-            //         cover_img_url: '圈子封面图片url'
-            //     },
-            //     publisher: {
-            //         id: 0,// 日记发表者userId
-            //         sex:'0--未知 1--男性 2--女性',
-            //         nickName:'',
-            //         avatarUrl: ''
-            //     },
-            //     diaryResource:{
-            //         id: '打卡日记相关的资源文件记录id',
-            //         resource_url: '资源文件路径信息',
-            //         type: '1-图片 2-音频 3-视频'
-            //     },
-            //     recentThreeAttendUserList: {
-            //         avatarUrl: ''
-            //     }
-            // }
         ], // 推荐的打卡日记数据列表
         pageNo: 1,              // 已经加载的日记数据页码
         dataNum: 5,             // 每一页包含的日记条数
@@ -88,11 +48,9 @@ Page({
          * true 需要更新 false 不需要更新
          */
         diaryLikeAndCommentStatus: false,
-
         // 当前所播放的音频ID，-1代表所有的音频都处于暂停状态
         audioIdCurrentlyPlay: -1,
     },
-
 
     /**
      * 生命周期函数--监听页面加载
@@ -112,7 +70,7 @@ Page({
             that.weiXinLogin();
             let id = setInterval(function () {
                 // 成功获取openId后执行下一步
-                if (app.globalData.openid !== '0') {
+                if (app.globalData.openId !== '0') {
                     clearInterval(id);
                     resolve(true);
                 }
@@ -135,12 +93,11 @@ Page({
                                 // 保存用户微信信息至全局变量,同时保证字段名与表字段名一致
                                 app.globalData.userInfo.avatarUrl = res.userInfo.avatarUrl;
                                 app.globalData.userInfo.nickName = res.userInfo.nickName;
-                              app.globalData.userInfo.gender = parseInt(res.userInfo.gender);
-
+                                app.globalData.userInfo.gender = parseInt(res.userInfo.gender);
+                                
                                 // 3.提交所获取的微信用户授权信息至服务器、服务器进行新用户的注册，
                                 // 已注册用户则直接返回服务器端该用户的详细信息
                                 that.addWeiXinUserInfo();
-
                             }
                         });
 
@@ -372,11 +329,10 @@ Page({
         if (currDiary.diaryResource.length <= 0 || parseInt(currDiary.diaryResource[0].type) === 2) {
             // 资源列表为空或者资源列表第一个元素存放的不是图片（type=1）都说明该日记不存在图片资源
             //  分享一张已设置的图片
-            imgUrl = 'http://localhost/SmallPunchMiniProgramAfterEnd/public/image_upload' +
-                '/project_cover_img/sys_recommend/20181001/520d70c0a777ec055df58c3fed943b37.png';
+          imgUrl = 'http://upload.dliony.com/520d70c0a777ec055df58c3fed943b37.png';
         } else {
             // 存在图片资源 设置第一张图片为分享图片
-            imgUrl = app.globalData.imgBaseSeverUrl + currDiary.diaryResource[0].resourceUrl;
+            imgUrl = currDiary.diaryResource[0].resourceUrl;
         }
         console.log(imgUrl);
 
@@ -399,10 +355,15 @@ Page({
                         data: {
                             code: res.code
                         },
+                        header:{
+                          token: app.globalData.token
+                        },
                         success: function(response) {
                             switch (response.statusCode) {
                                 case 200:
                                     app.globalData.openId = response.data.data.openId;
+                                    //app.globalData.openId = 'efsfesfesfsef';
+                                    app.globalData.token = response.data.data.token;
                                     break;
                                 default:
                                     wx.showToast({
@@ -424,7 +385,7 @@ Page({
                     })
 
                 } else {
-                    console.error('微信登录失败:' + res.errMsg);
+                    console.error('微信登录失败:' + res.msg);
                 }
             }
         });
@@ -445,7 +406,8 @@ Page({
             },
             method: "POST",
             header: {
-                'content-type': 'application/json'
+                'content-type': 'application/json',
+                'token': app.globalData.token
             },
             success: function (res) {
                 switch (res.statusCode) {
@@ -511,8 +473,10 @@ Page({
           url: app.globalData.gateway + 'life-punch/api/punchCardProject/getProjectInfoByUserId/' + app.globalData.userInfo.id,
             method: 'get',
             data: {
-              
             },
+          header: {
+            token: app.globalData.token
+          },
             success: function (res) {
                 console.log(res);
                 that.setData({
@@ -680,7 +644,9 @@ Page({
                 projectIdList: that.data.punchCardProjectIdList
                 // projectIdList: []
             },
-
+          header: {
+            token: app.globalData.token
+          },
             success: function (res) {
                 // 请求成功执行回调函数进行对应的处理
                 callback && callback(res);
@@ -768,11 +734,14 @@ Page({
         {
 
             wx.request({
-                url: app.globalData.urlRootPath + 'index/DiaryLike/cancelLike',
-                method: 'post',
+              url: app.globalData.gateway + 'life-punch/api/diaryLike/cancelLike',
+                method: 'delete',
                 data: {
                     likeRecordId: currDiary.likeRecordId,
                     diaryId: diaryId,
+                },
+                header: {
+                    token: app.globalData.token
                 },
                 success: function (res) {
                     console.log(res);
@@ -790,7 +759,7 @@ Page({
                             break;
                         default:
                             wx.showToast({
-                                title: data.errMsg,
+                                title: data.msg,
                                 icon: 'none',
                                 duration: 2000
                             });
@@ -815,6 +784,9 @@ Page({
                   diaryId: diaryId,
                   likedUserId: that.data.recommendDiaryList[diaryIndex].publisher.id, // 被点赞者
                   admirerId: that.data.userInfo.id
+                },
+                header: {
+                    token: app.globalData.token
                 },
                 success: function (res) {
                     console.log(res);
@@ -906,7 +878,7 @@ Page({
             return false;
         }
         wx.request({
-          url: app.globalData.gateway + 'life-punch/api/punchCardDiary/comment',
+          url: app.globalData.gateway + 'life-punch/api/diaryComment',
             method: 'post',
             data: {
               diaryId: that.data.diaryId,
@@ -914,6 +886,9 @@ Page({
               reviewerId: app.globalData.userInfo.id, // 评论者id
               textComment: that.data.commentText,
               respondentId: that.data.respondentId // 被评论者id
+            },
+            header: {
+                token: app.globalData.token
             },
             success: function (res) {
                 console.log(res);
@@ -968,6 +943,9 @@ Page({
           method: 'get',
           data: {
           },
+        header: {
+          token: app.globalData.token
+        },
           success: function (res) {
               let respData = res.data;
               if (res.statusCode === 200) {

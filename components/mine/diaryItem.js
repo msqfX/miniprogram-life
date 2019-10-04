@@ -87,8 +87,6 @@ Component({
      * 组件的初始数据
      */
     data: {
-        imgRootPath: app.globalData.imgBaseSeverUrl, // 服务器图片访问BaseURL
-
         // 日记存在两张以上图片时每张图片显示的长、宽度
         diaryImgWidth: Math.floor((app.globalData.windowWidth-(10+40+8+5+5+5+10))/3),
         diaryImgCount: 0, // 打卡日记的图片张数
@@ -216,13 +214,16 @@ Component({
                     // 确认删除
                     if (res.confirm) {
                         wx.request({
-                            url: app.globalData.urlRootPath
-                                + 'index/PunchCardDiary/deleteDiaryById',
+                            url: app.globalData.gateway
+                                + 'life-punch/api/punchCardDiary/deleteDiaryById',
                             method: 'post',
                             data: {
                                 projectId: that.data.diaryItemData.punchCardProject.id,
                                 diaryId: that.data.diaryItemData.id,
                                 userId: parseInt(that.data.diaryItemData.publisher.id)
+                            },
+                            header:{
+                                token: app.globalData.token
                             },
                             success: function (res) {
                                 console.log(res);
@@ -344,11 +345,14 @@ Component({
                     }
                 }
                 wx.request({
-                    url: app.globalData.urlRootPath + 'index/DiaryLike/cancelLike',
-                    method: 'post',
+                    url: app.globalData.gateway + 'life-punch/diaryLike/cancelLike',
+                    method: 'delete',
                     data: {
                         likeRecordId: likeRecordId,
                         diaryId: diaryId,
+                    },
+                    header:{
+                        token: app.globalData.token
                     },
                     success: function (res) {
                         console.log(res);
@@ -392,12 +396,15 @@ Component({
             } else {
                 // 进行点赞
                 wx.request({
-                    url: app.globalData.urlRootPath + 'index/DiaryLike/like',
+                    url: app.globalData.gateway + 'life-punch/api/diaryLike/like',
                     method: 'post',
                     data: {
-                        diary_id: diaryId,
-                        liked_user_id: that.data.diaryItemData.publisher.id, // 被点赞者
-                        'admirer_id': that.data.userInfo.id
+                        diaryId: diaryId,
+                        likedUserId: that.data.diaryItemData.publisher.id, // 被点赞者
+                        admirerId: that.data.userInfo.id
+                    },
+                    header:{
+                        token: app.globalData.token
                     },
                     success: function (res) {
                         console.log(res);
@@ -508,12 +515,15 @@ Component({
                         // 确认删除
                         if (res.confirm) {
                             wx.request({
-                                url: app.globalData.urlRootPath
-                                    + 'index/DiaryComment/deleteComment',
+                                url: app.globalData.gateway
+                                    + 'life-punch/api/diaryComment/deleteComment'+commentId,
                                 method: 'post',
                                 data: {
                                     diaryId: diaryId,
-                                    commentId: commentId
+                                    //commentId: commentId
+                                },
+                                header:{
+                                    token: app.globalData.token
                                 },
                                 success: function (res) {
                                     console.log(res);

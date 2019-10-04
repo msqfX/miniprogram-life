@@ -10,10 +10,6 @@ Page({
         hiddenLoadingMore: true, // 触发上拉事件时控制显示、隐藏加载更多
         haveMore: true, // 控制显示、隐藏 没有更多数据提示信息
 
-        // 服务器图片访问BaseURL
-        imgRootPath: app.globalData.imgBaseSeverUrl,
-
-
         // 打卡圈子精选专题
         punchCardProjectSpecialSubject: [
             '精选打卡专题-1', '精选打卡专题-2', '精选打卡专题-3', '精选打卡专题-4',
@@ -22,15 +18,6 @@ Page({
 
         // 当前已经获取到的打卡圈子推荐列表数据
         punchCardProjectRecommendList: [
-            // {
-            //     id: 1,
-            //     cover_img_url: 'default_cover_img',
-            //     project_name: '项目名1',
-            //     all_punch_card_num: 9999,
-            //     attend_user_num: 99999,
-            //     // TODO 参与打卡圈子报名费
-            //
-            // },
         ],
 
         currPageNo: 1, // 打卡圈子推荐列表当前页 用于上拉获取下一页数据
@@ -271,6 +258,9 @@ Page({
             data: {
                 pageNo: pageNo,
                 dataNum: that.data.dataNum
+            },
+            header: {
+                token: app.globalData.token
             },
             success: function (res) {
                 console.log(res);

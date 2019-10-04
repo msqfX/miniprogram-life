@@ -28,8 +28,6 @@ Component({
    * 组件的初始数据
    */
   data: {
-    resRootPath: app.globalData.imgBaseSeverUrl, // 服务器资源访问BaseURL
-
     innerAudioContext: '', // 用于播放所录音频的内部audio上下文InnerAudioContext
     audioPlayStatus: 'pause', // 音频播放状态 pause => 暂停播放中 & play => 播放中
     audioPlayCurrTime: 0,     // 音频当前播放时长 秒

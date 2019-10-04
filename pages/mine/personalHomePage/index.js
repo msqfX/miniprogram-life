@@ -6,33 +6,12 @@ Page({
      */
     data: {
         showLoading: true, // 在未从服务器端获取到打卡圈子信息之前则显示加载动画&&空白页面
-        imgRootPath: app.globalData.imgBaseSeverUrl, // 服务器图片访问BaseURL
-
         visitedUserId: 0, // 被访问者的userId  也就是需要显示该用户的相关信息
         visitorUserId: 0, // 访问者的userId    即小程序当前使用者的userId
         isMyself: false, // 是否为本人访问自己的个人主页 即 visitedUserId == visitorUserId
 
         // 被查看主页的用户基本信息
         visitedUserInfo: {
-            //  属性说明
-            // "id": 1,
-            // "avatarUrl": "用户头像地址",
-            // "nickName": "MYXuu",
-            // "weixin_num": null,
-            // "birthday": null,
-            // "sex": 1,
-            // "person_sign": null,
-            // "personal_page_visit_num": 2,
-            // // 前五条访问记录信息
-            // "fivePersonalPageVisitRecord": [{
-            //     "id": 12,
-            //     "visited_id": 1, // 被访问者用户id
-            //     "create_time": "2019-05-10 12:02:00",
-            //     "visitorInfo": {
-            //         "id": 8, // 访问者用户id
-            //         "avatarUrl": "访问者头像"
-            //     }
-            // }]
         },
 
         userInfo:{}, // 当前小程序使用者信息，也就是主页访问者信息
@@ -197,6 +176,9 @@ Page({
                 visitedId: that.data.visitedUserId,
                 visitorId: that.data.visitorUserId
             },
+            header: {
+                token: app.globalData.token
+            },
             success: function (res) {
                 console.log(res);
                 let data = res.data;
@@ -240,6 +222,9 @@ Page({
                     userId: that.data.visitedUserId,
                     // 代表查询自己的打卡圈子列表 0则代表查看他人的
                     isDiaryCreator: that.data.isMyself === true ? 1 : 0
+                },
+                header: {
+                    token: app.globalData.token
                 },
                 success: function (res) {
                     let respData = res.data;
@@ -474,7 +459,9 @@ Page({
 
                 // 代表查询自己的打卡日记列表 0则代表查看他人的
                 isDiaryCreator: that.data.isMyself === true ? 1 : 0,
-
+            },
+            header: {
+                token: app.globalData.token
             },
             success: function (res) {
                 // 请求成功执行回调函数进行对应的处理
@@ -520,7 +507,7 @@ Page({
                 '/project_cover_img/sys_recommend/20181001/520d70c0a777ec055df58c3fed943b37.png';
         } else {
             // 存在图片资源 设置第一张图片为分享图片
-            imgUrl = app.globalData.imgBaseSeverUrl + currDiary.diaryResource[0].resource_url;
+            imgUrl = currDiary.diaryResource[0].resourceUrl;
         }
         console.log(imgUrl);
 

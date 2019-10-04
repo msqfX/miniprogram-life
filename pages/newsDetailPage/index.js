@@ -111,6 +111,9 @@ Page({
             data: {
                 userId: that.data.userInfo.id,
             },
+            header: {
+                token: app.globalData.token
+            },
             success: function (res) {
                 let respData = res.data;
                 switch (res.statusCode) {
@@ -162,6 +165,9 @@ Page({
         method: 'get',
         data: {
             userId: that.data.userInfo.id,
+        },
+        header: {
+            token: app.globalData.token
         },
         success: function (res) {
             let respData = res.data;

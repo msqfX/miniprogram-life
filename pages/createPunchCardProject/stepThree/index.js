@@ -5,9 +5,6 @@ Page({
      * 页面的初始数据
      */
     data: {
-        // 用于访问服务器图片
-        imgRootPath: "https://myxu.xyz/SmallPunchMiniProgramAfterEnd/",
-
         userAvatar: app.globalData.userInfo.avatarUrl,
         creatorNickName: app.globalData.userInfo.nickName,
 
@@ -66,24 +63,27 @@ Page({
         let that = this;
         // 从服务器端获取圈主信息
         wx.request({
-            url: app.globalData.urlRootPath + "index/PunchCardProject/getCreatorInfo",
+          url: app.globalData.gateway + "life-punch/api/punchCardProject/getCreatorInfo",
             data:{
-                project_id: that.data.punchCardProjectId
+                projectId: that.data.punchCardProjectId
             },
-            method: "post",
+            header: {
+                token: app.globalData.token
+            },
+            method: "get",
             success:function (response) {
                 console.log(response);
                 switch (response.statusCode) {
                     case 200:
                         that.setData({
-                            creatorIntrInfo: response.data.data.creator_introduce,
-                            weixinNum: response.data.data.weixin_num
+                            creatorIntrInfo: response.data.data.creatorIntroduce,
+                            weixinNum: response.data.data.weixinNum
                         });
                         break;
 
                     default:
                         wx.showToast({
-                           title: response.data.errMsg,
+                           title: response.data.msg,
                            icon: "none"
                         });
                         break
@@ -100,11 +100,14 @@ Page({
 
         // 获取圈子简介信息
         wx.request({
-            url: app.globalData.urlRootPath + "index/PunchCardProject/getProjectIntr",
+          url: app.globalData.gateway + "life-punch/api/projectIntr",
             data:{
-                project_id: that.data.punchCardProjectId
+                projectId: that.data.punchCardProjectId
             },
-            method: "post",
+            header: {
+                token: app.globalData.token
+            },
+            method: "get",
             success:function (response) {
                 console.log(response);
                 switch (response.statusCode) {
@@ -116,7 +119,7 @@ Page({
 
                     default:
                         wx.showToast({
-                            title: response.data.errMsg,
+                            title: response.data.msg,
                             icon: "none"
                         });
                         break
@@ -286,6 +289,9 @@ Page({
             data: {
                //'project_id': that.data.punchCardProjectId,
                'projectName': that.data.newProjectName
+            },
+            header: {
+                token: app.globalData.token
             },
             success: function (response) {
                wx.hideLoading();
