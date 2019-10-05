@@ -8,8 +8,8 @@ Component({
             type: Object,
             // value: {
             //     id: 111,
-            //     cover_img_url: 'default_cover_img',
-            //     project_name: '啦啦啦啦啦啦',
+            //     coverImgUrl: 'default_cover_img',
+            //     projectName: '啦啦啦啦啦啦',
             //     all_punch_card_num: 777,
             //     attend_user_num: 999
             // }

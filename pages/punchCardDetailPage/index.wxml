@@ -556,7 +556,7 @@
         <view class="project-base-info">
           <!--左边的封面图-->
           <view class="project-cover-img">
-            <block wx:if="{{projectInfo.cover_img_url== 'default_cover_img'}}">
+            <block wx:if="{{projectInfo.coverImgUrl== 'default_cover_img'}}">
               <image src="../../images/default/project_cover_img.png">
               </image>
             </block>
@@ -579,7 +579,7 @@
                 style="width: {{projectInfoRightWidth}}">
             <!--圈子名称-->
             <view class="project-name">
-              <view>{{projectInfo.project_name}}
+              <view>{{projectInfo.projectName}}
                 <!--对创建者显示修改圈子名称按钮-->
                 <block wx:if="{{isCreator == 1}}">
                   <image src="../../images/bottomIcon/edit_2.png"
@@ -603,7 +603,7 @@
                                  bindblur="checkInputProjectName"
                                  class="input"
                                  placeholder="最多输入十五个字"
-                                 value="{{projectInfo.project_name}}"
+                                 value="{{projectInfo.projectName}}"
                           />
                         </view>
                       </view>
@@ -1193,7 +1193,7 @@
               </view>
 
               <!--性别-->
-              <block wx:if="{{creatorInfo.sex == 1}}">
+              <block wx:if="{{creatorInfo.gender == 1}}">
                 <view class="creator-sex-male"
                       bindtap="intoPersonalHomePage"
                       data-user-id="{{creatorInfo.creator_id}}">
@@ -1201,7 +1201,7 @@
                   </image>
                 </view>
               </block>
-              <block wx:if="{{creatorInfo.sex == 2}}">
+              <block wx:if="{{creatorInfo.gender == 2}}">
                 <view class="creator-sex-female"
                       bindtap="intoPersonalHomePage"
                       data-user-id="{{creatorInfo.creator_id}}">
@@ -1209,7 +1209,7 @@
                   </image>
                 </view>
               </block>
-              <block wx:if="{{creatorInfo.sex == 0}}">
+              <block wx:if="{{creatorInfo.gender == 0}}">
                 <!--用户性别信息不明 占位符作用 不然样式会变的-->
                 <view class="creator-sex-unknown"></view>
               </block>
@@ -1402,19 +1402,19 @@
                 </block>
 
                 <!--性别-->
-                <block wx:if="{{item.sex == 1}}">
+                <block wx:if="{{item.gender == 1}}">
                   <view class="user-sex-male">
                     <image src="/images/button/sex_male.png">
                     </image>
                   </view>
                 </block>
-                <block wx:if="{{item.sex == 2}}">
+                <block wx:if="{{item.gender == 2}}">
                   <view class="user-sex-female">
                     <image src="/images/button/sex_female.png">
                     </image>
                   </view>
                 </block>
-                <block wx:if="{{item.sex == 0}}">
+                <block wx:if="{{item.gender == 0}}">
                   <view class="user-sex-unknown"></view>
                 </block>
 

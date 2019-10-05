@@ -23,8 +23,8 @@
                         <view class="container-item">
                             <view class="punch-card-project-item-view"
                             bindtap="intoPunchCardDetail"
-                            data-project_id="{{item.id}}"
-                            data-is_creator="{{item.isCreator}}">
+                            data-project-id="{{item.id}}"
+                            data-is-creator="{{item.isCreator}}">
                                 <block wx:if ="{{item.coverImgUrl === 'default_cover_img'}}">
                                     <image src="/images/default/project_cover_img.png">
                                     </image>
@@ -127,8 +127,8 @@
                             <!--头部打卡圈子相关信息-->
                             <view class="punch-card-project-info"
                                   catchtap="intoPunchCardDetail"
-                                  data-project_id="{{item.projectInfo.id}}"
-                                  data-is_creator="-1" >
+                                  data-project-id="{{item.projectInfo.id}}"
+                                  data-is-creator="-1" >
                                 <view class="project-cover-img-info">
                                     <block wx:if="{{item.projectInfo.coverImgUrl == 'default_cover_img'}}">
                                         <image src="../../images/default/project_cover_img.png"></image>
@@ -255,7 +255,7 @@
                                     </block>
                                     <block wx:else>
                                         <image src='{{item.publisher.avatarUrl}}'>
-                                            <block wx:if="{{item.publisher.sex == 1}}">
+                                            <block wx:if="{{item.publisher.gender == 1}}">
                                                 <view class="publisher-sex-male"
                                                       bindtap="intoPersonalHomePage"
                                                       data-user-id="{{item.publisher.id}}">
@@ -263,7 +263,7 @@
                                                     </image>
                                                 </view>
                                             </block>
-                                            <block wx:if="{{item.publisher.sex == 2}}">
+                                            <block wx:if="{{item.publisher.gender == 2}}">
                                                 <view class="publisher-sex-female"
                                                       bindtap="intoPersonalHomePage"
                                                       data-user-id="{{item.publisher.id}}">

@@ -7,7 +7,7 @@ Page({
         userInfo: '',
         getPunchCardProjectListStatus: false, // 我参与或者创建的打卡圈子列表数据的获取状态标识
         punchCardProjectList: [], // 我参与或者创建的打卡圈子列表
-        punchCardProjectIdList:[],// 我参与或者创建的打卡圈子ID列表
+        punchCardProjectIdList: [],// 我参与或者创建的打卡圈子ID列表
         moreProjectInfo: false, // 用于控制我的打卡圈子信息中的"查看更多"按钮的显示与隐藏
         projectNum: 0, // 我参与的打卡圈子数量
         projectHidden: true,// 隐藏第3个之后的所有打卡圈子，使用查看更多按钮来控制显示
@@ -20,10 +20,9 @@ Page({
         // 终端的屏幕宽度
         windowWidth: app.globalData.windowWidth,
         // 计算出日记2张图片以上时图片显示的长、宽度 (15为margin-left\right 5为图片与图片之间的间距)
-        diaryImgWidth: Math.floor((app.globalData.windowWidth-(15 * 2 + 5 * 3)) / 3),
+        diaryImgWidth: Math.floor((app.globalData.windowWidth - (15 * 2 + 5 * 3)) / 3),
 
-        recommendDiaryList: [
-        ], // 推荐的打卡日记数据列表
+        recommendDiaryList: [], // 推荐的打卡日记数据列表
         pageNo: 1,              // 已经加载的日记数据页码
         dataNum: 5,             // 每一页包含的日记条数
         recommendDiaryListLoading: true, // 推荐的打卡日记列表初次加载动画控制标志
@@ -50,6 +49,7 @@ Page({
         diaryLikeAndCommentStatus: false,
         // 当前所播放的音频ID，-1代表所有的音频都处于暂停状态
         audioIdCurrentlyPlay: -1,
+        systemInfo: {} //用户提交小程序用户信息
     },
 
     /**
@@ -62,7 +62,7 @@ Page({
         wx.hideShareMenu();
 
         wx.showLoading({
-            title:'加载中...'
+            title: '加载中...'
         });
 
         // 1.进行微信登录获取code、进而获取openId
@@ -74,27 +74,37 @@ Page({
                     clearInterval(id);
                     resolve(true);
                 }
-            },500);
+            }, 500);
         });
 
         // 2.获取openId成功,进行用户授权判断
         weiXinLoginPromise.then(function (result) {
             wx.getSetting({
-                success: function(res) {
+                success: function (res) {
                     // 用户已经授权
-                    if (res.authSetting['scope.userInfo'])
-                    {
+                    if (res.authSetting['scope.userInfo']) {
                         // 获取用户信息
                         wx.getUserInfo({
-                            success: function(res) {
+                            lang: "zh_CN",
+                            success: function (res) {
                                 console.log("微信用户授权信息：");
                                 console.log(res);
-
+                                that.getSystemInfo();
                                 // 保存用户微信信息至全局变量,同时保证字段名与表字段名一致
                                 app.globalData.userInfo.avatarUrl = res.userInfo.avatarUrl;
                                 app.globalData.userInfo.nickName = res.userInfo.nickName;
                                 app.globalData.userInfo.gender = parseInt(res.userInfo.gender);
-                                
+
+                                that.data.systemInfo.openId = app.globalData.openId;
+                                that.data.systemInfo.avatarUrl = res.userInfo.avatarUrl;
+                                that.data.systemInfo.nickName = res.userInfo.nickName;
+                                that.data.systemInfo.gender = parseInt(res.userInfo.gender);
+
+                                that.data.systemInfo.province = res.userInfo.province;
+                                that.data.systemInfo.city = res.userInfo.city;
+                                that.data.systemInfo.country = res.userInfo.country;
+                                that.data.systemInfo.language = res.userInfo.language;
+
                                 // 3.提交所获取的微信用户授权信息至服务器、服务器进行新用户的注册，
                                 // 已注册用户则直接返回服务器端该用户的详细信息
                                 that.addWeiXinUserInfo();
@@ -154,7 +164,7 @@ Page({
         // 由首页进入了其他页面然后返回 触发onShow函数
         if (that.data.punchCardProjectList.length > 0 && that.data.recommendDiaryList.length > 0) {
             // 1.其他页面没有更改数据 不需要重新获取数据
-            if (that.data.diaryLikeAndCommentStatus === false)  {
+            if (that.data.diaryLikeAndCommentStatus === false) {
                 return false;
             }
 
@@ -176,7 +186,7 @@ Page({
                     clearInterval(id);
                     resolve(false); // 没有在规定时间获取则认定为获取失败
                 }
-            },500)
+            }, 500)
         });
 
         promise.then(function (res) {
@@ -304,7 +314,7 @@ Page({
     },
 
     // 点击日记的分享按钮 分享打卡日记
-    onShareAppMessage: function(options) {
+    onShareAppMessage: function (options) {
         console.log(options);
 
         // 获取当前被分享的打卡日记相关数据
@@ -329,7 +339,7 @@ Page({
         if (currDiary.diaryResource.length <= 0 || parseInt(currDiary.diaryResource[0].type) === 2) {
             // 资源列表为空或者资源列表第一个元素存放的不是图片（type=1）都说明该日记不存在图片资源
             //  分享一张已设置的图片
-          imgUrl = 'http://upload.dliony.com/520d70c0a777ec055df58c3fed943b37.png';
+            imgUrl = 'http://upload.dliony.com/520d70c0a777ec055df58c3fed943b37.png';
         } else {
             // 存在图片资源 设置第一张图片为分享图片
             imgUrl = currDiary.diaryResource[0].resourceUrl;
@@ -344,21 +354,21 @@ Page({
     },
 
     // 微信登录获取openId
-    weiXinLogin: function() {
+    weiXinLogin: function () {
         // 微信登录，获取用户openID
         wx.login({
-            success: function(res) {
+            success: function (res) {
                 if (res.code) {
                     wx.request({
                         url: app.globalData.gateway +
-                          'life-user/api/user/getWxUserInfo',
+                            'life-user/api/user/getWxUserInfo',
                         data: {
                             code: res.code
                         },
-                        header:{
-                          token: app.globalData.token
+                        header: {
+                            token: app.globalData.token
                         },
-                        success: function(response) {
+                        success: function (response) {
                             switch (response.statusCode) {
                                 case 200:
                                     app.globalData.openId = response.data.data.openId;
@@ -372,18 +382,15 @@ Page({
                                     });
                                     break;
                             }
-                            console.log("微信登录获取openId返回值:");
-                            console.log(response);
                             console.log("openId:" + app.globalData.openid);
                         },
-                        fail: function() {
+                        fail: function () {
                             wx.showToast({
                                 title: '网络异常...',
                                 icon: "none"
                             })
                         }
                     })
-
                 } else {
                     console.error('微信登录失败:' + res.msg);
                 }
@@ -391,19 +398,31 @@ Page({
         });
     },
 
+    getSystemInfo: function () {
+        let that = this;
+        wx.getSystemInfo({
+            success: res => {
+                console.log("获取到的系统信息：" + res)
+                that.data.systemInfo.brand = res.brand;
+                that.data.systemInfo.model = res.model;
+                that.data.systemInfo.wxLanguage = res.language;
+                that.data.systemInfo.system = res.system;
+                that.data.systemInfo.platform = res.platform;
+            },
+            fail: res => {
+                console.log("获取系统信息失败")
+            },
+        });
+    },
+
     // 服务器端根据openid判断用户信息是否存在，不存在将用户微信信息存入数据库
-    addWeiXinUserInfo: function() {
+    addWeiXinUserInfo: function () {
         console.log(app.globalData.userInfo);
         let that = this;
         let avatarUrl = app.globalData.userInfo.avatarUrl;
         wx.request({
             url: app.globalData.gateway + 'life-user/api/user',
-            data: {
-                openId: app.globalData.openId,
-                nickName: app.globalData.userInfo.nickName, // 微信昵称
-                avatarUrl: avatarUrl === "" ? "default_avatar": avatarUrl, // 微信用户头像
-                gender: parseInt(app.globalData.userInfo.sex) // 性别 0-未知，1-男性，2-女性
-            },
+            data: that.data.systemInfo,
             method: "POST",
             header: {
                 'content-type': 'application/json',
@@ -423,9 +442,7 @@ Page({
                         });
                         break;
                 }
-
-                console.log(res);
-                console.log("服务器端处理用户授权信息并返回用户数据");
+                console.log("服务器端处理用户授权信息并返回用户数据", res);
 
                 // 由于request是异步网络请求，可能会在Page.onLoad执行结束才能返回数据
                 // 这也就会导致在Page.onLoad获取不到request设置的全局变量
@@ -446,7 +463,7 @@ Page({
     },
 
     // 点击头像进入我的个人主页
-    intoPersonalHomePage: function(e) {
+    intoPersonalHomePage: function (e) {
         console.log(e);
 
         // 传递被访问者的用户id, 在个人主页根据此id查询被访问者的个人信息
@@ -470,13 +487,12 @@ Page({
     getMyPunchCardProject: function () {
         let that = this;
         wx.request({
-          url: app.globalData.gateway + 'life-punch/api/punchCardProject/getProjectInfoByUserId/' + app.globalData.userInfo.id,
+            url: app.globalData.gateway + 'life-punch/api/punchCardProject/getProjectInfoByUserId/' + app.globalData.userInfo.id,
             method: 'get',
-            data: {
+            data: {},
+            header: {
+                token: app.globalData.token
             },
-          header: {
-            token: app.globalData.token
-          },
             success: function (res) {
                 console.log(res);
                 that.setData({
@@ -506,7 +522,7 @@ Page({
                         }
 
                         // 在打卡圈子列表获取成功后去获取推荐的打卡日记列表（第一页）
-                        that.getRecommendDiaryList(1,that.data.dataNum,function (response) {
+                        that.getRecommendDiaryList(1, that.data.dataNum, function (response) {
                             // 关闭初次获取推荐打卡日记列表时的加载动画
                             that.setData({
                                 recommendDiaryListLoading: false
@@ -561,14 +577,13 @@ Page({
         })
     },
 
-
     // 进入打卡详情页点击事件
     intoPunchCardDetail: function (e) {
         console.log(e);
         wx.navigateTo({
             url: '../punchCardDetailPage/index'
-                + "?projectId=" + e.currentTarget.dataset.project_id
-                + "&isCreator=" + e.currentTarget.dataset.is_creator
+              + "?projectId=" + e.currentTarget.dataset.projectId
+                + "&isCreator=" + e.currentTarget.dataset.isCreator
         })
     },
 
@@ -580,7 +595,6 @@ Page({
             projectHidden: false   // 显示隐藏的打卡圈子列表
         });
     },
-
 
     // 查看我创建、参与的所有打卡圈子
     showMyPunchCardProjectList: function () {
@@ -595,7 +609,7 @@ Page({
     // 点击精彩推荐按钮进入发现页
     intoFindMorePunchCardProject: function () {
         wx.switchTab({
-           url: '/pages/find/index'
+            url: '/pages/find/index'
         });
     },
 
@@ -604,11 +618,11 @@ Page({
         let that = this;
         // 动画：将标识当前选项卡的指示器移动到用户关注推荐选项(第一个) 需要向左移动
         // 34(bar width) + 30(bar margin-right) = 64px
-        this.animation.translate(-64,0).step();
+        this.animation.translate(-64, 0).step();
         that.setData({
-                animation: this.animation.export(),
-                showFollowRecommendView: true,        // 显示用户关注推荐页面
-                showDiaryRecommendView: false,        // 隐藏打卡日记推荐页面
+            animation: this.animation.export(),
+            showFollowRecommendView: true,        // 显示用户关注推荐页面
+            showDiaryRecommendView: false,        // 隐藏打卡日记推荐页面
         });
     },
 
@@ -617,7 +631,7 @@ Page({
         let that = this;
         // 动画：将标识当前选项卡的指示器移动到日记推荐选项(第二个)，也就是指示器的默认初始位置
         // 距离屏幕最左边 20（margin-left） + 38(bar width) + 30(bar margin-right) = 88px
-        this.animation.translate(0,0).step();
+        this.animation.translate(0, 0).step();
         that.setData({
             animation: this.animation.export(),
             showFollowRecommendView: false,        // 隐藏用户关注推荐页面
@@ -631,7 +645,7 @@ Page({
      * @param dataNum 每页的打卡日记条数
      * @param callback 请求成功的回调处理函数
      */
-    getRecommendDiaryList: function (pageNo, dataNum,callback) {
+    getRecommendDiaryList: function (pageNo, dataNum, callback) {
         let that = this;
         wx.request({
             url: app.globalData.gateway +
@@ -644,9 +658,9 @@ Page({
                 projectIdList: that.data.punchCardProjectIdList
                 // projectIdList: []
             },
-          header: {
-            token: app.globalData.token
-          },
+            header: {
+                token: app.globalData.token
+            },
             success: function (res) {
                 // 请求成功执行回调函数进行对应的处理
                 callback && callback(res);
@@ -674,19 +688,18 @@ Page({
     },
 
     // 进入指定的打卡日记详情页
-    intoDiaryDetailPage:function (e) {
+    intoDiaryDetailPage: function (e) {
         console.log(e);
         let diaryId = e.currentTarget.dataset.diaryId;
         wx.navigateTo({
-           url: '/pages/diaryDetailPage/index'
-               + '?diaryId=' + diaryId
+            url: '/pages/diaryDetailPage/index'
+                + '?diaryId=' + diaryId
         });
     },
 
 
-
     // 预览日记图片
-    previewDiaryImage: function(e){
+    previewDiaryImage: function (e) {
         let that = this;
         let index = e.currentTarget.dataset.index; // 需要预览的图片所属日记的索引
         let diaryResourceList = that.data.recommendDiaryList[index].diaryResource,
@@ -694,8 +707,7 @@ Page({
 
         let ImgResourceList = [];
         index = 0;
-        for (let i = 0; i < length; i++)
-        {
+        for (let i = 0; i < length; i++) {
             if (parseInt(diaryResourceList[i].type) === 1)
             // 加上图片访问的baseUrl  注意一定要改为http 不然预览网络图片一直黑屏
                 ImgResourceList[index++] = diaryResourceList[i].resourceUrl;
@@ -708,7 +720,7 @@ Page({
 
             // 需要预览的图片http链接列表
             urls: ImgResourceList,
-            success: function(res) {
+            success: function (res) {
                 console.log(res);
             },
             fail: function (res) {
@@ -718,7 +730,7 @@ Page({
     },
 
     // 处理用户的点赞、取消点赞点击事件
-    dealUserLike: function(e) {
+    dealUserLike: function (e) {
         console.log(e);
         let diaryIndex = e.currentTarget.dataset.diaryIndex,
             diaryId = e.currentTarget.dataset.diaryId,
@@ -730,11 +742,10 @@ Page({
         console.log(diaryId);
 
         // 已经点赞 则需要取消点赞
-        if (haveLike === true)
-        {
+        if (haveLike === true) {
 
             wx.request({
-              url: app.globalData.gateway + 'life-punch/api/diaryLike/cancelLike',
+                url: app.globalData.gateway + 'life-punch/api/diaryLike/cancelLike',
                 method: 'delete',
                 data: {
                     likeRecordId: currDiary.likeRecordId,
@@ -751,7 +762,7 @@ Page({
                             // 设置当前用户对当前这条日记未点赞 点赞总人数-1
                             that.data.recommendDiaryList[diaryIndex].haveLike = false;
                             that.data.recommendDiaryList[diaryIndex].likeUserNum -= 1;
-                            that.data.recommendDiaryList[diaryIndex].likeRecordId   = 0;
+                            that.data.recommendDiaryList[diaryIndex].likeRecordId = 0;
 
                             that.setData({
                                 recommendDiaryList: that.data.recommendDiaryList
@@ -781,9 +792,9 @@ Page({
                 url: app.globalData.gateway + 'life-punch/api/diaryLike/like',
                 method: 'post',
                 data: {
-                  diaryId: diaryId,
-                  likedUserId: that.data.recommendDiaryList[diaryIndex].publisher.id, // 被点赞者
-                  admirerId: that.data.userInfo.id
+                    diaryId: diaryId,
+                    likedUserId: that.data.recommendDiaryList[diaryIndex].publisher.id, // 被点赞者
+                    admirerId: that.data.userInfo.id
                 },
                 header: {
                     token: app.globalData.token
@@ -795,8 +806,8 @@ Page({
                         case 200:
                             // 设置当前用户对当前这条日记已点赞 点赞总人数+1
                             that.data.recommendDiaryList[diaryIndex].haveLike = true;
-                        that.data.recommendDiaryList[diaryIndex].likeUserNum =
-                              parseInt(that.data.recommendDiaryList[diaryIndex].likeUserNum) + 1;
+                            that.data.recommendDiaryList[diaryIndex].likeUserNum =
+                                parseInt(that.data.recommendDiaryList[diaryIndex].likeUserNum) + 1;
 
                             // 点赞成功后本地保存点赞记录id
                             that.data.recommendDiaryList[diaryIndex].likeRecordId = data.data.id;
@@ -826,7 +837,7 @@ Page({
     },
 
     // 点击评论按钮显示评论框
-    showCommentBox: function(e) {
+    showCommentBox: function (e) {
         console.log(e);
         let that = this;
         that.data.diaryId = parseInt(e.currentTarget.dataset.diaryId);
@@ -852,12 +863,12 @@ Page({
 
     // 显示评论框的时候，同时显示灰幕遮挡打卡日记列表，设置touchmove事件
     // 来阻拦对打卡日记列表的滑动
-    preventTouchMove: function() {
+    preventTouchMove: function () {
         // 什么操作都不用进行即可阻拦
     },
 
     // 关闭评论框
-    closeCommentBox: function() {
+    closeCommentBox: function () {
         let that = this;
         that.setData({
             hiddenCommentBox: true,
@@ -867,7 +878,7 @@ Page({
     // 点击评论发送按钮，发表对日记的一级评论 即对日记发表者进行评论，数据发送至服务器
     // 发表评论
     publishComment: function () {
-        let  that = this;
+        let that = this;
 
         if (that.data.commentText <= 0) {
             wx.showToast({
@@ -878,14 +889,14 @@ Page({
             return false;
         }
         wx.request({
-          url: app.globalData.gateway + 'life-punch/api/diaryComment',
+            url: app.globalData.gateway + 'life-punch/api/diaryComment',
             method: 'post',
             data: {
-              diaryId: that.data.diaryId,
-              pid: that.data.pid,
-              reviewerId: app.globalData.userInfo.id, // 评论者id
-              textComment: that.data.commentText,
-              respondentId: that.data.respondentId // 被评论者id
+                diaryId: that.data.diaryId,
+                pid: that.data.pid,
+                reviewerId: app.globalData.userInfo.id, // 评论者id
+                textComment: that.data.commentText,
+                respondentId: that.data.respondentId // 被评论者id
             },
             header: {
                 token: app.globalData.token
@@ -930,46 +941,45 @@ Page({
     },
 
     // 用于阻止点击事件向上冒泡 用于在点击分享按钮的时候不再触发进入该打卡日记所属的打卡圈子详情页中
-    preventTap:function () {
+    preventTap: function () {
         // 不用进行任何操作
     },
 
     // 获取我的未读消息条数
     getUnreadNewsNum: function () {
-      let that = this;
-      wx.request({
-          url: app.globalData.gateway
-            + 'life-user/api/news/getUnreadNewsCount/' + app.globalData.userInfo.id,
-          method: 'get',
-          data: {
-          },
-        header: {
-          token: app.globalData.token
-        },
-          success: function (res) {
-              let respData = res.data;
-              if (res.statusCode === 200) {
-                  let unreadLikeNewsNum = parseInt(respData.data.unreadLikeNewsNum);
-                  let unreadCommentNewsNum = parseInt(respData.data.unreadCommentNewsNum);
-                  if ((unreadLikeNewsNum + unreadCommentNewsNum) !== 0) {
-                      // 在小程序tab页右上角设置文本 即未读的消息数
-                      wx.setTabBarBadge({
-                          index: 2,
-                          text: unreadCommentNewsNum + unreadLikeNewsNum + ''
-                      });
-                  }
+        let that = this;
+        wx.request({
+            url: app.globalData.gateway
+                + 'life-user/api/news/getUnreadNewsCount/' + app.globalData.userInfo.id,
+            method: 'get',
+            data: {},
+            header: {
+                token: app.globalData.token
+            },
+            success: function (res) {
+                let respData = res.data;
+                if (res.statusCode === 200) {
+                    let unreadLikeNewsNum = parseInt(respData.data.unreadLikeNewsNum);
+                    let unreadCommentNewsNum = parseInt(respData.data.unreadCommentNewsNum);
+                    if ((unreadLikeNewsNum + unreadCommentNewsNum) !== 0) {
+                        // 在小程序tab页右上角设置文本 即未读的消息数
+                        wx.setTabBarBadge({
+                            index: 2,
+                            text: unreadCommentNewsNum + unreadLikeNewsNum + ''
+                        });
+                    }
 
-              } else {
-              }
-          },
-          fail: function () {
-              wx.showToast({
-                  title: '网络异常,无法获取未读消息',
-                  icon: 'none',
-                  duration: 1000
-              })
-          }
-      })
+                } else {
+                }
+            },
+            fail: function () {
+                wx.showToast({
+                    title: '网络异常,无法获取未读消息',
+                    icon: 'none',
+                    duration: 1000
+                })
+            }
+        })
     },
 
     // 当音频组件的播放状态发生改变时，会触发父组件该方法

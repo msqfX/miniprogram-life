@@ -19,8 +19,8 @@ Component({
             //     repair_punch_card_time: '补打卡时间',
             //     punchCardProject: {
             //         id: 0,// 日记所属的打卡圈子的圈子编号
-            //         project_name:'圈子名称',
-            //         cover_img_url: '圈子封面图片url'
+            //         projectName:'圈子名称',
+            //         coverImgUrl: '圈子封面图片url'
             //     },
             //     publisher: {
             //         id: 0,// 日记发表者userId
@@ -283,19 +283,17 @@ Component({
             for (let i = 0; i < length; i++) {
                 if (parseInt(diaryResourceList[i].type) === 1)
                 // 加上图片访问的baseUrl  注意一定要改为http 不然预览网络图片一直黑屏
-                    ImgResourceList[index++] =
-                      that.data.imgRootPath + diaryResourceList[i].resourceUrl;
+                    ImgResourceList[index++] = diaryResourceList[i].resourceUrl;
             }
 
             wx.previewImage({
                 // 当前显示图片的http链接
-                current: that.data.imgRootPath
-                    + e.currentTarget.dataset.imgUrl,
+                current: e.currentTarget.dataset.imgUrl,
 
                 // 需要预览的图片http链接列表
                 urls: ImgResourceList,
                 success:function() {
-                    console.log('url:' + that.data.imgRootPath + e.currentTarget.dataset.imgUrl);
+                    console.log('url:' + e.currentTarget.dataset.imgUrl);
                 },
                 fail: function (res) {
                     console.log(res);

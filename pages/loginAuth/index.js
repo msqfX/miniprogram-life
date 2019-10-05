@@ -88,7 +88,7 @@ Page({
             // 保存用户微信信息至全局变量,同时保证字段名与表字段名一致
             app.globalData.userInfo.avatarUrl = e.detail.userInfo.avatarUrl;
             app.globalData.userInfo.nickName = e.detail.userInfo.nickName;
-            app.globalData.userInfo.sex = e.detail.userInfo.gender;
+            app.globalData.userInfo.gender = e.detail.userInfo.gender;
 
             // 一般而言，授权只有一次，也就是第一次，在授权成功后需要将微信的一些信息
             // 写入服务器端的数据库
@@ -129,7 +129,7 @@ Page({
                 openId: app.globalData.openid,
                 nickName: app.globalData.userInfo.nickName, // 微信昵称
                 avatarUrl: avatarUrl === "" ? "default_avatar": avatarUrl, // 微信用户头像
-                sex: parseInt(app.globalData.userInfo.sex) // 性别 0-未知，1-男性，2-女性
+                gender: parseInt(app.globalData.userInfo.gender) // 性别 0-未知，1-男性，2-女性
             },
             header: {
                 'content-type': 'application/json',

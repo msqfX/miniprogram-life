@@ -25,8 +25,8 @@ Page({
 
         // 打卡圈子基本信息
         projectInfo: {
-            project_name: '',
-            cover_img_url: 'default_cover_img',
+            projectName: '',
+            coverImgUrl: 'default_cover_img',
             IntrInfoList: [], // {id:'简介记录id',content:'简介内容',order:'排序',type:'简介类型'}
             attendUserNum: 2,
             allPunchCardNum: 0
@@ -76,7 +76,7 @@ Page({
 
         // 关闭本页面右上角的转发按钮 想要转发只能通过button实现
         wx.hideShareMenu();
-
+      console.log('获取到的projectID：' + parseInt(options.projectId));
         // 一定传递打卡圈子的projectId, isCreator代表是否为创建者 若未知直接传递-1(未知)即可，
         // 后续在获取打卡圈子的详细信息的时候获取到
         that.setData({
@@ -592,7 +592,7 @@ Page({
                         // 服务器修改成功后客户端再重新渲染圈子名称
                         that.setData({
                             newProjectNameCheckFlag: false,
-                            'projectInfo.project_name': that.data.newProjectName,
+                            'projectInfo.projectName': that.data.newProjectName,
                             showUpdateProjectNameModel: false
                         });
                         break;
@@ -647,7 +647,7 @@ Page({
         wx.navigateTo({
             url: '/pages/projectBackStageManage/index'
                 + '?projectId='+ that.data.projectId
-                + '&projectName='+ that.data.projectInfo.project_name
+                + '&projectName='+ that.data.projectInfo.projectName
         });
     },
 
@@ -657,7 +657,7 @@ Page({
         // wx.navigateTo({
         //     url: '/pages/projectBackStageManage/index'
         //         + '?projectId='+ that.data.projectId
-        //         + '&projectName='+ that.data.projectInfo.project_name
+        //         + '&projectName='+ that.data.projectInfo.projectName
         // });
         wx.showToast({
             title: 'todo'
@@ -671,7 +671,7 @@ Page({
         // wx.navigateTo({
         //     url: '/pages/projectBackStageManage/index'
         //         + '?projectId='+ that.data.projectId
-        //         + '&projectName='+ that.data.projectInfo.project_name
+        //         + '&projectName='+ that.data.projectInfo.projectName
         // });
         wx.showToast({
             title: 'todo'
@@ -684,7 +684,7 @@ Page({
         // wx.navigateTo({
         //     url: '/pages/projectBackStageManage/index'
         //         + '?projectId='+ that.data.projectId
-        //         + '&projectName='+ that.data.projectInfo.project_name
+        //         + '&projectName='+ that.data.projectInfo.projectName
         // });
         wx.showToast({
             title: 'todo'
@@ -900,6 +900,9 @@ Page({
                             projectId: that.data.projectId,
                             diaryId: that.data.punchCardDiaryList[diaryIndex].id,
                             userId: userId
+                        },
+                        header:{
+                          token: app.globalData.token
                         },
                         success: function (res) {
                             console.log(res);

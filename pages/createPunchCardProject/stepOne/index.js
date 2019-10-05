@@ -70,7 +70,7 @@ Page({
         if(reg.test(e.detail.value)){
             that.setData({
                 btn_disable: false,
-                project_name: e.detail.value
+                projectName: e.detail.value
             })
 
         } else {
@@ -90,11 +90,11 @@ Page({
 
     // 下一步按钮点击事件
     intoSetTwo : function () {
-        let project_name = this.data.project_name;
+        let projectName = this.data.projectName;
         let privacy_type = this.data.privacy_type;
         wx.navigateTo({
           url: '../stepTwo/index'
-          +'?project_name='+project_name
+          +'?projectName='+projectName
           +'&privacy_type='+privacy_type
 
         })

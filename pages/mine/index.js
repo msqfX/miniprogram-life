@@ -23,8 +23,8 @@ Page({
             //     repair_punch_card_time: '补打卡时间',
             //     punchCardProject: {
             //         id: 0,// 日记所属的打卡圈子的圈子编号
-            //         project_name:'圈子名称',
-            //         cover_img_url: '圈子封面图片url'
+            //         projectName:'圈子名称',
+            //         coverImgUrl: '圈子封面图片url'
             //     },
             //     publisher: {
             //         id: 0,// 日记发表者userId

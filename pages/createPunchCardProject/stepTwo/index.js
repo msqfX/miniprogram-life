@@ -37,7 +37,7 @@ Page({
                 childLabel[i].choose = false;
 
             that.setData({
-                projectName: options.project_name,
+                projectName: options.projectName,
                 privacyType: options.privacy_type,
                 parentLabel: parentLabel,
                 childLabel: childLabel,

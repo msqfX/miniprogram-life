@@ -1,5 +1,4 @@
 App({
-
   /**
    * 当小程序初始化完成时，会触发 onLaunch（全局只触发一次）
    */
@@ -12,7 +11,6 @@ App({
         that.globalData.windowWidth = res.windowWidth;
         that.globalData.windowHeight = res.windowHeight;
         that.globalData.pixelRatio = res.pixelRatio;
-
       },
       fail: function (res) {
         console.log(res);
@@ -47,10 +45,8 @@ App({
       avatarUrl: '',
       gender: 0 // 性别 0-未知，1-男性，2-女性
     },
-     urlRootPath: "https://myxu.xyz/SmallPunchMiniProgramAfterEnd/public/",
-     urlRootPath: "https://www.dliony.com/",
-
-    gateway: "http://localhost:9000/"
-
+    // 请求网关地址
+    gateway: "https://api.dliony.com/"
+    //gateway: "http://localhost:9000/"
   }
 });

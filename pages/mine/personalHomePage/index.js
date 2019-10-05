@@ -30,7 +30,7 @@ Page({
             // 属性说明
             // {
             //     'id': '打卡圈子编号',
-            //     'project_name': '打卡圈子名称',
+            //     'projectName': '打卡圈子名称',
             //     'curr_diary_punch_card_day_num': 0,// 用户已在该圈子中的总打卡天数
             //     'rank': '暂无', // 用户在该打卡圈子中打卡排名
             //     'bg_color': '#73E68C' // 选项卡的背景颜色
@@ -54,8 +54,8 @@ Page({
             //     repair_punch_card_time: '补打卡时间',
             //     punchCardProject: {
             //         id: 0,// 日记所属的打卡圈子的圈子编号
-            //         project_name:'圈子名称',
-            //         cover_img_url: '圈子封面图片url'
+            //         projectName:'圈子名称',
+            //         coverImgUrl: '圈子封面图片url'
             //     },
             //     publisher: {
             //         id: 0,// 日记发表者userId
