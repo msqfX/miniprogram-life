@@ -24,7 +24,7 @@
 	"compileType": "miniprogram",
 	"libVersion": "2.7.2",
 	"appid": "wx495c3315b4939f78",
-	"projectname": "SmallPunchFrontEnd",
+	"projectname": "虾米打卡",
 	"debugOptions": {
 		"hidedInDevtools": []
 	},
