@@ -47,6 +47,5 @@ App({
     },
     // 请求网关地址
     gateway: "https://api.dliony.com/"
-    //gateway: "http://localhost:9000/"
   }
 });

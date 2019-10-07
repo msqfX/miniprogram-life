@@ -305,7 +305,7 @@ Page({
         if (currDiary.diaryResource.length <= 0 || parseInt(currDiary.diaryResource[0].type) === 2) {
             // 资源列表为空或者资源列表第一个元素存放的不是图片（type=1）都说明该日记不存在图片资源
             //  分享一张已设置的图片
-            imgUrl = 'http://upload.dliony.com/520d70c0a777ec055df58c3fed943b37.png';
+            imgUrl = 'http://upload.dliony.com/2a083fec0fee4ba1b55adb0885b53237';
         } else {
             // 存在图片资源 设置第一张图片为分享图片
             imgUrl = currDiary.diaryResource[0].resourceUrl;

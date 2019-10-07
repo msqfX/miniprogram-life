@@ -589,6 +589,14 @@ Page({
           let successNum = 0;
           for (let i = 0; i < resourceNum; i++) {
             // 当前图片上传失败
+            console.log("文件地址" + that.data.diaryResourceInfo[i].filePath),
+            wx.compressImage({
+              src: that.data.diaryResourceInfo[i].filePath, // 图片路径
+              quality: 20,// 压缩质量
+              success: function (res) {
+                that.data.diaryResourceInfo[i].filePath = res.tempFilePath;
+              }
+            });
             if (that.uploadDiaryResource(that.data.diaryResourceInfo[i]) === false) {
               // 只要一个资源上传失败发起请求删除前面相关所有提交包括日记的基本信息
               let deleteDiary = new Promise(function (resolve) {
@@ -629,14 +637,10 @@ Page({
 
           // 假设资源文件也发布成功
           publishDiaryRes = true;
-
-
           if (successNum !== resourceNum) {
             result = "日记发表失败!";
-
             // 发表失败不进行更新
             publishDiaryRes = true;
-
           }
         }
 

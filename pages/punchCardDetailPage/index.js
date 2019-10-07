@@ -176,8 +176,23 @@ Page({
                     clearTimeout(id);
                     switch (res.statusCode) {
                         case 200:
+                         if(res.data.code == -1){
+                           wx.showToast({
+                             title: res.data.msg,
+                             icon: 'none',
+                             duration: 1000,
+                             mask: true,
+                             success: function () {
+                               setTimeout(function () {
+                                 //要延时执行的代码
+                                 wx.navigateBack({//返回
+                                   delta: 1
+                                 })
+                               }, 1000) //延迟时间
+                             },
+                           });
+                         }
                             let data = res.data.data;
-
                             let isCreatorFlag = parseInt(data.creatorId)
                                 === parseInt(app.globalData.userInfo.id);
 
@@ -188,11 +203,11 @@ Page({
                               'projectInfo.attendUserNum': parseInt(data.attendUserNum),
                               'projectInfo.allPunchCardNum': parseInt(data.allPunchCardNum),
 
-                              'creatorInfo.creatorId': data.creatorId,
-                              'creatorInfo.creatorNickName': data.creatorNickName,
-                              'creatorInfo.creatorGender': parseInt(data.creatorGender),
-                              'creatorInfo.creatorAvatarUrl': data.creatorAvatarUrl,
-                                'creatorInfo.creatorIntroduce': data.creatorIntroduce,
+                              'creatorInfo.id': data.creatorId,
+                              'creatorInfo.nickName': data.creatorNickName,
+                              'creatorInfo.gender': parseInt(data.creatorGender),
+                              'creatorInfo.avatarUrl': data.creatorAvatarUrl,
+                              'creatorInfo.introduce': data.creatorIntroduce,
                               'creatorInfo.weixinNum': data.weixinNum,
 
                                 attendUserInfo: data.attendUserList,
@@ -467,8 +482,7 @@ Page({
         if (currDiary.diaryResource.length <= 0 || parseInt(currDiary.diaryResource[0].type) === 2) {
             // 资源列表为空或者资源列表第一个元素存放的不是图片（type=1）都说明该日记不存在图片资源
             //  分享一张已设置的图片
-            imgUrl = 'http://myxu.xyz/SmallPunchMiniProgramAfterEnd/public/image_upload' +
-                '/project_cover_img/sys_recommend/20181001/520d70c0a777ec055df58c3fed943b37.png';
+            imgUrl = 'http://upload.dliony.com/520d70c0a777ec055df58c3fed943b37.png';
         } else {
             // 存在图片资源 设置第一张图片为分享图片
             imgUrl = currDiary.diaryResource[0].resourceUrl;
@@ -1013,6 +1027,9 @@ Page({
                     likeRecordId: likeRecordId,
                     diaryId: diaryId,
                 },
+                header:{
+                  token: app.globalData.token
+                },
                 success: function (res) {
                     console.log(res);
                     let data = res.data;
@@ -1283,16 +1300,13 @@ Page({
         {
             if (parseInt(intrInfoList[i].type) === 2)
                 // 加上图片访问的baseUrl  注意一定要改为http 不然预览网络图片一直黑屏
-                projectIntrImgList[index++] =
-                    "http://myxu.xyz/SmallPunchMiniProgramAfterEnd/"
-                    + intrInfoList[i].content;
+                projectIntrImgList[index++] = intrInfoList[i].content;
         }
 
         console.log(e.currentTarget.dataset.imgUrl);
         wx.previewImage({
             // 当前显示图片的http链接
-            current: "http://myxu.xyz/SmallPunchMiniProgramAfterEnd/"
-                + e.currentTarget.dataset.imgUrl,
+            current: e.currentTarget.dataset.imgUrl,
 
             // 需要预览的图片http链接列表
             urls: projectIntrImgList,

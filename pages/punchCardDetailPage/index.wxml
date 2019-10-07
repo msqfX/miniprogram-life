@@ -134,16 +134,16 @@
                 </image>
               </block>
               <block wx:else>
-                <image src="{{creatorInfo.creatorAvatarUrl}}">
+                <image src="{{creatorInfo.avatarUrl}}">
                 </image>
               </block>
               <!--创建者昵称-->
-              <text>{{creatorInfo.niccreatorNickNamekName}}</text>
+              <text>{{creatorInfo.nickName}}</text>
             </view>
 
             <!--简介-->
             <view class="not-join-in-project-creator-intr-info">
-              {{creatorInfo.creatorIntroduce}}
+              {{creatorInfo.introduce}}
             </view>
           </view>
         </block>
@@ -642,21 +642,21 @@
                 <image src="../../images/default/userAvatar.png"
                        class="creator-avatar"
                        bindtap="intoPersonalHomePage"
-                       data-user-id="{{creatorInfo.creator_id}}">
+                       data-user-id="{{creatorInfo.id}}">
                 </image>
               </block>
               <block wx:else>
                 <image src="{{creatorInfo.avatarUrl}}"
                        class="creator-avatar"
                        bindtap="intoPersonalHomePage"
-                       data-user-id="{{creatorInfo.creator_id}}">
+                       data-user-id="{{creatorInfo.id}}">
                 </image>
               </block>
 
               <!--昵称-->
               <view class="creator-nick-name"
                     bindtap="intoPersonalHomePage"
-                    data-user-id="{{creatorInfo.creatorId}}">
+                    data-user-id="{{creatorInfo.id}}">
                 <text>{{creatorInfo.nickName}}</text>
                 <image src="../../images/button/into_btn_gray.png">
                 </image>
@@ -1182,7 +1182,7 @@
               <!--头像-->
               <view class="creator-intr-info-avatar"
                     bindtap="intoPersonalHomePage"
-                    data-user-id="{{creatorInfo.creator_id}}">
+                    data-user-id="{{creatorInfo.id}}">
                 <block wx:if="{{creatorInfo.avatarUrl=='default_avatar'}}">
                   <image src="/images/default/userAvatar.png">
                   </image>
@@ -1204,7 +1204,7 @@
               <block wx:if="{{creatorInfo.gender == 2}}">
                 <view class="creator-sex-female"
                       bindtap="intoPersonalHomePage"
-                      data-user-id="{{creatorInfo.creator_id}}">
+                      data-user-id="{{creatorInfo.id}}">
                   <image src="/images/button/sex_female.png">
                   </image>
                 </view>
@@ -1217,7 +1217,7 @@
               <!--昵称-->
               <view class="creator-base-info-nick-name"
                     bindtap="intoPersonalHomePage"
-                    data-user-id="{{creatorInfo.creator_id}}">
+                    data-user-id="{{creatorInfo.id}}">
                 <view style="color: cornflowerblue;font-size: 15px">
                   {{creatorInfo.nickName}}
                 </view>
@@ -1227,7 +1227,7 @@
               </view>
 
               <!--TODO 加圈主微信-->
-              <block wx:if="{{creatorInfo.weChat != ''}}">
+              <block wx:if="{{creatorInfo.weixinNum != ''}}">
                 <block wx:if="{{isCreator != 1}}">
                   <view class="get-creator-we-chat">
                     <text>加微信</text>
