@@ -6,72 +6,11 @@ Page({
      */
     data: {
         userInfo: {},
-
+         systemInfo: {},//用户提交小程序用户信息
+      canIUse: wx.canIUse('button.open-type.getUserInfo'),
         // 打卡日记列表信息显示
         punchCardDiaryList: [
-            // 属性值说明
-            // {
-            //     id: '打卡日记记录id',
-            //     text_content: '打卡日记文本内容',
-            //     punch_card_time: '打卡时间',
-            //     punch_card_address: '打卡地理位置信息',
-            //     address_longitude: '经度',
-            //     address_latitude: '纬度',
-            //     visible_type: '日记可见类型', // 0-公开 圈子成员可见 1--仅圈主可见
-            //     curr_diary_punch_card_day_num: '当前日记已坚持天数',
-            //     is_repair_diary: '是否为补打卡日记', // 0--不是 1--是
-            //     repair_punch_card_time: '补打卡时间',
-            //     punchCardProject: {
-            //         id: 0,// 日记所属的打卡圈子的圈子编号
-            //         projectName:'圈子名称',
-            //         coverImgUrl: '圈子封面图片url'
-            //     },
-            //     publisher: {
-            //         id: 0,// 日记发表者userId
-            //         sex:'0--未知 1--男性 2--女性',
-            //         nickName:'',
-            //         avatarUrl: ''
-            //     },
-            //     diaryResource:{
-            //         id: '打卡日记相关的资源文件记录id',
-            //         resource_url: '资源文件路径信息',
-            //         type: '1-图片 2-音频 3-视频'
-            //     },
-            //     like_user_num: 点赞总人数
-            //     comment_num: 评论总数
-            //     haveLike: 当前小程序使用者对本条日记的点赞情况 true已点赞 false未点赞
-            //     // 每条日记只显示前十条点赞记录
-            //     tenLikeInfo:[
-            //         {
-            //              id: 点赞记录id,
-            //              admirer:{
-            //                          id: 点赞者id,  nickName: 点赞者昵称
-            //                      }
-            //         }
-            //     ],
-            //     该日记的所有评论
-            //     allCommentInfo:[{
-            //              id: 评论记录id
-            //              pid: 该条评论所属一级评论的id
-            //              diary_id: 日记记录id
-            //              text_comment: 文本评论内容
-            //              sound_comment: 音频评论内容文件路径
-            //              create_time: 评论发表时间
-            //              reviewer: {
-            //                            id: 评论者用户id
-            //                            nickName: 评论者昵称
-            //                            sex: 评论者性别
-            //                            avatarUrl: 评论者头像
-            //                        }
-            //              一级评论则不显示评论所回复的用户的信息 因为这是针对日记发表者进行评论的
-            //              respondent: {
-            //                            id: 评论所回复的用户id
-            //                            nickName: 评论所回复的用户昵称
-            //                            sex: 评论所回复的用户性别
-            //                            avatarUrl: 评论所回复的用户头像
-            //                        }
-            //        }]
-            // }
+           
         ], // 从服务器获取的打卡日记数据集合
         diaryListPageNo: 1, // 当前已加载的页码
         diaryListDataNum: 2, // 每页显示的打卡日记条数
@@ -82,6 +21,7 @@ Page({
 
         // 记录当前播放音频的打卡日记的下标 -1代表所有的打卡日记都没有播放音频
         currPlayAudioDiaryItemIndex: -1,
+        hasPromise: true
     },
 
     /**
@@ -95,6 +35,7 @@ Page({
 
         that.setData({
             userInfo: app.globalData.userInfo,
+            hasPromise: app.globalData.hasPromise
         });
         
         // 获取我的打卡日记列表（第一页数据）
@@ -150,7 +91,7 @@ Page({
 
                 default:
                     wx.showToast({
-                        title: respData.errMsg,
+                        title: respData.msg,
                         icon: 'none',
                         duration: 2000
                     });
@@ -210,7 +151,7 @@ Page({
 
                 default:
                     wx.showToast({
-                        title: respData.errMsg,
+                        title: respData.msg,
                         icon: 'none',
                         duration: 2000
                     });
@@ -321,8 +262,7 @@ Page({
 
 
     // 进入我的主页，展示更为详细的用户信息
-    intoUserInfoDetailPage: function (e) {
-        console.log(e);
+    intoUserInfoDetailPage: function () {
         wx.navigateTo({
             url: './personalHomePage/index'
                 + "?visitedUserId=" + app.globalData.userInfo.id
@@ -337,12 +277,19 @@ Page({
      * @param callback 请求成功的回调处理函数
      */
     getMyPunchCardDiaryList: function(pageNo,dataNum,callback) {
+      let that = this;
+      var visitedUserId;
+      if (app.globalData.userInfo.id == undefined){
+            visitedUserId = 0;
+        }else{
+        visitedUserId = app.globalData.userInfo.id;
+        }
         wx.request({
           url: app.globalData.gateway + 'life-punch/api/punchCardDiary/listUserPunchCardDiary',
             method: 'get',
             data: {
-                visitedUserId: app.globalData.userInfo.id, // 被查看打卡日记列表的用户的id
-                visitorUserId: app.globalData.userInfo.id, // 查看者的id
+                visitedUserId: visitedUserId, // 被查看打卡日记列表的用户的id
+                //visitorUserId: app.globalData.userInfo.id, // 查看者的id
                 pageNo: parseInt(pageNo),
                 dataNum: parseInt(dataNum),
                 isDiaryCreator: 1, // 代表查询自己的打卡日记列表 0则代表查看他人的
@@ -409,6 +356,167 @@ Page({
         that.setData({
             currPlayAudioDiaryItemIndex: that.data.currPlayAudioDiaryItemIndex
         });
+    },
+
+  wxLogin: function(){
+    let that = this;
+    // 1.进行微信登录获取code、进而获取openId
+    let weiXinLoginPromise = new Promise(function (resolve) {
+      that.weiXinLogin();
+      setInterval(function () {
+        // 成功获取openId后执行下一步
+        if (app.globalData.openId !== '') {
+          resolve(true);
+        }
+      }, 500);
+    });
+
+    // 2.获取openId成功,进行用户授权判断
+    weiXinLoginPromise.then(function (result) {
+      wx.getSetting({
+        success: function (res) {
+          // 用户已经授权
+          if (res.authSetting['scope.userInfo']) {
+            // 进入个人信息页
+              that.intoUserInfoDetailPage();
+          } else {
+            // 没有授权则进入授权页进行用户授权
+            wx.redirectTo({
+              url: '../loginAuth/index'
+            })
+          }
+        }
+      })
+
+    });
+
+    if (app.globalData.userInfo.id === undefined) {
+      app.userInfoReadyCallBack = function (userInfo) {
+        that.setData({
+          userInfo: userInfo
+        })
+      };
+    } else {
+      that.setData({
+        userInfo: app.globalData.userInfo
+      });
     }
+
+
+
+  },
+
+
+
+  // 微信登录获取openId
+  weiXinLogin: function () {
+    // 微信登录，获取用户openID
+    wx.login({
+      success: function (res) {
+        if (res.code) {
+          wx.request({
+            url: app.globalData.gateway +
+              'life-user/api/user/getWxUserInfo',
+            data: {
+              code: res.code
+            },
+            header: {
+              token: app.globalData.token
+            },
+            success: function (response) {
+              switch (response.statusCode) {
+                case 200:
+                  app.globalData.openId = response.data.data.openId;
+                  //app.globalData.openId = 'efsfesfesfsef';
+                  app.globalData.token = response.data.data.token;
+                  break;
+                default:
+                  wx.showToast({
+                    title: response.data.msg,
+                    icon: "none"
+                  });
+                  break;
+              }
+              console.log("openId:" + app.globalData.openid);
+            },
+            fail: function () {
+              wx.showToast({
+                title: '网络异常...',
+                icon: "none"
+              })
+            }
+          })
+        } else {
+          console.error('微信登录失败:' + res.msg);
+        }
+      }
+    });
+  },
+
+  getSystemInfo: function () {
+    let that = this;
+    wx.getSystemInfo({
+      success: res => {
+        console.log("获取到的系统信息：" + res)
+        that.data.systemInfo.brand = res.brand;
+        that.data.systemInfo.model = res.model;
+        that.data.systemInfo.wxLanguage = res.language;
+        that.data.systemInfo.system = res.system;
+        that.data.systemInfo.platform = res.platform;
+      },
+      fail: res => {
+        console.log("获取系统信息失败")
+      },
+    });
+  },
+
+  // 服务器端根据openid判断用户信息是否存在，不存在将用户微信信息存入数据库
+  addWeiXinUserInfo: function () {
+    console.log(app.globalData.userInfo);
+    let that = this;
+    let avatarUrl = app.globalData.userInfo.avatarUrl;
+    wx.request({
+      url: app.globalData.gateway + 'life-user/api/user',
+      data: that.data.systemInfo,
+      method: "POST",
+      header: {
+        'content-type': 'application/json',
+        'token': app.globalData.token
+      },
+      success: function (res) {
+        switch (res.statusCode) {
+          case 200:
+            // 本地保存服务器端返回的用户信息
+            app.globalData.userInfo = res.data.data;
+            break;
+          default:
+            wx.showToast({
+              title: res.data.msg,
+              icon: 'none',
+              duration: 2000
+            });
+            break;
+        }
+        console.log("服务器端处理用户授权信息并返回用户数据", res);
+
+        // 由于request是异步网络请求，可能会在Page.onLoad执行结束才能返回数据
+        // 这也就会导致在Page.onLoad获取不到request设置的全局变量
+        // 因为Page.onLoad结束在request之前，这时候获取的变量是空值
+        // 因此加入全局回调函数
+        if (app.userInfoReadyCallBack !== '') {
+          app.userInfoReadyCallBack(res.data.data);
+        }
+
+      },
+      fail: function () {
+        wx.showToast({
+          title: '网络异常...',
+          icon: "none"
+        })
+      }
+    });
+  },
+
+
 
 });

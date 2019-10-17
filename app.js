@@ -38,7 +38,8 @@ App({
 
   },
   globalData: {
-    openId: '0',
+    hasPromise: true,
+    openId: '',
     token: '',
     userInfo: {
       nickName: '',
@@ -46,6 +47,6 @@ App({
       gender: 0 // 性别 0-未知，1-男性，2-女性
     },
     // 请求网关地址
-    gateway: "https://api.dliony.com/"
+    gateway: "http://localhost:9000/"
   }
 });

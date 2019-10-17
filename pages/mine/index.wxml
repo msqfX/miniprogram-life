@@ -2,7 +2,7 @@
 <view class="container">
 
   <!--用户信息 -->
-  <view class="container_userInfo" bindtap='intoUserInfoDetailPage'>
+  <view class="container_userInfo" bindtap='wxLogin'>
     <!-- 头像 -->
     <view class='userInfo_avatar'>
       <!--使用默认的小程序内置的默认头像-->
@@ -48,11 +48,14 @@
 
     <!-- 查看我的主页 -->
     <view class='mine'>
-      <text>查看我的主页</text>
+      <text>{{hasPromise? "查看我的主页":"登录"}}</text>
       <image class='into_mine_page' src='/images/button/into_button.png'>
       </image>
     </view>
   </view>
+
+
+
 
   <!--TODO访客记录-->
 
@@ -60,35 +63,36 @@
   <!--相关功能-->
   <view class='functional-module' bindtap="todoNotice">
 
-    <!-- 我的关注 -->
+    <!-- 我的关注
     <view class='my-follow'>
       <image src='/images/button/my_follow_2.png'></image>
       <text>我的关注</text>
     </view>
+     -->
 
-    <!-- 我的粉丝 -->
+    <!-- 我的粉丝 
     <view class='my-follower'>
       <image src='/images/button/my_follower_2.png'></image>
       <text>我的粉丝</text>
-    </view>
+    </view> -->
 
-    <!-- 我的收藏 -->
+    <!-- 我的收藏 
     <view class='my-collect'>
       <image src='/images/button/my_collect_2.png'></image>
       <text>我的收藏</text>
-    </view>
+    </view> -->
 
-    <!-- 我建的圈子 -->
+    <!-- 我建的圈子 
     <view class='my-create-project'>
       <image src='/images/button/my_create_project_2.png'></image>
       <text>我建的圈子</text>
-    </view>
+    </view>-->
 
-    <!-- 设置 -->
+    <!-- 设置 
     <view class='setting'>
       <image src='/images/button/setting_2.png'></image>
       <text>设置</text>
-    </view>
+    </view>-->
 
   </view>
 

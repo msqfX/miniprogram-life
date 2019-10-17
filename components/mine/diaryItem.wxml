@@ -256,33 +256,33 @@
         </block>
 
         <view class="commentInfo">
-          <block wx:for="{{diaryItemData.allCommentInfo}}" wx:for-item="i"
-                 wx:for-index="k" wx:key="{{i.id}}">
+          <block wx:for="{{diaryItemData.allCommentInfo}}" wx:for-item="comment"
+                 wx:for-index="k" wx:key="{{comment.id}}">
             <view data-reviewer-id="{{i.reviewer.id}}"
-                  data-reviewer-nick-name="{{i.reviewer.nickName}}"
+                  data-reviewer-nick-name="{{comment.reviewer.nickName}}"
                   data-diary-id="{{diaryItemData.id}}"
                   data-diary-index="{{diaryItemIndex}}"
-                  data-pid="{{i.pid}}"
-                  data-comment-id="{{i.id}}"
+                  data-pid="{{comment.pid}}"
+                  data-comment-id="{{comment.id}}"
                   data-comment-index="{{k}}"
                   catchtap="_replyComment">
               <!--评论者昵称-->
-              <text data-user-id="{{i.reviewer.id}}"
-                    catchtap="_intoPersonalHomePage">{{i.reviewer.nickName}}
+              <text data-user-id="{{comment.reviewer.id}}"
+                    catchtap="_intoPersonalHomePage">{{comment.reviewer.nickName}}
               </text>
               <!--
                   该评论所回复的用户昵称 一级评论不显示被评论者信息
                   因为被评论者是日记发表者
               -->
-              <block wx:if="{{i.pid != 0}}">
+              <block wx:if="{{comment.pid != 0}}">
                 <text style="color: black"> @</text>
-                <text data-user-id="{{i.respondent.id}}"
-                      catchtap="_intoPersonalHomePage">{{i.respondent.nickName}}
+                <text data-user-id="{{comment.respondent.id}}"
+                      catchtap="_intoPersonalHomePage">{{comment.respondent.nickName}}
                 </text>
               </block>
 
               <!--评论内容-->
-              <text style="color: black"> : {{i.textContent}}</text>
+              <text style="color: black"> : {{comment.textComment}}</text>
             </view>
           </block>
         </view>

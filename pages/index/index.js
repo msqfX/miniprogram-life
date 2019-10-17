@@ -4,7 +4,6 @@ Page({
         // 在未从服务器端获取到打卡圈子信息之前则显示加载动画&&空白页面
         showLoading: true,
         canIUse: wx.canIUse('button.open-type.getUserInfo'),
-        userInfo: '',
         getPunchCardProjectListStatus: false, // 我参与或者创建的打卡圈子列表数据的获取状态标识
         punchCardProjectList: [], // 我参与或者创建的打卡圈子列表
         punchCardProjectIdList: [],// 我参与或者创建的打卡圈子ID列表
@@ -49,7 +48,8 @@ Page({
         diaryLikeAndCommentStatus: false,
         // 当前所播放的音频ID，-1代表所有的音频都处于暂停状态
         audioIdCurrentlyPlay: -1,
-        systemInfo: {} //用户提交小程序用户信息
+        systemInfo: {},//用户提交小程序用户信息
+        userInfo: {}
     },
 
     /**
@@ -83,10 +83,18 @@ Page({
                 success: function (res) {
                     // 用户已经授权
                     if (res.authSetting['scope.userInfo']) {
+                      app.globalData.hasPromise = true;
                         // 获取用户信息
                         wx.getUserInfo({
                             lang: "zh_CN",
                             success: function (res) {
+
+                              // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
+                              // 所以此处加入 callback 以防止这种情况
+                              app.userInfoReadyCallback = res => {
+                                console.log(12)
+                                app.globalData.userInfo = res.userInfo
+                              }
                                 console.log("微信用户授权信息：");
                                 console.log(res);
                                 that.getSystemInfo();
@@ -113,35 +121,17 @@ Page({
 
                     } else {
                         // 没有授权则进入授权页进行用户授权
-                        wx.redirectTo({
-                            url: '../loginAuth/index'
-                        })
+                        //wx.redirectTo({
+                          //  url: '../loginAuth/index'
+                        //})
+                      app.globalData.hasPromise = false;
+                      that.getMyPunchCardProject();
+                      // 重置用于检测日记的点赞、评论数据的变量
+                      that.data.diaryLikeAndCommentStatus = false;
                     }
                 }
             })
-
         });
-
-        // 根据全局变量中是否已经存在服务器端返回的用户信息条件，
-        // 来注册addWeiXinUserInfo函数的回调函数userInfoReadyCallBack
-        // 若是不存在，则注册，该回调函数在addWeiXinUserInfo()向服务器发送请求
-        // 在服务器端保存发送的微信用户信息到用户表，同时返回用户表完整的用户信息之后进行调用
-        // 回调函数userInfoReadyCallBack()则将返回的完整用户信息保存到当前page的data中
-
-        // 回调函数注册的条件是当前page.data不存在完整的用户信息（存在部分用户的微信信息）
-        // 而addWeiXinUserInfo中的回调函数调用条件是已经被注册
-
-        if (app.globalData.userInfo.id === undefined) {
-            app.userInfoReadyCallBack = function (userInfo) {
-                that.setData({
-                    userInfo: userInfo
-                })
-            };
-        } else {
-            that.setData({
-                userInfo: app.globalData.userInfo
-            });
-        }
     },
 
     /**
@@ -167,45 +157,9 @@ Page({
             if (that.data.diaryLikeAndCommentStatus === false) {
                 return false;
             }
-
-            // 2.当前页面还没有打卡圈子、日记列表或者其他页面更改了数据 需要重新获取
         }
 
-        // 在获取用户的打卡圈子列表之前要确保已获取到用户id
-        let promise = new Promise(function (resolve) {
-            // 设置一个定时器去判断用户id是否获取成功
-            let timeout = 20000;
-            let id = setInterval(function () {
-                timeout -= 500;
-                if (timeout >= 0) {
-                    if (that.data.userInfo.id !== undefined) {
-                        clearInterval(id);
-                        resolve(true); // 在规定时间内成功获取
-                    }
-                } else {
-                    clearInterval(id);
-                    resolve(false); // 没有在规定时间获取则认定为获取失败
-                }
-            }, 500)
-        });
-
-        promise.then(function (res) {
-            if (res === false) {
-                wx.showToast({
-                    title: '出了点小问题,请下拉重试...',
-                    icon: 'none'
-                });
-                return false;
-            }
-            // 获取当前用户参与的打卡圈子信息 && 获取打卡圈子列表成功后获取推荐的打卡日记列表数据（第一页）
-            that.getMyPunchCardProject();
-
-            // 重置用于检测日记的点赞、评论数据的变量
-            that.data.diaryLikeAndCommentStatus = false;
-
-            // 获取我的未读消息数
-            that.getUnreadNewsNum();
-        });
+    
     },
 
     /**
@@ -443,15 +397,11 @@ Page({
                         break;
                 }
                 console.log("服务器端处理用户授权信息并返回用户数据", res);
-
-                // 由于request是异步网络请求，可能会在Page.onLoad执行结束才能返回数据
-                // 这也就会导致在Page.onLoad获取不到request设置的全局变量
-                // 因为Page.onLoad结束在request之前，这时候获取的变量是空值
-                // 因此加入全局回调函数
-                if (app.userInfoReadyCallBack !== '') {
-                    app.userInfoReadyCallBack(res.data.data);
-                }
-
+              // 重置用于检测日记的点赞、评论数据的变量
+              that.data.diaryLikeAndCommentStatus = false;
+              // 获取我的未读消息数
+              that.getUnreadNewsNum();
+              that.getMyPunchCardProject();
             },
             fail: function () {
                 wx.showToast({
@@ -487,7 +437,7 @@ Page({
     getMyPunchCardProject: function () {
         let that = this;
         wx.request({
-            url: app.globalData.gateway + 'life-punch/api/punchCardProject/getProjectInfoByUserId/' + app.globalData.userInfo.id,
+            url: app.globalData.gateway + 'life-punch/api/punchCardProject/getUserProjectListInfo',
             method: 'get',
             data: {},
             header: {
@@ -946,11 +896,11 @@ Page({
     },
 
     // 获取我的未读消息条数
-    getUnreadNewsNum: function () {
+  getUnreadNewsNum: function () {
         let that = this;
         wx.request({
             url: app.globalData.gateway
-                + 'life-user/api/news/getUnreadNewsCount/' + app.globalData.userInfo.id,
+                + 'life-user/api/news/getUnreadNewsCount/',
             method: 'get',
             data: {},
             header: {

@@ -743,7 +743,7 @@ Page({
 
         console.log(that.data.projectId);
         wx.request({
-            url: app.globalData.gateway + '/life-punch/api/punchCardProject/joinInProject',
+          url: app.globalData.gateway + 'life-punch/api/punchCardProject/joinProject',
             method: 'post',
             data: {
                 userId: that.data.userInfo.id,
@@ -765,7 +765,7 @@ Page({
                         break;
                     default:
                         wx.showToast({
-                            title: respData.errMsg,
+                            title: respData.msg,
                             icon: 'none',
                             duration: 2000
                         });

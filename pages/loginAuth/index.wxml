@@ -12,6 +12,9 @@
         <button class='bottom' type='primary' open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="bindGetUserInfo">
             授权登录
         </button>
+        <button class='bottom' bindtap="laterLogin">
+            暂不登录
+        </button>
     </view>
 </block>
 <block wx:else>

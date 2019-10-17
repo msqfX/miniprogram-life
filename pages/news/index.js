@@ -87,7 +87,7 @@ Page({
 
         wx.request({
             url: app.globalData.gateway
-              + 'life-user/api/news/getUnreadNewsCount/' + that.data.userInfo.id,
+              + 'life-user/api/news/getUnreadNewsCount',
             method: 'get',
             data: {
             },
@@ -148,8 +148,7 @@ Page({
         let that = this;
         wx.request({
             url: app.globalData.gateway
-              + 'life-user/api/news/setNewsReadStatus/' + that.data.userInfo.id
-              + '?unreadNewsType=' + unreadNewsType,
+              + 'life-user/api/news/setNewsReadStatus/' + '?unreadNewsType=' + unreadNewsType,
             method: 'put',
             data: {
             },

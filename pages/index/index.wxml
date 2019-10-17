@@ -321,7 +321,7 @@
                                 </block>
                                 <block wx:else>
                                     <view class="diary-comment-btn" catchtap="showCommentBox"
-                                          data-pid="0" data-respondent-id="{{item.publisher.id}}"
+                                          data-pid="0" data-respondent_id="{{item.publisher.id}}"
                                           data-diary-id="{{item.id}}" data-diary-index="{{index}}">
                                         <image src="/images/button/comment_btn.png"></image>
                                         <text>评论</text>

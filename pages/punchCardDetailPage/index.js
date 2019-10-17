@@ -1,11 +1,10 @@
 let app = getApp();
 Page({
-
     /**
      * 页面的初始数据
      */
     data: {
-        userInfo: [], // 当前使用小程序的用户信息
+        userInfo: {}, // 当前使用小程序的用户信息
         showLoading: true, // 在未从服务器端获取到打卡圈子信息之前则显示加载动画&&空白页面
   
         showUpdateProjectNameModel: false, // 控制显示、隐藏修改圈子名称的自定义模态框
@@ -17,7 +16,6 @@ Page({
         projectId: 0,
         joinInPunchCardProjectFlag: -1, // 当前用户是否已经加入该打卡圈子标志 -1--未知、0--未加入、1--已加入
         isCreator: -1, // 当前用户是否为圈子创建者 -1--未知、 0--参与者、1--代表当前用户为创建者
-
 
         hiddenDiaryInfo: false, // 是否隐藏日记选项卡的用户打卡日记列表信息 默认初始显示用户的打卡日记列表
         hiddenProjectDetailInfo: true, // 是否隐藏圈子简介选项卡信息
@@ -84,7 +82,6 @@ Page({
             projectId: parseInt(options.projectId),
             isCreator: parseInt(options.isCreator),
         });
-
     },
 
     /**
@@ -102,11 +99,9 @@ Page({
      */
     onShow: function () {
         let that = this;
-
         wx.showLoading({
             title:'加载中...'
         });
-
         let promise = [];
 
         // 1.获取当前用户是否已经加入该打卡圈子的相关信息
@@ -140,7 +135,6 @@ Page({
                            resolve(false);
                            break;
                    }
-
                },
                fail:function () {
                    wx.hideLoading();
@@ -152,8 +146,6 @@ Page({
                    resolve(false);
                }
             });
-
-
         });
 
         // 2.获取该打卡圈子的相关信息 & 圈主的基本信息
@@ -1370,7 +1362,7 @@ Page({
     // 返回首页
     intoIndexPage: function () {
         wx.switchTab({
-            url: '../index/index'
+          url: '../index/index'
         })
     },
 
@@ -1418,7 +1410,7 @@ Page({
         console.log(that.data.projectId);
         wx.request({
           url: app.globalData.gateway + 'life-punch/api/punchCardProject/joinProject',
-            method: 'put',
+            method: 'post',
             data: {
                 userId: that.data.userInfo.id,
                 projectId: that.data.projectId
